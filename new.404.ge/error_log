@@ -1,0 +1,157 @@
+[25-Mar-2019 16:59:27 Asia/Tbilisi] Array
+(
+    [type] => 4
+    [message] => syntax error, unexpected 'asd' (T_STRING)
+    [file] => /home/geoweb/_app/core/Controller.php(45) : eval()'d code
+    [line] => 8
+)
+
+[26-Mar-2019 16:59:01 Asia/Tbilisi] PHP Warning:  Missing argument 2 for Home::captcha() in /home/geoweb/_app/controllers/home.php on line 15
+[26-Mar-2019 16:59:01 Asia/Tbilisi] PHP Fatal error:  Uncaught exception 'TTFFileUnreadableException' with message 'Unable to read given TTF font|/home/geoweb/new.404.ge/fonts/Momоt___.ttf' in /home/geoweb/_app/functions/fu_captcha.php:92
+Stack trace:
+#0 /home/geoweb/_app/functions/fu_captcha.php(77): fu_captcha->draw_text()
+#1 /home/geoweb/_app/controllers/home.php(19): fu_captcha->draw()
+#2 [internal function]: Home->captcha('ge')
+#3 /home/geoweb/_app/core/App.php(42): call_user_func_array(Array, Array)
+#4 /home/geoweb/new.404.ge/index.php(15): App->__construct()
+#5 {main}
+  thrown in /home/geoweb/_app/functions/fu_captcha.php on line 92
+[26-Mar-2019 16:59:19 Asia/Tbilisi] PHP Fatal error:  Uncaught exception 'TTFFileUnreadableException' with message 'Unable to read given TTF font|/home/geoweb/new.404.ge/fonts/Momоt___.ttf' in /home/geoweb/_app/functions/fu_captcha.php:92
+Stack trace:
+#0 /home/geoweb/_app/functions/fu_captcha.php(77): fu_captcha->draw_text()
+#1 /home/geoweb/_app/controllers/home.php(19): fu_captcha->draw()
+#2 [internal function]: Home->captcha('ge')
+#3 /home/geoweb/_app/core/App.php(42): call_user_func_array(Array, Array)
+#4 /home/geoweb/new.404.ge/index.php(15): App->__construct()
+#5 {main}
+  thrown in /home/geoweb/_app/functions/fu_captcha.php on line 92
+[26-Mar-2019 17:00:36 Asia/Tbilisi] PHP Fatal error:  Uncaught exception 'TTFFileUnreadableException' with message 'Unable to read given TTF font|/home/geoweb/new.404.ge/fonts/NotoSans-Regular' in /home/geoweb/_app/functions/fu_captcha.php:92
+Stack trace:
+#0 /home/geoweb/_app/functions/fu_captcha.php(77): fu_captcha->draw_text()
+#1 /home/geoweb/_app/controllers/home.php(20): fu_captcha->draw()
+#2 [internal function]: Home->captcha('ge')
+#3 /home/geoweb/_app/core/App.php(42): call_user_func_array(Array, Array)
+#4 /home/geoweb/new.404.ge/index.php(15): App->__construct()
+#5 {main}
+  thrown in /home/geoweb/_app/functions/fu_captcha.php on line 92
+[26-Mar-2019 17:01:00 Asia/Tbilisi] PHP Fatal error:  Uncaught exception 'HeadersSentException' with message 'Headers has already been sent, maybe a php error was sent' in /home/geoweb/_app/functions/fu_captcha.php:220
+Stack trace:
+#0 /home/geoweb/_app/functions/fu_captcha.php(83): fu_captcha->output_image()
+#1 /home/geoweb/_app/controllers/home.php(20): fu_captcha->draw()
+#2 [internal function]: Home->captcha('ge')
+#3 /home/geoweb/_app/core/App.php(42): call_user_func_array(Array, Array)
+#4 /home/geoweb/new.404.ge/index.php(15): App->__construct()
+#5 {main}
+  thrown in /home/geoweb/_app/functions/fu_captcha.php on line 220
+[26-Mar-2019 17:01:49 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 219
+[26-Mar-2019 17:01:49 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 220
+[26-Mar-2019 17:01:49 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 221
+[26-Mar-2019 17:01:49 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 222
+[26-Mar-2019 17:01:49 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 223
+[26-Mar-2019 17:01:49 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 224
+[26-Mar-2019 17:02:10 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 221
+[26-Mar-2019 17:02:10 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 222
+[26-Mar-2019 17:02:10 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 223
+[26-Mar-2019 17:02:10 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 224
+[26-Mar-2019 17:02:26 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 224
+[26-Mar-2019 17:06:50 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 224
+[26-Mar-2019 17:06:50 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 224
+[26-Mar-2019 17:07:22 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 219
+[26-Mar-2019 17:07:22 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 220
+[26-Mar-2019 17:07:22 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 221
+[26-Mar-2019 17:07:22 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 222
+[26-Mar-2019 17:07:22 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 223
+[26-Mar-2019 17:07:22 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 224
+[26-Mar-2019 17:07:41 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 219
+[26-Mar-2019 17:07:41 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 220
+[26-Mar-2019 17:07:41 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 221
+[26-Mar-2019 17:07:41 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 222
+[26-Mar-2019 17:07:41 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 223
+[26-Mar-2019 17:07:41 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 224
+[26-Mar-2019 17:07:58 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 219
+[26-Mar-2019 17:07:58 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 220
+[26-Mar-2019 17:07:58 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 221
+[26-Mar-2019 17:07:58 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 222
+[26-Mar-2019 17:07:58 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 223
+[26-Mar-2019 17:07:58 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:361) in /home/geoweb/_app/functions/fu_captcha.php on line 224
+[26-Mar-2019 17:10:28 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:362) in /home/geoweb/_app/functions/fu_captcha.php on line 219
+[26-Mar-2019 17:10:28 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:362) in /home/geoweb/_app/functions/fu_captcha.php on line 220
+[26-Mar-2019 17:10:28 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:362) in /home/geoweb/_app/functions/fu_captcha.php on line 221
+[26-Mar-2019 17:10:28 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:362) in /home/geoweb/_app/functions/fu_captcha.php on line 222
+[26-Mar-2019 17:10:28 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:362) in /home/geoweb/_app/functions/fu_captcha.php on line 223
+[26-Mar-2019 17:10:28 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:362) in /home/geoweb/_app/functions/fu_captcha.php on line 224
+[26-Mar-2019 17:10:28 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:362) in /home/geoweb/_app/functions/fu_captcha.php on line 225
+[26-Mar-2019 17:10:45 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/functions/fu_captcha.php:362) in /home/geoweb/_app/functions/fu_captcha.php on line 219
+[26-Mar-2019 17:14:10 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/controllers/home.php:17) in /home/geoweb/_app/functions/fu_captcha.php on line 219
+[26-Mar-2019 17:14:10 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/controllers/home.php:17) in /home/geoweb/_app/functions/fu_captcha.php on line 220
+[26-Mar-2019 17:14:10 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/controllers/home.php:17) in /home/geoweb/_app/functions/fu_captcha.php on line 221
+[26-Mar-2019 17:14:10 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/controllers/home.php:17) in /home/geoweb/_app/functions/fu_captcha.php on line 222
+[26-Mar-2019 17:14:10 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/controllers/home.php:17) in /home/geoweb/_app/functions/fu_captcha.php on line 223
+[26-Mar-2019 17:14:10 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/controllers/home.php:17) in /home/geoweb/_app/functions/fu_captcha.php on line 224
+[26-Mar-2019 17:14:10 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/controllers/home.php:17) in /home/geoweb/_app/functions/fu_captcha.php on line 225
+[26-Mar-2019 17:14:12 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/controllers/home.php:17) in /home/geoweb/_app/functions/fu_captcha.php on line 219
+[26-Mar-2019 17:14:12 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/controllers/home.php:17) in /home/geoweb/_app/functions/fu_captcha.php on line 220
+[26-Mar-2019 17:14:12 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/controllers/home.php:17) in /home/geoweb/_app/functions/fu_captcha.php on line 221
+[26-Mar-2019 17:14:12 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/controllers/home.php:17) in /home/geoweb/_app/functions/fu_captcha.php on line 222
+[26-Mar-2019 17:14:12 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/controllers/home.php:17) in /home/geoweb/_app/functions/fu_captcha.php on line 223
+[26-Mar-2019 17:14:12 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/controllers/home.php:17) in /home/geoweb/_app/functions/fu_captcha.php on line 224
+[26-Mar-2019 17:14:12 Asia/Tbilisi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/geoweb/_app/controllers/home.php:17) in /home/geoweb/_app/functions/fu_captcha.php on line 225
+[26-Mar-2019 17:20:58 Asia/Tbilisi] PHP Fatal error:  Uncaught exception 'HeadersSentException' with message 'Headers has already been sent, maybe a php error was sent' in /home/geoweb/_app/functions/fu_captcha.php:220
+Stack trace:
+#0 /home/geoweb/_app/functions/fu_captcha.php(83): fu_captcha->output_image()
+#1 /home/geoweb/_app/controllers/home.php(21): fu_captcha->draw()
+#2 [internal function]: Home->captcha('ge')
+#3 /home/geoweb/_app/core/App.php(42): call_user_func_array(Array, Array)
+#4 /home/geoweb/new.404.ge/index.php(15): App->__construct()
+#5 {main}
+  thrown in /home/geoweb/_app/functions/fu_captcha.php on line 220
+[26-Mar-2019 17:22:21 Asia/Tbilisi] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, cannot access private method Home::captcha() in /home/geoweb/_app/core/App.php on line 42
+[26-Mar-2019 17:26:23 Asia/Tbilisi] PHP Warning:  fopen(/captcha.jpg): failed to open stream: Permission denied in /home/geoweb/_app/functions/fu_create_file.php on line 14
+[26-Mar-2019 17:26:25 Asia/Tbilisi] PHP Warning:  fopen(/captcha.jpg): failed to open stream: Permission denied in /home/geoweb/_app/functions/fu_create_file.php on line 14
+[26-Mar-2019 17:26:41 Asia/Tbilisi] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, cannot access private method Home::captcha() in /home/geoweb/_app/core/App.php on line 42
+[26-Mar-2019 17:27:19 Asia/Tbilisi] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, cannot access private method Home::captcha() in /home/geoweb/_app/core/App.php on line 42
+[26-Mar-2019 18:41:51 Asia/Tbilisi] PHP Parse error:  syntax error, unexpected end of file in /home/geoweb/_app/controllers/ajax.php(10) : eval()'d code on line 1
+[26-Mar-2019 18:41:51 Asia/Tbilisi] PHP Fatal error:  Call to a member function output() on a non-object in /home/geoweb/_app/controllers/ajax.php on line 12
+[26-Mar-2019 18:42:33 Asia/Tbilisi] PHP Parse error:  syntax error, unexpected end of file in /home/geoweb/_app/controllers/ajax.php(10) : eval()'d code on line 1
+[26-Mar-2019 18:42:33 Asia/Tbilisi] PHP Fatal error:  Call to a member function output() on a non-object in /home/geoweb/_app/controllers/ajax.php on line 12
+[26-Mar-2019 19:08:08 Asia/Tbilisi] PHP Parse error:  syntax error, unexpected '$message' (T_VARIABLE), expecting function (T_FUNCTION) in /home/geoweb/_app/ajax/ajax_users.php on line 5
+[26-Mar-2019 19:08:27 Asia/Tbilisi] PHP Fatal error:  Call to undefined method Functions::index() in /home/geoweb/_app/ajax/ajax_users.php on line 9
+[26-Mar-2019 20:30:16 Asia/Tbilisi] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens' in /home/geoweb/_app/database/db_users.php:25
+Stack trace:
+#0 /home/geoweb/_app/database/db_users.php(25): PDOStatement->execute(Array)
+#1 /home/geoweb/_app/database/db_users.php(11): db_users->checkifuserexists(Array)
+#2 /home/geoweb/_app/core/Database.php(14): db_users->index(Object(PDO), Array)
+#3 /home/geoweb/_app/ajax/ajax_users.php(40): Database->__construct('db_users', Array)
+#4 /home/geoweb/_app/controllers/ajax.php(12): ajax_users->output('ge')
+#5 [internal function]: Ajax->index('ge', 'ajax_users')
+#6 /home/geoweb/_app/core/App.php(42): call_user_func_array(Array, Array)
+#7 /home/geoweb/new.404.ge/index.php(15): App->__construct()
+#8 {main}
+  thrown in /home/geoweb/_app/database/db_users.php on line 25
+[26-Mar-2019 20:30:34 Asia/Tbilisi] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens' in /home/geoweb/_app/database/db_users.php:25
+Stack trace:
+#0 /home/geoweb/_app/database/db_users.php(25): PDOStatement->execute(Array)
+#1 /home/geoweb/_app/database/db_users.php(11): db_users->checkifuserexists(Array)
+#2 /home/geoweb/_app/core/Database.php(14): db_users->index(Object(PDO), Array)
+#3 /home/geoweb/_app/ajax/ajax_users.php(40): Database->__construct('db_users', Array)
+#4 /home/geoweb/_app/controllers/ajax.php(12): ajax_users->output('ge')
+#5 [internal function]: Ajax->index('ge', 'ajax_users')
+#6 /home/geoweb/_app/core/App.php(42): call_user_func_array(Array, Array)
+#7 /home/geoweb/new.404.ge/index.php(15): App->__construct()
+#8 {main}
+  thrown in /home/geoweb/_app/database/db_users.php on line 25
+[26-Mar-2019 20:31:40 Asia/Tbilisi] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens' in /home/geoweb/_app/database/db_users.php:25
+Stack trace:
+#0 /home/geoweb/_app/database/db_users.php(25): PDOStatement->execute(Array)
+#1 /home/geoweb/_app/database/db_users.php(11): db_users->checkifuserexists(Array)
+#2 /home/geoweb/_app/core/Database.php(14): db_users->index(Object(PDO), Array)
+#3 /home/geoweb/_app/ajax/ajax_users.php(40): Database->__construct('db_users', Array)
+#4 /home/geoweb/_app/controllers/ajax.php(12): ajax_users->output('ge')
+#5 [internal function]: Ajax->index('ge', 'ajax_users')
+#6 /home/geoweb/_app/core/App.php(42): call_user_func_array(Array, Array)
+#7 /home/geoweb/new.404.ge/index.php(15): App->__construct()
+#8 {main}
+  thrown in /home/geoweb/_app/database/db_users.php on line 25
+[26-Mar-2019 20:43:43 Asia/Tbilisi] PHP Parse error:  syntax error, unexpected 'Function' (T_FUNCTION) in /home/geoweb/_app/controllers/dashboard.php on line 8
+[26-Mar-2019 20:44:09 Asia/Tbilisi] PHP Parse error:  syntax error, unexpected 'goto' (T_GOTO), expecting identifier (T_STRING) in /home/geoweb/_app/functions/fu_redirect.php on line 5
+[26-Mar-2019 20:49:15 Asia/Tbilisi] PHP Parse error:  syntax error, unexpected ')' in /home/geoweb/_app/controllers/dashboard.php on line 23
