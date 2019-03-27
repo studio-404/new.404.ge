@@ -1,0 +1,24 @@
+<div class="sidebar-wrapper">
+	<ul class="nav">
+
+
+
+		<li class="<!-- if '[controller]'=='dashboard' --> 
+		active 
+		<!-- endif -->">
+			<a href="/[language]/dashboard/index">
+				<i class="nc-icon nc-bank"></i>
+				<p>მთავარი</p>
+			</a>
+		</li>
+
+		<li class="<!-- if '[controller]'=='profile' --> 
+		active 
+		<!-- endif -->">
+			<a href="/[language]/profile/index">
+				<i class="nc-icon nc-single-02"></i>
+				<p>პროფილი</p>
+			</a>
+		</li>
+	</ul>
+</div>

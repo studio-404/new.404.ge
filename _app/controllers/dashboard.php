@@ -19,6 +19,7 @@ class Dashboard extends Controller
 		$this->view('dashboard/index', array(
 			"title"=>Config::WEBSITE_TITLE,
 			"v"=>Config::WEBSITE_VERSION,
+			"controller"=>"dashboard",
 			"language"=>$language,
 			"user_type"=>$user_type,
 			"mainName"=>$mainName
