@@ -47,4 +47,44 @@ class db_users
 
 		return $db_fetch;
 	}
+
+	private function update($args)
+	{
+		$db_fetch = [];
+		$username = (isset($_SESSION["user_data"]["username"])) ? $_SESSION["user_data"]["username"] : "";
+		
+		$update = "UPDATE `shidni_users` SET `firstname`=:firstname, `lastname`=:lastname, `contact_email`=:contact_email, `contact_phone`=:contact_phone WHERE `username`=:username";
+		$prepare = $this->conn->prepare($update);
+		$prepare->execute(array(
+			":firstname"=>$args["firstname"],
+			":lastname"=>$args["lastname"],
+			":contact_email"=>$args["contact_email"],
+			":contact_phone"=>$args["contact_phone"],
+			":username"=>$username
+		));
+
+
+		$fetchUserDate = $this->selectUserByUsername(array(
+			"username"=>$username
+		));
+
+		$_SESSION["user_data"] = $fetchUserDate;		
+
+		return true;
+	}
+
+	private function updatepassword($args)
+	{
+		$username = (isset($_SESSION["user_data"]["username"])) ? $_SESSION["user_data"]["username"] : "";
+		
+		$update = "UPDATE `shidni_users` SET `password`=:password WHERE `username`=:username";
+		$prepare = $this->conn->prepare($update);
+		$prepare->execute(array(
+			":password"=>md5($args["password"]),
+			":username"=>$username
+		));
+
+		return true;
+	}
+
 }

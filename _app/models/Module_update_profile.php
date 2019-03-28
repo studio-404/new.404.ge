@@ -20,7 +20,7 @@ class Module_update_profile
 		$out .= "<div class=\"form-group\">"; 
 		$out .= sprintf("<label>%s</label>", $label); 
 		$out .= sprintf(
-			"<input type=\"text\" class=\"form-control %s\" value=\"%s\">",
+			"<input type=\"text\" class=\"form-control %s\" value=\"%s\" autocomplete=\"off\" />",
 			$className,
 			htmlentities($value)
 		); 
@@ -34,6 +34,7 @@ class Module_update_profile
 
 		if(isset($this->data)){
 			$this->out .= "<form action=\"\" method=\"post\">"; 
+			$this->out .= "<div class=\"col-md-12\"><div class=\"updateProfileMessageBox\"></div></div>"; 
 			
 			$this->out .= $this->input("სახელი", "firstname", $this->data["firstname"]);
 			$this->out .= $this->input("გვარი", "lastname", $this->data["lastname"]);
@@ -42,7 +43,7 @@ class Module_update_profile
 
 			$this->out .= "<div class=\"row\">
 			<div class=\"update ml-auto mr-auto\">
-			<button type=\"submit\" class=\"btn btn-primary btn-round updateProfileButton\">განახლება</button>
+			<button type=\"button\" class=\"btn btn-primary btn-round updateProfileButton\">განახლება</button>
 			</div>
 			</div>";
 
