@@ -6428,4 +6428,26 @@ License - nucleoapp.com/license/
   }
 }
 
+.pagintayion{
+  float: left;
+  margin-right: 10px;
+  padding: 5px 10px;
+  text-align: center;
+  background-color: #51cbce;
+  color:white;
+  border: 0;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.pagintayion.active{
+  background-color: #ef8157;
+}
+
+.pagintayion:hover{
+  opacity: 0.8;
+  color: white;
+}
+
 /*# sourceMappingURL=dashboard-free.css.map */

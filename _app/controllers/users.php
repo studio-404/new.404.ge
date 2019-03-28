@@ -2,7 +2,7 @@
 
 class Users extends Controller
 {
-	public function index($language='', $name = '')
+	public function index($language='', $page = 1)
 	{
 		if(!isset($_SESSION["user_data"])):
 			$Functions = new Functions;
@@ -11,11 +11,11 @@ class Users extends Controller
 		endif;
 
 		$Module_users_list = $this->model('Module_users_list');
+		$Module_users_list->page = $page;
+		$Module_users_list->language = $language;
 		
 		$mainName = $_SESSION["user_data"]["firstname"] . " " . $_SESSION["user_data"]["lastname"];
-		$user_type = $_SESSION["user_data"]["user_type"];
-
-		
+		$user_type = $_SESSION["user_data"]["user_type"];		
 
 		$this->view('users/index', array(
 			"title"=>Config::WEBSITE_TITLE,
@@ -24,6 +24,7 @@ class Users extends Controller
 			"language"=>$language,
 			"user_type"=>$user_type,
 			"mainName"=>$mainName,
+			"page"=>$page,
 			"usersList"=>$Module_users_list->index()
 		));
 	}

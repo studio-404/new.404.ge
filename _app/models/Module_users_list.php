@@ -2,21 +2,26 @@
 
 class Module_users_list
 {
-	public $data;
+	public $page;
+	public $language;
 	private $out = '';
 
 	public function __construct()
 	{
-		$Database = new Database("db_users", array(
-			"method"=>"select"
-		));	
-
-		$this->data = $Database->getter();
+		
 	}
 
 	public function index()
 	{
-		if(isset($this->data)){
+		$Database = new Database("db_users", array(
+			"method"=>"select",
+			"page"=>$this->page
+		));	
+
+		$data = $Database->getter();
+
+		if(isset($data)){
+			$this->out .= "<div class=\"table-responsive\">";
 			$this->out .= "<table class=\"table\">";
 			$this->out .= "<thead class=\"text-primary\">";
 			$this->out .= "<tr>";
@@ -27,7 +32,7 @@ class Module_users_list
 			$this->out .= "</tr>";
 			$this->out .= "</thead>";
 			$this->out .= "<tbody>";
-			foreach ($this->data as $key => $value) {
+			foreach ($data as $key => $value) {
 				$this->out .= "<tr>";
 				
 				$this->out .= sprintf("<td>%s %s</td>", $value["firstname"], $value["lastname"]);
@@ -43,6 +48,20 @@ class Module_users_list
 			}
 			$this->out .= '</tbody>';
 			$this->out .= '</table>';
+			$this->out .= '</div>';
+			
+
+			$buttons = (int)($data[0]["counted"] / Config::USER_LIST_PERPAGE);
+			for($i=1; $i<=$buttons; $i++){
+				$active = ($this->page==$i) ? ' active' : '';
+				$this->out .= sprintf(
+					"<a href=\"/%s/users/index/%s\" class=\"pagintayion%s\">%s</a>",
+					$this->language,
+					$i,
+					$active,
+					$i
+				);
+			}
 		}		
 
 		return $this->out;

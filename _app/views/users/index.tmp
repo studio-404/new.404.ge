@@ -30,9 +30,7 @@
 						</div>
 						
 						<div class="card-body">
-							<div class="table-responsive">
-								[usersList]
-							</div>
+							[usersList]
 						</div>
 					</div>
 				</div>

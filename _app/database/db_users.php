@@ -16,8 +16,18 @@ class db_users
 	private function select($args)
 	{
 		$db_fetch = [];
+		$limit = '';
+		if($args["page"]){
+			$limit = ' LIMIT '.(($args["page"]-1) * Config::USER_LIST_PERPAGE).','.Config::USER_LIST_PERPAGE;
+		}
 		
-		$select = "SELECT * FROM `shidni_users` WHERE `status`!=:one";
+		$select = "SELECT 
+		(SELECT COUNT(`id`) FROM `shidni_users` WHERE `status`!=:one) as counted,
+		`shidni_users`.* 
+		FROM 
+		`shidni_users` 
+		WHERE 
+		`shidni_users`.`status`!=:one".$limit;
 		$prepare = $this->conn->prepare($select);
 		$prepare->execute(array(
 			":one"=>1
