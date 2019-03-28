@@ -1,14 +1,21 @@
 <div class="sidebar-wrapper">
 	<ul class="nav">
 
-
-
 		<li class="<!-- if '[controller]'=='dashboard' --> 
 		active 
 		<!-- endif -->">
 			<a href="/[language]/dashboard/index">
-				<i class="nc-icon nc-bank"></i>
+				<i class="nc-icon nc-chart-bar-32"></i>
 				<p>მთავარი</p>
+			</a>
+		</li>
+
+		<li class="<!-- if '[controller]'=='users' --> 
+		active 
+		<!-- endif -->">
+			<a href="/[language]/users/index">
+				<i class="nc-icon nc-single-02"></i>
+				<p>მომხმარებლები</p>
 			</a>
 		</li>
 
@@ -16,8 +23,15 @@
 		active 
 		<!-- endif -->">
 			<a href="/[language]/profile/index">
-				<i class="nc-icon nc-single-02"></i>
+				<i class="nc-icon nc-circle-10"></i>
 				<p>პროფილი</p>
+			</a>
+		</li>
+
+		<li>
+			<a href="/[language]/home/index">
+				<i class="nc-icon nc-button-power"></i>
+				<p>გასვლა</p>
 			</a>
 		</li>
 	</ul>

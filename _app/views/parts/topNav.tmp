@@ -8,7 +8,7 @@
 					<span class="navbar-toggler-bar bar3"></span>
 				</button>
 			</div>
-			<a href="/[language]/dashboard/index" class="navbar-brand" href="#pablo">[title]</a>
+			<a href="/[language]/dashboard/index" class="navbar-brand">[title]</a>
 		</div>
 
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,8 +38,7 @@
 						</p>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="#">პროფილის რედაქტირება</a>
-						<a class="dropdown-item" href="#">პაროლის განახლება</a>
+						<a class="dropdown-item" href="/[language]/profile/index">პროფილის რედაქტირება</a>
 						<a class="dropdown-item" href="/[language]/home/index">სისტემიდან გასვლა</a>
 					</div>
 					

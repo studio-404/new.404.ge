@@ -1,0 +1,78 @@
+[#include parts/header]
+
+<div class="wrapper">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      	<div class="logo">
+			<a href="/" class="simple-text logo-mini">
+				<div class="logo-image-small">
+					<img src="/img/logo-small.png">
+				</div>
+			</a>
+			<a href="/[language]/dashboard/index" class="simple-text logo-normal">
+				[mainName]
+			</a>
+		</div>
+
+
+		[#include parts/leftNav]
+	</div>
+
+	<div class="main-panel">
+		[#include parts/topNav]
+		
+		<div class="content">
+			
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title"> მომხმარებლები</h4>
+						</div>
+						
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table">
+									<thead class="text-primary">
+										<tr>
+											<th>სახელი გვარი</th>
+											<th>მომხ. სახელი</th>
+											<th>მომხ. ტიპი</th>
+											<th>მოქმედება</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr>
+											<td>გიორგი გვაზავა</td>
+											<td>administrator</td>
+											<td>manager</td>
+											<td>
+												<a href="" class="nc-icon nc-settings" style="font-size: 18px"></a>
+												<a href="" class="nc-icon nc-simple-remove" style="font-size: 18px; margin-left: 10px;"></a>
+											</td>
+										</tr>
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+		[#include parts/topFooter]
+	</div>
+</div>
+
+<script type="text/javascript">
+var Config = {
+	ajax:"/[language]/ajax",
+	language:"[language]"
+};
+</script>
+<!-- <script src="/js/profile.js" type="text/javascript" charset="utf-8"></script> -->
+
+[#include parts/footer]

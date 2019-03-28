@@ -8,7 +8,7 @@
 					<img src="/img/logo-small.png">
 				</div>
 			</a>
-			<a href="/" class="simple-text logo-normal">
+			<a href="/[language]/dashboard/index" class="simple-text logo-normal">
 				[mainName]
 			</a>
 		</div>
