@@ -13,6 +13,22 @@ class db_users
 		return $out;
 	}
 
+	private function select($args)
+	{
+		$db_fetch = [];
+		
+		$select = "SELECT * FROM `shidni_users` WHERE `status`!=:one";
+		$prepare = $this->conn->prepare($select);
+		$prepare->execute(array(
+			":one"=>1
+		));
+		if($prepare->rowCount()){
+			$db_fetch = $prepare->fetchAll(PDO::FETCH_ASSOC);
+		}		
+
+		return $db_fetch;
+	}
+
 	private function checkifuserexists($args)
 	{
 		$db_fetch = [];

@@ -10,6 +10,7 @@ class Users extends Controller
 			$redirect->gotoUrl("/".$language."/home/index");
 		endif;
 
+		$Module_users_list = $this->model('Module_users_list');
 		
 		$mainName = $_SESSION["user_data"]["firstname"] . " " . $_SESSION["user_data"]["lastname"];
 		$user_type = $_SESSION["user_data"]["user_type"];
@@ -22,7 +23,8 @@ class Users extends Controller
 			"controller"=>"users",
 			"language"=>$language,
 			"user_type"=>$user_type,
-			"mainName"=>$mainName
+			"mainName"=>$mainName,
+			"usersList"=>$Module_users_list->index()
 		));
 	}
 }
