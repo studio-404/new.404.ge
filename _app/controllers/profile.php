@@ -10,11 +10,13 @@ class Profile extends Controller
 			$redirect->gotoUrl("/".$language."/home/index");
 		endif;
 
+		$Module_update_profile = $this->model('Module_update_profile');
+
 
 		$mainName = $_SESSION["user_data"]["firstname"] . " " . $_SESSION["user_data"]["lastname"];
 		$user_type = $_SESSION["user_data"]["user_type"];
 
-		// $Module_name_list = $this->model('Module_name_list');
+		
 
 		$this->view('profile/index', array(
 			"title"=>Config::WEBSITE_TITLE,
@@ -22,7 +24,8 @@ class Profile extends Controller
 			"controller"=>"profile",
 			"language"=>$language,
 			"user_type"=>$user_type,
-			"mainName"=>$mainName
+			"mainName"=>$mainName,
+			"profile_form"=>$Module_update_profile->index()
 		));
 	}
 }

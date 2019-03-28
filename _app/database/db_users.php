@@ -30,4 +30,21 @@ class db_users
 
 		return $db_fetch;
 	}
+
+	private function selectUserByUsername($args)
+	{
+		$db_fetch = [];
+		
+		$select = "SELECT * FROM `shidni_users` WHERE `username`=:username AND `status`!=:one";
+		$prepare = $this->conn->prepare($select);
+		$prepare->execute(array(
+			":username"=>$args["username"],
+			":one"=>1
+		));
+		if($prepare->rowCount()){
+			$db_fetch = $prepare->fetch(PDO::FETCH_ASSOC);
+		}		
+
+		return $db_fetch;
+	}
 }
