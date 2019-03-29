@@ -10,6 +10,7 @@
 			</a>
 		</li>
 
+		<!-- if '[user_type]'=='manager' -->
 		<li class="<!-- if '[controller]'=='users' --> 
 		active 
 		<!-- endif -->">
@@ -18,6 +19,7 @@
 				<p>მომხმარებლები</p>
 			</a>
 		</li>
+		<!-- endif -->
 
 		<li class="<!-- if '[controller]'=='profile' --> 
 		active 

@@ -13,6 +13,45 @@ class db_users
 		return $out;
 	}
 
+	private function add($args)
+	{
+		$insert = "INSERT INTO `shidni_users` SET 
+		`created_date`=:created_date,
+		`user_type`=:user_type,
+		`firstname`=:firstname,
+		`lastname`=:lastname,
+		`username`=:username,
+		`password`=:password,
+		`contact_email`=:contact_email,
+		`contact_phone`=:contact_phone,
+		`permission_company`=:permission_company,
+		`permission_buldings`=:permission_buldings,
+		`permission_entrance`=:permission_entrance,
+		`permission_floor`=:permission_floor,
+		`permission_room`=:permission_room,
+		`status`=:status";
+
+		$prepare = $this->conn->prepare($insert);
+		$prepare->execute(array(
+			":created_date"=>time(),
+			":user_type"=>(isset($args["user_type"])) ? $args["user_type"] : "user",
+			":firstname"=>$args["firstname"],
+			":lastname"=>$args["lastname"],
+			":username"=>$args["username"],
+			":password"=>md5($args["password"]),
+			":contact_email"=>$args["contact_email"],
+			":contact_phone"=>$args["contact_phone"],
+			":permission_company"=>(!empty($args["permission_company"])) ? $args["permission_company"] : "none",
+			":permission_buldings"=>(!empty($args["permission_buldings"])) ? $args["permission_buldings"] : "none",
+			":permission_entrance"=>(!empty($args["permission_entrance"])) ? $args["permission_entrance"] : "none",
+			":permission_floor"=>(!empty($args["permission_floor"])) ? $args["permission_floor"] : "none",
+			":permission_room"=>(!empty($args["permission_room"])) ? $args["permission_room"] : "none",
+			":status"=>0
+		));
+
+		return true;
+	}
+
 	private function select($args)
 	{
 		$db_fetch = [];
