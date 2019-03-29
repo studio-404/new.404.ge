@@ -15,6 +15,12 @@ class ajax_users
 			case 'addUser':
 				return $this->addUser($request, $language);
 				break;
+			case 'editUser':
+				return $this->editUser($request, $language);
+				break;
+			case 'editUserPassword':
+				return $this->editUserPassword($request, $language);
+				break;
 			case 'update':
 				return $this->update($request, $language);
 				break;
@@ -25,6 +31,105 @@ class ajax_users
 
 		http_response_code(404);
 		return $this->message;
+	}
+
+	private function editUserPassword($request, $language)
+	{
+		if(
+			!$request->index("POST", "editid") || 
+			!$request->index("POST", "newpassword") 
+		){
+			http_response_code(400);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"ყველა ველი სავალდებულოა!"
+			);
+			return $this->message;
+			exit;
+		}else if(!preg_match('/^[0-9A-Za-z!@#$%]{6,12}$/', $request->index("POST", "newpassword"))) {
+		   	http_response_code(400);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"პაროლი უნდა შედგებოდეს 6-12 სიმბოლოსგან და არ უნდა შეიცავდეს არა ლეგალურ სიმბოლოებს!"
+			);
+			return $this->message;
+			exit;
+		}else{
+			$Database = new Database("db_users", array(
+				"method"=>"changePassword",
+				"id"=>$request->index("POST", "editid"),
+				"password"=>$request->index("POST", "newpassword")
+			));
+
+			$this->message = array(
+				"error"=>false,
+				"success"=>true,
+				"message"=>"ოპერაცია წარმატებით შესრულდა!"
+			);
+			http_response_code(200);
+
+			return $this->message;
+			exit;
+		}
+	}
+
+	private function editUser($request, $language)
+	{
+		if(
+			!$request->index("POST", "editid") || 
+			!$request->index("POST", "firstname") || 
+			!$request->index("POST", "lastname") || 
+			!$request->index("POST", "username") || 
+			!$request->index("POST", "contact_email") || 
+			!$request->index("POST", "contact_phone") || 
+			!$request->index("POST", "user_type") 
+		){
+			http_response_code(400);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"ყველა ველი სავალდებულოა!"
+			);
+			return $this->message;
+			exit;
+		}else if(!preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i', $request->index("POST", "contact_email"))) {
+		   	http_response_code(400);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"გთხოვთ გადაამოწმოთ ელ-ფოსტის ველი!"
+			);
+			return $this->message;
+			exit;
+		}else{
+			$Database = new Database("db_users", array(
+				"method"=>"edit",
+				"id"=>(int)$request->index("POST", "editid"),
+				"firstname"=>$request->index("POST", "firstname"),
+				"lastname"=>$request->index("POST", "lastname"),
+				"username"=>$request->index("POST", "username"),
+				"contact_email"=>$request->index("POST", "contact_email"),
+				"contact_phone"=>$request->index("POST", "contact_phone"),
+				"user_type"=>$request->index("POST", "user_type"),
+				"permission_company"=>$request->index("POST", "permission_company"),
+				"permission_buldings"=>$request->index("POST", "permission_buldings"),
+				"permission_entrance"=>$request->index("POST", "permission_entrance"),
+				"permission_floor"=>$request->index("POST", "permission_floor"),
+				"permission_room"=>$request->index("POST", "permission_room")
+			));
+
+			$this->message = array(
+				"error"=>false,
+				"success"=>true,
+				"message"=>"ოპერაცია წარმატებით შესრულდა!"
+			);
+			http_response_code(200);
+
+			return $this->message;
+			exit;
+		}
 	}
 
 	private function addUser($request, $language)

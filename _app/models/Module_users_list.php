@@ -40,7 +40,11 @@ class Module_users_list
 				$this->out .= sprintf("<td>%s</td>", $value["user_type"]);
 
 				$this->out .= "<td>";
-				$this->out .= "<a href=\"\" class=\"nc-icon nc-settings\" style=\"font-size: 18px\"></a>";
+				$this->out .= sprintf(
+					"<a href=\"/%s/users/edit/%d\" class=\"nc-icon nc-settings\" style=\"font-size: 18px\"></a>",
+					$this->language,
+					$value["id"]
+				);
 				$this->out .= "<a href=\"\" class=\"nc-icon nc-simple-remove\" style=\"font-size: 18px; margin-left: 10px;\"></a>";
 				$this->out .= "</td>";
 

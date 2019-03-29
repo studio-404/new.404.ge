@@ -53,4 +53,32 @@ class Users extends Controller
 			"form"=>$Module_users_form->index(),
 		));
 	}
+
+	public function edit($language, $id = 0)
+	{
+		if(!isset($_SESSION["user_data"])):
+			$Functions = new Functions;
+			$redirect = $Functions->load("fu_redirect");
+			$redirect->gotoUrl("/".$language."/home/index");
+		endif;
+
+		$Module_users_form = $this->model('Module_users_form');
+		$Module_users_form->type = "edit";
+		$Module_users_form->language = $language;
+		$Module_users_form->editId = $id;
+
+		$mainName = $_SESSION["user_data"]["firstname"] . " " . $_SESSION["user_data"]["lastname"];
+		$user_type = $_SESSION["user_data"]["user_type"];		
+
+		$this->view('users/edit', array(
+			"title"=>Config::WEBSITE_TITLE,
+			"v"=>Config::WEBSITE_VERSION,
+			"controller"=>"users",
+			"language"=>$language,
+			"user_type"=>$user_type,
+			"mainName"=>$mainName,
+			"id"=>$id,
+			"form"=>$Module_users_form->index(),
+		));
+	}
 }

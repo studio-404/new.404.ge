@@ -4,6 +4,7 @@ class Module_users_form
 {
 	public $type;
 	public $language;
+	public $editId = 0;
 	public $out = '';
 
 	public function __construct()
@@ -65,34 +66,48 @@ class Module_users_form
 	public function index()
 	{
 		if($this->type=="edit"){
-			$firstname = "hjajhdasd";
-			$lastname = "hjajhdasd";
-			$username = "hjajhdasd";
-			$password = "hjajhdasd";
-			$contact_email = "hjajhdasd";
-			$contact_phone = "hjajhdasd";
+			$Database = new Database("db_users", array(
+				"method"=>"selectUserById",
+				"id"=>$this->editId
+			));
+			$fetch = $Database->getter();
+
+			$firstname = $fetch["firstname"];
+			$lastname = $fetch["lastname"];
+			$username = $fetch["username"];
+			$password = $fetch["password"];
+			$contact_email = $fetch["contact_email"];
+			$contact_phone = $fetch["contact_phone"];
+			$user_type_manager = ($fetch["user_type"]=="manager") ? true : false;
+			$user_type_user = ($fetch["user_type"]=="user") ? true : false;
 			$submitText = "განახლება";
 			$submitClass = "editUser";
 
-			$companyAdd = false;
-			$companyEdit = false;
-			$companyDelete = false;
+			$permission_company = explode(",", $fetch["permission_company"]);
+			$permission_buldings = explode(",", $fetch["permission_buldings"]);
+			$permission_entrance = explode(",", $fetch["permission_entrance"]);
+			$permission_floor = explode(",", $fetch["permission_floor"]);
+			$permission_room = explode(",", $fetch["permission_room"]);
+			
+			$companyAdd = (in_array("add", $permission_company)) ? true : false;
+			$companyEdit = (in_array("edit", $permission_company)) ? true : false;
+			$companyDelete = (in_array("delete", $permission_company)) ? true : false;
 
-			$buildingAdd = false;
-			$buildingEdit = false;
-			$buildingDelete = false;
+			$buildingAdd = (in_array("add", $permission_buldings)) ? true : false;
+			$buildingEdit = (in_array("edit", $permission_buldings)) ? true : false;
+			$buildingDelete = (in_array("delete", $permission_buldings)) ? true : false;
 
-			$entranceAdd = false;
-			$entranceEdit = false;
-			$entranceDelete = false;
+			$entranceAdd = (in_array("add", $permission_entrance)) ? true : false;
+			$entranceEdit = (in_array("edit", $permission_entrance)) ? true : false;
+			$entranceDelete = (in_array("delete", $permission_entrance)) ? true : false;
 
-			$floorAdd = false;
-			$floorEdit = false;
-			$floorDelete = false;
+			$floorAdd = (in_array("add", $permission_floor)) ? true : false;
+			$floorEdit = (in_array("edit", $permission_floor)) ? true : false;
+			$floorDelete = (in_array("delete", $permission_floor)) ? true : false;
 
-			$roomAdd = false;
-			$roomEdit = false;
-			$roomDelete = false;
+			$roomAdd = (in_array("add", $permission_room)) ? true : false;
+			$roomEdit = (in_array("edit", $permission_room)) ? true : false;
+			$roomDelete = (in_array("delete", $permission_room)) ? true : false;
 		}else{
 			$firstname = "";
 			$lastname = "";
@@ -100,6 +115,8 @@ class Module_users_form
 			$password = "";
 			$contact_email = "";
 			$contact_phone = "";
+			$user_type_manager = false;
+			$user_type_user = true;
 			$submitText = "დამატება";
 			$submitClass = "addUser";
 
@@ -134,7 +151,9 @@ class Module_users_form
 		$this->out .= $this->input("სახელი", "firstname", htmlentities($firstname));
 		$this->out .= $this->input("გვარი", "lastname", htmlentities($lastname));
 		$this->out .= $this->input("მომხმარებლის სახელი", "username", htmlentities($username));
-		$this->out .= $this->input("პაროლი", "password", htmlentities($password));
+		if($this->type !== "edit"){
+			$this->out .= $this->input("პაროლი", "password", htmlentities($password));
+		}
 		$this->out .= $this->input("ელ-ფოსტა", "contact_email", htmlentities($contact_email));
 		$this->out .= $this->input("საკონტაქტო ნომერი", "contact_phone", htmlentities($contact_phone));
 		
@@ -142,8 +161,8 @@ class Module_users_form
 		$this->out .= "<div class=\"typography-line\">";
         $this->out .= "<h5>ტიპი</h5>";
        	$this->out .= "</div>";
-		$this->out .= $this->radio("user_type", "manager", "მენეჯერი ( შეუძლია მომხმარებლების დამატება/რედაქტირება/წაშლა )");
-		$this->out .= $this->radio("user_type", "user", "მომხმარებელი", true);
+		$this->out .= $this->radio("user_type", "manager", "მენეჯერი ( შეუძლია მომხმარებლების დამატება/რედაქტირება/წაშლა )", $user_type_manager);
+		$this->out .= $this->radio("user_type", "user", "მომხმარებელი", $user_type_user);
 		$this->out .= "</div>";
 
 		
@@ -201,8 +220,8 @@ class Module_users_form
 		$this->out .= "<div class=\"col-md-12\">"; 
 		$this->out .= "<div class=\"form-group\">"; 
 		$this->out .= sprintf("<div class=\"update ml-auto mr-auto\">
-                      <button type=\"button\" class=\"btn btn-primary btn-round %s\">%s</button>
-                    </div>", $submitClass, $submitText);
+                      <button type=\"button\" class=\"btn btn-primary btn-round %s\" data-editid=\"%d\">%s</button>
+                    </div>", $submitClass, (int)$this->editId, $submitText);
 		$this->out .= "</div>";		
 		$this->out .= "</div>";
 
