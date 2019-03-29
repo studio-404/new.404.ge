@@ -45,7 +45,10 @@ class Module_users_list
 					$this->language,
 					$value["id"]
 				);
-				$this->out .= "<a href=\"\" class=\"nc-icon nc-simple-remove\" style=\"font-size: 18px; margin-left: 10px;\"></a>";
+				$this->out .= sprintf(
+					"<a href=\"javascript:void(0)\" class=\"nc-icon nc-simple-remove removeUser\" data-modalTitle=\"შეტყობინება\" data-modalBody=\"გნებავთ წაშალოთ მომხმარებელი?\" data-yesText=\"დიახ\" data-noText=\"არა\" data-id=\"%d\" style=\"font-size: 18px; margin-left: 10px;\"></a>",
+					$value["id"]	
+				);
 				$this->out .= "</td>";
 
 				$this->out .= "</tr>";
@@ -55,17 +58,20 @@ class Module_users_list
 			$this->out .= '</div>';
 			
 
-			$buttons = (int)($data[0]["counted"] / Config::USER_LIST_PERPAGE);
+			$buttons = (int)ceil($data[0]["counted"] / Config::USER_LIST_PERPAGE);
+			
+			$this->out .= "<ul class=\"pagination\">";
 			for($i=1; $i<=$buttons; $i++){
 				$active = ($this->page==$i) ? ' active' : '';
 				$this->out .= sprintf(
-					"<a href=\"/%s/users/index/%s\" class=\"pagintayion%s\">%s</a>",
+					"<li class=\"paginate_button page-item%s\"><a href=\"/%s/users/index/%s\" class=\"page-link\">%s</a></li>",
+					$active,
 					$this->language,
 					$i,
-					$active,
 					$i
 				);
 			}
+			$this->out .= "</ul>";
 		}		
 
 		return $this->out;

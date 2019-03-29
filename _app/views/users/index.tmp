@@ -28,7 +28,7 @@
 						<div class="card-header">
 							<h4 class="card-title" style="display: inline-block;"> მომხმარებლები</h4>
 							<div class="update ml-auto mr-auto" style="float:right">
-		                      <a href="/[language]/users/add" class="btn btn-primary">დამატება</a>
+		                      <a href="/[language]/users/add" class="btn btn-primary btn-round">დამატება</a>
 		                    </div>
 						</div>
 						
@@ -52,6 +52,6 @@ var Config = {
 	language:"[language]"
 };
 </script>
-<!-- <script src="/js/profile.js" type="text/javascript" charset="utf-8"></script> -->
+<script src="/js/users.js" type="text/javascript" charset="utf-8"></script>
 
 [#include parts/footer]

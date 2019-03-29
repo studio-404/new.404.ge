@@ -6450,4 +6450,34 @@ License - nucleoapp.com/license/
   color: white;
 }
 
+.pagination .page-item.active>.page-link, .pagination .page-item.active>.page-link:focus, .pagination .page-item.active>.page-link:hover {
+    background-color: #51cbce;
+    border-color: #51cbce;
+    color: #fff;
+}
+
+.pagination .page-item .page-link:focus, .pagination .page-item .page-link:hover {
+    color: #2c2c2c;
+    background-color: hsla(0,0%,87%,.3);
+    border: none;
+}
+
+.pagination .page-item .page-link {
+    border: 0;
+    border-radius: 30px!important;
+    transition: all .3s;
+    padding: 0 11px;
+    margin: 0 3px;
+    min-width: 30px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    color: #2c2c2c;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: uppercase;
+    background: transparent;
+    outline: none;
+}
+
 /*# sourceMappingURL=dashboard-free.css.map */

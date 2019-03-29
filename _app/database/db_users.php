@@ -30,6 +30,22 @@ class db_users
 		return true;
 	}
 
+	private function deleteUser($args)
+	{
+		$insert = "UPDATE `shidni_users` SET 
+		`status`=:one
+		WHERE
+		`id`=:id";
+
+		$prepare = $this->conn->prepare($insert);
+		$prepare->execute(array(
+			":one"=>1,
+			":id"=>(int)$args["id"]
+		));
+
+		return true;
+	}
+
 	private function edit($args)
 	{
 		$insert = "UPDATE `shidni_users` SET 

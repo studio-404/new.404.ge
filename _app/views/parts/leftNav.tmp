@@ -16,10 +16,19 @@
 		<!-- endif -->">
 			<a href="/[language]/users/index">
 				<i class="nc-icon nc-single-02"></i>
-				<p>მომხმარებლები</p>
+				<p>მომხმარებელი</p>
 			</a>
 		</li>
 		<!-- endif -->
+
+		<li class="<!-- if '[controller]'=='company' --> 
+		active 
+		<!-- endif -->">
+			<a href="/[language]/company/index">
+				<i class="nc-icon nc-alert-circle-i"></i>
+				<p>კომპანია</p>
+			</a>
+		</li>
 
 		<li class="<!-- if '[controller]'=='profile' --> 
 		active 

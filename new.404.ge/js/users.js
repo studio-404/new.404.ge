@@ -11,17 +11,82 @@ var ajax = (request, post) => {
 	return xhttp;
 };
 
+var bootModal = (modalTitle, modalBody, modalFooter) => {
+	$(".modal").remove();
+	let out = "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\">";
+	out += "<div class=\"modal-dialog\" role=\"document\">";
+  	out += "<div class=\"modal-content\">";
+	out += "<div class=\"modal-header\">";
+    out += "<h5 class=\"modal-title\">"+modalTitle+"</h5>";
+    out += "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">";
+    out += "<span aria-hidden=\"true\">&times;</span>";
+	out += "</button>";
+    out += "</div>";
+    out += "<div class=\"modal-body\">";
+    out += modalBody;
+	out += "</div>";
+    out += "<div class=\"modal-footer\">";
+    out += modalFooter;  
+    out += "</div>";
+   	out += "</div>";
+  	out += "</div>";
+	out += "</div>";
+	$("body").append(out);
+	$(".modal").modal("show");
+};
+
 (function(){
+	if(typeof document.getElementsByClassName("removeUser") !== "undefined"){
+		var removeUser = document.getElementsByClassName("removeUser");
+		for(var i = 0; i < removeUser.length; i++){
+			removeUser[i].addEventListener("click", function(){
+				let modalTitle = this.getAttribute("data-modalTitle");
+				let modalBody = this.getAttribute("data-modalBody");
+				let yesText = this.getAttribute("data-yesText");
+				let noText = this.getAttribute("data-noText");
+				let id = this.getAttribute("data-id");
+
+				var modalFooter = "<button type=\"button\" class=\"btn btn-primary btn-round deleteUser\" data-id=\""+id+"\">"+yesText+"</button>";
+			    modalFooter += "<button type=\"button\" class=\"btn btn-secondary btn-round\" data-dismiss=\"modal\">"+noText+"</button>";
+			      
+				bootModal(modalTitle, modalBody, modalFooter);
+
+
+				if(typeof document.getElementsByClassName("deleteUser")[0] !== "undefined"){
+					document.getElementsByClassName("deleteUser")[0].addEventListener("click", function(){
+						let id = document.getElementsByClassName("deleteUser")[0].getAttribute("data-id");
+
+						var xhttp = ajax("ajax_users", "type=deleteUser&id="+id);
+
+						xhttp.onreadystatechange = function() {
+							if (this.readyState == 4) {
+								var out = {
+									status: this.status,
+									response: JSON.parse(this.responseText)
+								};
+								
+								if(out.status==200){
+									location.reload();
+								}else{
+									console.log(out);
+								}
+							}
+						};
+					});		
+				}
+			});
+		}
+	}
 
 	if(typeof document.getElementsByClassName("addUser")[0] !== "undefined"){
 		document.getElementsByClassName("addUser")[0].addEventListener("click", function(){
-			let firstname = (typeof document.getElementsByClassName("firstname")[0] !== "undefind") ? document.getElementsByClassName("firstname")[0].value : '';
-			let lastname = (typeof document.getElementsByClassName("lastname")[0] !== "undefind") ? document.getElementsByClassName("lastname")[0].value : '';
-			let username = (typeof document.getElementsByClassName("username")[0] !== "undefind") ? document.getElementsByClassName("username")[0].value : '';
-			let password = (typeof document.getElementsByClassName("password")[0] !== "undefind") ? document.getElementsByClassName("password")[0].value : '';
-			let contact_email = (typeof document.getElementsByClassName("contact_email")[0] !== "undefind") ? document.getElementsByClassName("contact_email")[0].value : '';
-			let contact_phone = (typeof document.getElementsByClassName("contact_phone")[0] !== "undefind") ? document.getElementsByClassName("contact_phone")[0].value : '';
-			let user_type = (typeof document.querySelector("input[name='user_type']:checked") !== "undefind") ? document.querySelector("input[name='user_type']:checked").value : '';
+			let firstname = (typeof document.getElementsByClassName("firstname")[0] !== "undefined") ? document.getElementsByClassName("firstname")[0].value : '';
+			let lastname = (typeof document.getElementsByClassName("lastname")[0] !== "undefined") ? document.getElementsByClassName("lastname")[0].value : '';
+			let username = (typeof document.getElementsByClassName("username")[0] !== "undefined") ? document.getElementsByClassName("username")[0].value : '';
+			let password = (typeof document.getElementsByClassName("password")[0] !== "undefined") ? document.getElementsByClassName("password")[0].value : '';
+			let contact_email = (typeof document.getElementsByClassName("contact_email")[0] !== "undefined") ? document.getElementsByClassName("contact_email")[0].value : '';
+			let contact_phone = (typeof document.getElementsByClassName("contact_phone")[0] !== "undefined") ? document.getElementsByClassName("contact_phone")[0].value : '';
+			let user_type = (typeof document.querySelector("input[name='user_type']:checked") !== "undefined") ? document.querySelector("input[name='user_type']:checked").value : '';
 
 			var companyCheckbox = document.getElementsByClassName("companyCheckbox");
 			var permission_company = new Array();
@@ -96,12 +161,12 @@ var ajax = (request, post) => {
 	if(typeof document.getElementsByClassName("editUser")[0] !== "undefined"){
 		document.getElementsByClassName("editUser")[0].addEventListener("click", function(){
 			let editid = parseInt(document.getElementsByClassName("editUser")[0].getAttribute("data-editid"));
-			let firstname = (typeof document.getElementsByClassName("firstname")[0] !== "undefind") ? document.getElementsByClassName("firstname")[0].value : '';
-			let lastname = (typeof document.getElementsByClassName("lastname")[0] !== "undefind") ? document.getElementsByClassName("lastname")[0].value : '';
-			let username = (typeof document.getElementsByClassName("username")[0] !== "undefind") ? document.getElementsByClassName("username")[0].value : '';
-			let contact_email = (typeof document.getElementsByClassName("contact_email")[0] !== "undefind") ? document.getElementsByClassName("contact_email")[0].value : '';
-			let contact_phone = (typeof document.getElementsByClassName("contact_phone")[0] !== "undefind") ? document.getElementsByClassName("contact_phone")[0].value : '';
-			let user_type = (typeof document.querySelector("input[name='user_type']:checked") !== "undefind") ? document.querySelector("input[name='user_type']:checked").value : '';
+			let firstname = (typeof document.getElementsByClassName("firstname")[0] !== "undefined") ? document.getElementsByClassName("firstname")[0].value : '';
+			let lastname = (typeof document.getElementsByClassName("lastname")[0] !== "undefined") ? document.getElementsByClassName("lastname")[0].value : '';
+			let username = (typeof document.getElementsByClassName("username")[0] !== "undefined") ? document.getElementsByClassName("username")[0].value : '';
+			let contact_email = (typeof document.getElementsByClassName("contact_email")[0] !== "undefined") ? document.getElementsByClassName("contact_email")[0].value : '';
+			let contact_phone = (typeof document.getElementsByClassName("contact_phone")[0] !== "undefined") ? document.getElementsByClassName("contact_phone")[0].value : '';
+			let user_type = (typeof document.querySelector("input[name='user_type']:checked") !== "undefined") ? document.querySelector("input[name='user_type']:checked").value : '';
 
 			var companyCheckbox = document.getElementsByClassName("companyCheckbox");
 			var permission_company = new Array();
@@ -176,7 +241,7 @@ var ajax = (request, post) => {
 	if(typeof document.getElementsByClassName("editUserPassword")[0] !== "undefined"){
 		document.getElementsByClassName("editUserPassword")[0].addEventListener("click", function(){
 			let editid = parseInt(document.getElementsByClassName("editUserPassword")[0].getAttribute("data-editid"));
-			let newpassword = (typeof document.getElementsByClassName("newpassword")[0] !== "undefind") ? document.getElementsByClassName("newpassword")[0].value : '';
+			let newpassword = (typeof document.getElementsByClassName("newpassword")[0] !== "undefined") ? document.getElementsByClassName("newpassword")[0].value : '';
 			
 			var xhttp = ajax("ajax_users", "type=editUserPassword&editid="+editid+"&newpassword="+newpassword);
 

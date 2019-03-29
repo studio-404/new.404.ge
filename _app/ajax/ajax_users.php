@@ -18,6 +18,9 @@ class ajax_users
 			case 'editUser':
 				return $this->editUser($request, $language);
 				break;
+			case 'deleteUser':
+				return $this->deleteUser($request, $language);
+				break;
 			case 'editUserPassword':
 				return $this->editUserPassword($request, $language);
 				break;
@@ -31,6 +34,37 @@ class ajax_users
 
 		http_response_code(404);
 		return $this->message;
+	}
+
+	private function deleteUser($request, $language)
+	{
+		if(
+			!$request->index("POST", "id")
+		){
+			http_response_code(400);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"ყველა ველი სავალდებულოა!"
+			);
+			return $this->message;
+			exit;
+		}else{
+			$Database = new Database("db_users", array(
+				"method"=>"deleteUser",
+				"id"=>$request->index("POST", "id")
+			));
+
+			$this->message = array(
+				"error"=>false,
+				"success"=>true,
+				"message"=>"ოპერაცია წარმატებით შესრულდა!"
+			);
+			http_response_code(200);
+
+			return $this->message;
+			exit;
+		}
 	}
 
 	private function editUserPassword($request, $language)
