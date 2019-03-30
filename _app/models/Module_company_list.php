@@ -25,6 +25,7 @@ class Module_company_list
 			$this->out .= "<table class=\"table\">";
 			$this->out .= "<thead class=\"text-primary\">";
 			$this->out .= "<tr>";
+			$this->out .= "<th>ს.კ.</th>";
 			$this->out .= "<th>დასახელება</th>";
 			$this->out .= "<th>საიდენთიფიკაციო კოდი</th>";
 			$this->out .= "<th>საკ. ნომერი</th>";
@@ -35,6 +36,7 @@ class Module_company_list
 			foreach ($data as $key => $value) {
 				$this->out .= "<tr>";
 				
+				$this->out .= sprintf("<td>%s</td>", $value["id"]);
 				$this->out .= sprintf("<td>%s</td>", $value["title"]);
 				$this->out .= sprintf("<td>%s</td>", $value["identity"]);
 				$this->out .= sprintf("<td>%s</td>", $value["contact_phone"]);
@@ -46,7 +48,7 @@ class Module_company_list
 					$value["id"]
 				);
 				$this->out .= sprintf(
-					"<a href=\"javascript:void(0)\" class=\"nc-icon nc-simple-remove removeCompany\" data-modalTitle=\"შეტყობინება\" data-modalBody=\"გნებავთ წაშალოთ მომხმარებელი?\" data-yesText=\"დიახ\" data-noText=\"არა\" data-id=\"%d\" style=\"font-size: 18px; margin-left: 10px;\"></a>",
+					"<a href=\"javascript:void(0)\" class=\"nc-icon nc-simple-remove removeCompany\" data-modalTitle=\"შეტყობინება\" data-modalBody=\"გნებავთ წაშალოთ კომპანია?\" data-yesText=\"დიახ\" data-noText=\"არა\" data-id=\"%d\" style=\"font-size: 18px; margin-left: 10px;\"></a>",
 					$value["id"]	
 				);
 				$this->out .= "</td>";
@@ -58,7 +60,7 @@ class Module_company_list
 			$this->out .= '</div>';
 			
 
-			$buttons = (int)ceil($data[0]["counted"] / Config::COMPANY_LIST_PERPAGE);
+			$buttons = (int)ceil((int)@$data[0]["counted"] / Config::COMPANY_LIST_PERPAGE);
 			
 			$this->out .= "<ul class=\"pagination\">";
 			for($i=1; $i<=$buttons; $i++){

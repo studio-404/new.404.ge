@@ -58,7 +58,7 @@ class Module_users_list
 			$this->out .= '</div>';
 			
 
-			$buttons = (int)ceil($data[0]["counted"] / Config::USER_LIST_PERPAGE);
+			$buttons = (int)ceil((int)@$data[0]["counted"] / Config::USER_LIST_PERPAGE);
 			
 			$this->out .= "<ul class=\"pagination\">";
 			for($i=1; $i<=$buttons; $i++){

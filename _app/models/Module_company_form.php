@@ -59,14 +59,14 @@ class Module_company_form
 		$this->out .= "<div class=\"row\">";
 		
 		$this->out .= "<div class=\"col-md-12\">";
-		$this->out .= "<div class=\"userFormMessageBox\">";
+		$this->out .= "<div class=\"companiesFormMessageBox\">";
 		$this->out .= "</div>";
 		$this->out .= "</div>";
 		
 		$this->out .= $this->input("დასახელება", "title", htmlentities($title));
 		$this->out .= $this->input("საიდენთიფიკაციო კოდი", "identity", htmlentities($identity));
 		$this->out .= $this->input("საკონტაქტო ნომერი", "contact_phone", htmlentities($contact_phone));
-		$this->out .= $this->input("ელ-ფოსტა", "contact_email", htmlentities($contact_phone));
+		$this->out .= $this->input("ელ-ფოსტა", "contact_email", htmlentities($contact_email));
 		$this->out .= $this->input("მისამართი", "address", htmlentities($address));
 		$this->out .= $this->input("ვებ გვერდი", "website", htmlentities($website));
 		

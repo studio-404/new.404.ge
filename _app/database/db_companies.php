@@ -13,6 +13,74 @@ class db_companies
 		return $out;
 	}
 
+	private function edit($args)
+	{
+		$insert = "UPDATE `shindi_companies` SET 
+		`title`=:title,
+		`identity`=:identity,
+		`contact_phone`=:contact_phone,
+		`contact_email`=:contact_email,
+		`address`=:address,
+		`website`=:website
+		WHERE
+		`id`=:id
+		";
+
+		$prepare = $this->conn->prepare($insert);
+		$prepare->execute(array(
+			":title"=>$args["title"],
+			":identity"=>$args["identity"],
+			":contact_phone"=>$args["contact_phone"],
+			":contact_email"=>$args["contact_email"],
+			":address"=>$args["address"],
+			":website"=>$args["website"],
+			":id"=>(int)$args["id"]
+		));
+
+		return true;
+	}
+
+	private function add($args)
+	{
+		$insert = "INSERT INTO `shindi_companies` SET 
+		`title`=:title,
+		`identity`=:identity,
+		`contact_phone`=:contact_phone,
+		`contact_email`=:contact_email,
+		`address`=:address,
+		`website`=:website,
+		`status`=:zero";
+
+		$prepare = $this->conn->prepare($insert);
+		$prepare->execute(array(
+			":title"=>$args["title"],
+			":identity"=>$args["identity"],
+			":contact_phone"=>$args["contact_phone"],
+			":contact_email"=>$args["contact_email"],
+			":address"=>$args["address"],
+			":website"=>$args["website"],
+			":zero"=>0
+		));
+
+		return true;
+	}
+
+	private function deleteCompany($args)
+	{
+		$update = "UPDATE `shindi_companies` SET 
+		`status`=:one
+		WHERE
+		`id`=:id";
+
+		$prepare = $this->conn->prepare($update);
+		$prepare->execute(array(
+			":one"=>1,
+			":id"=>(int)$args["id"]
+		));
+
+		return true;
+	}
+
 	private function select($args)
 	{
 		$db_fetch = [];

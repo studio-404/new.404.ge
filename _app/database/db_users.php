@@ -32,12 +32,12 @@ class db_users
 
 	private function deleteUser($args)
 	{
-		$insert = "UPDATE `shidni_users` SET 
+		$update = "UPDATE `shidni_users` SET 
 		`status`=:one
 		WHERE
 		`id`=:id";
 
-		$prepare = $this->conn->prepare($insert);
+		$prepare = $this->conn->prepare($update);
 		$prepare->execute(array(
 			":one"=>1,
 			":id"=>(int)$args["id"]
