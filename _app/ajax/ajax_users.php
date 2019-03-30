@@ -5,17 +5,6 @@ class ajax_users
 	public $message = array("error"=>true, "success"=>false, "message"=>"მოთხოვნა ვერ მოიძებნა!");
 	public function output($language)
 	{
-		if(!isset($_SESSION["user_data"]["user_type"]) || $_SESSION["user_data"]["user_type"]!="manager"){
-			http_response_code(401);
-			$this->message = array(
-				"error"=>true,
-				"success"=>false,
-				"message"=>"თქვენ არ გაქვთ აღნიშნული ოპერაციის უფლება!"
-			);
-			return $this->message;
-			exit;
-		}
-
 		$Functions = new Functions;
 		$request = $Functions->load("fu_request");
 
@@ -49,6 +38,17 @@ class ajax_users
 
 	private function deleteUser($request, $language)
 	{
+		if(!isset($_SESSION["user_data"]["user_type"]) || $_SESSION["user_data"]["user_type"]!="manager"){
+			http_response_code(401);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"თქვენ არ გაქვთ აღნიშნული ოპერაციის უფლება!"
+			);
+			return $this->message;
+			exit;
+		}
+
 		if(
 			!$request->index("POST", "id")
 		){
@@ -80,6 +80,17 @@ class ajax_users
 
 	private function editUserPassword($request, $language)
 	{
+		if(!isset($_SESSION["user_data"]["user_type"]) || $_SESSION["user_data"]["user_type"]!="manager"){
+			http_response_code(401);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"თქვენ არ გაქვთ აღნიშნული ოპერაციის უფლება!"
+			);
+			return $this->message;
+			exit;
+		}
+
 		if(
 			!$request->index("POST", "editid") || 
 			!$request->index("POST", "newpassword") 
@@ -122,6 +133,17 @@ class ajax_users
 
 	private function editUser($request, $language)
 	{
+		if(!isset($_SESSION["user_data"]["user_type"]) || $_SESSION["user_data"]["user_type"]!="manager"){
+			http_response_code(401);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"თქვენ არ გაქვთ აღნიშნული ოპერაციის უფლება!"
+			);
+			return $this->message;
+			exit;
+		}
+
 		if(
 			!$request->index("POST", "editid") || 
 			!$request->index("POST", "firstname") || 
@@ -188,6 +210,17 @@ class ajax_users
 
 	private function addUser($request, $language)
 	{
+		if(!isset($_SESSION["user_data"]["user_type"]) || $_SESSION["user_data"]["user_type"]!="manager"){
+			http_response_code(401);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"თქვენ არ გაქვთ აღნიშნული ოპერაციის უფლება!"
+			);
+			return $this->message;
+			exit;
+		}
+
 		if(
 			!$request->index("POST", "firstname") || 
 			!$request->index("POST", "lastname") || 
@@ -254,6 +287,17 @@ class ajax_users
 
 	private function update($request, $language)
 	{
+		if(!isset($_SESSION["user_data"]["user_type"]) || $_SESSION["user_data"]["user_type"]!="manager"){
+			http_response_code(401);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"თქვენ არ გაქვთ აღნიშნული ოპერაციის უფლება!"
+			);
+			return $this->message;
+			exit;
+		}
+
 		if(
 			!$request->index("POST", "firstname") || 
 			!$request->index("POST", "lastname") || 
@@ -300,6 +344,17 @@ class ajax_users
 
 	private function updatepassword($request, $language)
 	{
+		if(!isset($_SESSION["user_data"]["user_type"]) || $_SESSION["user_data"]["user_type"]!="manager"){
+			http_response_code(401);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"თქვენ არ გაქვთ აღნიშნული ოპერაციის უფლება!"
+			);
+			return $this->message;
+			exit;
+		}
+		
 		if(
 			!$request->index("POST", "oldpassword") || 
 			!$request->index("POST", "newpassword") || 

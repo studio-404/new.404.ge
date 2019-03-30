@@ -30,6 +30,15 @@
 			</a>
 		</li>
 
+		<li class="<!-- if '[controller]'=='building' --> 
+		active 
+		<!-- endif -->">
+			<a href="/[language]/building/index">
+				<i class="nc-icon nc-bank"></i>
+				<p>მშენებლობა</p>
+			</a>
+		</li>
+
 		<li class="<!-- if '[controller]'=='profile' --> 
 		active 
 		<!-- endif -->">
