@@ -5,6 +5,17 @@ class ajax_users
 	public $message = array("error"=>true, "success"=>false, "message"=>"მოთხოვნა ვერ მოიძებნა!");
 	public function output($language)
 	{
+		if(!isset($_SESSION["user_data"]["user_type"]) || $_SESSION["user_data"]["user_type"]!="manager"){
+			http_response_code(401);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"თქვენ არ გაქვთ აღნიშნული ოპერაციის უფლება!"
+			);
+			return $this->message;
+			exit;
+		}
+
 		$Functions = new Functions;
 		$request = $Functions->load("fu_request");
 
@@ -143,7 +154,6 @@ class ajax_users
 				"id"=>(int)$request->index("POST", "editid"),
 				"firstname"=>$request->index("POST", "firstname"),
 				"lastname"=>$request->index("POST", "lastname"),
-				"username"=>$request->index("POST", "username"),
 				"contact_email"=>$request->index("POST", "contact_email"),
 				"contact_phone"=>$request->index("POST", "contact_phone"),
 				"user_type"=>$request->index("POST", "user_type"),
@@ -153,6 +163,16 @@ class ajax_users
 				"permission_floor"=>$request->index("POST", "permission_floor"),
 				"permission_room"=>$request->index("POST", "permission_room")
 			));
+
+			$db_users = new Database("db_users", array(
+				"method"=>"selectUserByUsername",
+				"username"=>$_SESSION["user_data"]["username"]
+			));
+
+			$getter = $db_users->getter();
+			if($getter){
+				$_SESSION["user_data"] = $getter;
+			}
 
 			$this->message = array(
 				"error"=>false,

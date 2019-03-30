@@ -12,14 +12,16 @@ class Module_users_form
 		
 	}
 
-	private function input($label, $className, $value){
+	private function input($label, $className, $value, $disable = false){
 		$out = "<div class=\"col-md-6\">"; 
 		$out .= "<div class=\"form-group\">"; 
 		$out .= sprintf("<label>%s</label>", $label); 
+		$disable = ($disable) ? ' disabled="disabled"' : '';
 		$out .= sprintf(
-			"<input type=\"text\" class=\"form-control %s\" value=\"%s\" autocomplete=\"off\" />",
+			"<input type=\"text\" class=\"form-control %s\" value=\"%s\" autocomplete=\"off\" %s />",
 			$className,
-			htmlentities($value)
+			htmlentities($value),
+			$disable
 		); 
 		$out .= "</div>"; 
 		$out .= "</div>"; 
@@ -150,9 +152,12 @@ class Module_users_form
 		
 		$this->out .= $this->input("სახელი", "firstname", htmlentities($firstname));
 		$this->out .= $this->input("გვარი", "lastname", htmlentities($lastname));
-		$this->out .= $this->input("მომხმარებლის სახელი", "username", htmlentities($username));
+		
 		if($this->type !== "edit"){
+			$this->out .= $this->input("მომხმარებლის სახელი", "username", htmlentities($username));
 			$this->out .= $this->input("პაროლი", "password", htmlentities($password));
+		}else{
+			$this->out .= $this->input("მომხმარებლის სახელი", "username", htmlentities($username), true);
 		}
 		$this->out .= $this->input("ელ-ფოსტა", "contact_email", htmlentities($contact_email));
 		$this->out .= $this->input("საკონტაქტო ნომერი", "contact_phone", htmlentities($contact_phone));

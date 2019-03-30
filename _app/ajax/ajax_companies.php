@@ -29,6 +29,9 @@ class ajax_companies
 
 	private function deleteCompany($request, $language)
 	{
+		$Functions = new Functions();
+		$permition = $Functions->load("fu_permision");
+
 		if(
 			!$request->index("POST", "id")
 		){
@@ -37,6 +40,15 @@ class ajax_companies
 				"error"=>true,
 				"success"=>false,
 				"message"=>"ყველა ველი სავალდებულოა!"
+			);
+			return $this->message;
+			exit;
+		}else if(!$permition->check("permission_company", "delete")){
+			http_response_code(401);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"თქვენ არ გაქვთ წაშლის უფლება!"
 			);
 			return $this->message;
 			exit;
@@ -60,7 +72,19 @@ class ajax_companies
 
 	private function editCompany($request, $language)
 	{
-		if(
+		$Functions = new Functions();
+		$permition = $Functions->load("fu_permision");
+
+		if(!$permition->check("permission_company", "edit")){
+			http_response_code(401);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"თქვენ არ გაქვთ განახლების უფლება!"
+			);
+			return $this->message;
+			exit;
+		}else if(
 			!$request->index("POST", "editid") || 
 			!$request->index("POST", "title") || 
 			!$request->index("POST", "identity") || 
@@ -112,7 +136,19 @@ class ajax_companies
 
 	private function addCompany($request, $language)
 	{
-		if(
+		$Functions = new Functions();
+		$permition = $Functions->load("fu_permision");
+		
+		if(!$permition->check("permission_company", "add")){
+			http_response_code(401);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"თქვენ არ გაქვთ დამატების უფლება!"
+			);
+			return $this->message;
+			exit;
+		}else if(
 			!$request->index("POST", "title") || 
 			!$request->index("POST", "identity") || 
 			!$request->index("POST", "contact_phone") || 

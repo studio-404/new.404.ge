@@ -69,6 +69,13 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 								if(out.status==200){
 									location.reload();
 								}else{
+									if(document.getElementsByClassName("modal-body")[0] !== "undefined"){
+										document.getElementsByClassName("modal-body")[0].innerHTML = "<p>"+out.response.message+"</p>";
+									}
+
+									if(document.getElementsByClassName("modal-footer")[0] !== "undefined"){
+										document.getElementsByClassName("modal-footer")[0].remove();
+									}
 									console.log(out);
 								}
 							}
