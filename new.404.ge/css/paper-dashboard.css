@@ -2377,10 +2377,6 @@ p.description {
   font-size: 1.14em;
 }
 
-.title {
-  font-weight: 700;
-}
-
 .title.title-up {
   text-transform: uppercase;
 }

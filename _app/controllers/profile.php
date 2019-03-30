@@ -2,7 +2,7 @@
 
 class Profile extends Controller
 {
-	public function index($language='', $name = '')
+	public function index($language='')
 	{
 		if(!isset($_SESSION["user_data"])):
 			$Functions = new Functions;
