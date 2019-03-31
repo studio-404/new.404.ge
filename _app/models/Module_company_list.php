@@ -60,13 +60,12 @@ class Module_company_list
 			$this->out .= '</div>';
 			
 
-			$buttons = (int)ceil((int)@$data[0]["counted"] / Config::COMPANY_LIST_PERPAGE);
-			
+			$buttons = (int)ceil($data[0]["counted"] / Config::COMPANY_LIST_PERPAGE);
 			$this->out .= "<ul class=\"pagination\">";
 			for($i=1; $i<=$buttons; $i++){
 				$active = ($this->page==$i) ? ' active' : '';
 				$this->out .= sprintf(
-					"<li class=\"paginate_button page-item%s\"><a href=\"/%s/users/index/%s\" class=\"page-link\">%s</a></li>",
+					"<li class=\"paginate_button page-item%s\"><a href=\"/%s/company/index/%s\" class=\"page-link\">%s</a></li>",
 					$active,
 					$this->language,
 					$i,

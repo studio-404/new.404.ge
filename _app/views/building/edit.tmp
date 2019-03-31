@@ -1,0 +1,104 @@
+[#include parts/header]
+
+<div class="wrapper">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      	<div class="logo">
+			<a href="/" class="simple-text logo-mini">
+				<div class="logo-image-small">
+					<img src="/img/logo-small.png">
+				</div>
+			</a>
+			<a href="/[language]/dashboard/index" class="simple-text logo-normal">
+				[mainName]
+			</a>
+		</div>
+
+
+		[#include parts/leftNav]
+	</div>
+
+	<div class="main-panel">
+		[#include parts/topNav]
+		
+		<div class="content">
+			
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title" style="display: inline-block;"> მშენებლობის დამატება</h4>
+							<div class="update ml-auto mr-auto" style="float:right">
+		                      <a href="/[language]/building/index" class="btn btn-primary btn-round">უკან</a>
+		                    </div>
+						</div>
+						
+						<div class="card-body">
+							[form]
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+		[#include parts/topFooter]
+	</div>
+</div>
+
+<script type="text/javascript">
+var Config = {
+	ajax:"/[language]/ajax",
+	language:"[language]"
+};
+</script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAeSTjMJTVIuJaIiFgxLQgvCRl8HJqo0qo"></script>
+<script>
+	function initialize() {
+        var latlng = new google.maps.LatLng([map]);
+
+        var myOptions = {
+            zoom: 12,
+            center: latlng,
+            streetViewControl: false,
+            mapTypeControl: false
+        };
+
+        var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+
+        var marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            draggable: true
+        });
+
+
+        google.maps.event.addListener(map, 'click', function(event) {
+            placeMarker(event.latLng);
+            getChangedData(event.latLng);
+        });
+
+        google.maps.event.addListener(marker, 'dragend', function(event) {
+            placeMarker(event.latLng);
+            getChangedData(event.latLng);
+        });
+
+        function placeMarker(location) {
+			marker.setPosition(location);
+            map.setCenter(location);
+        }
+
+        function getChangedData(location){
+        	if(document.getElementsByClassName("map_coordinates")[0] !== "undefined"){
+        		document.getElementsByClassName("map_coordinates")[0].value = location.lat() + "," +location.lng();
+        	}
+        }
+    }
+
+    initialize();
+</script>
+
+
+<script src="/js/building.js" type="text/javascript" charset="utf-8"></script>
+
+[#include parts/footer]

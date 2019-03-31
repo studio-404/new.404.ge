@@ -6476,4 +6476,9 @@ License - nucleoapp.com/license/
     outline: none;
 }
 
+#map-canvas{
+  width: 100%;
+  height: 350px;
+}
+
 /*# sourceMappingURL=dashboard-free.css.map */

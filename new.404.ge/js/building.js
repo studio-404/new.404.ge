@@ -37,27 +37,27 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 
 (function(){
 
-	if(typeof document.getElementsByClassName("removeCompany") !== "undefined"){
-		var removeCompany = document.getElementsByClassName("removeCompany");
-		for(var i = 0; i < removeCompany.length; i++){
-			removeCompany[i].addEventListener("click", function(){
+	if(typeof document.getElementsByClassName("removeBuilding") !== "undefined"){
+		var removeBuilding = document.getElementsByClassName("removeBuilding");
+		for(var i = 0; i < removeBuilding.length; i++){
+			removeBuilding[i].addEventListener("click", function(){
 				let modalTitle = this.getAttribute("data-modalTitle");
 				let modalBody = this.getAttribute("data-modalBody");
 				let yesText = this.getAttribute("data-yesText");
 				let noText = this.getAttribute("data-noText");
 				let id = this.getAttribute("data-id");
 
-				var modalFooter = "<button type=\"button\" class=\"btn btn-primary btn-round deleteCompany\" data-id=\""+id+"\">"+yesText+"</button>";
+				var modalFooter = "<button type=\"button\" class=\"btn btn-primary btn-round deleteBuilding\" data-id=\""+id+"\">"+yesText+"</button>";
 			    modalFooter += "<button type=\"button\" class=\"btn btn-secondary btn-round\" data-dismiss=\"modal\">"+noText+"</button>";
 			      
 				bootModal(modalTitle, modalBody, modalFooter);
 
 
-				if(typeof document.getElementsByClassName("deleteCompany")[0] !== "undefined"){
-					document.getElementsByClassName("deleteCompany")[0].addEventListener("click", function(){
-						let id = document.getElementsByClassName("deleteCompany")[0].getAttribute("data-id");
+				if(typeof document.getElementsByClassName("deleteBuilding")[0] !== "undefined"){
+					document.getElementsByClassName("deleteBuilding")[0].addEventListener("click", function(){
+						let id = document.getElementsByClassName("deleteBuilding")[0].getAttribute("data-id");
 
-						var xhttp = ajax("ajax_companies", "type=deleteCompany&id="+id);
+						var xhttp = ajax("ajax_building", "type=deleteBuilding&id="+id);
 
 						xhttp.onreadystatechange = function() {
 							if (this.readyState == 4) {
@@ -87,16 +87,14 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 	}
 
 
-	if(typeof document.getElementsByClassName("addCompany")[0] !== "undefined"){
-		document.getElementsByClassName("addCompany")[0].addEventListener("click", function(){
+	if(typeof document.getElementsByClassName("addBuilding")[0] !== "undefined"){
+		document.getElementsByClassName("addBuilding")[0].addEventListener("click", function(){
 			let title = (typeof document.getElementsByClassName("title")[0] !== "undefined") ? document.getElementsByClassName("title")[0].value : '';
-			let identity = (typeof document.getElementsByClassName("identity")[0] !== "undefined") ? document.getElementsByClassName("identity")[0].value : '';
-			let contact_phone = (typeof document.getElementsByClassName("contact_phone")[0] !== "undefined") ? document.getElementsByClassName("contact_phone")[0].value : '';
-			let contact_email = (typeof document.getElementsByClassName("contact_email")[0] !== "undefined") ? document.getElementsByClassName("contact_email")[0].value : '';
 			let address = (typeof document.getElementsByClassName("address")[0] !== "undefined") ? document.getElementsByClassName("address")[0].value : '';
-			let website = (typeof document.getElementsByClassName("website")[0] !== "undefined") ? document.getElementsByClassName("website")[0].value : '';
+			let map_coordinates = (typeof document.getElementsByClassName("map_coordinates")[0] !== "undefined") ? document.getElementsByClassName("map_coordinates")[0].value : '';
+			let choose_company = (typeof document.getElementsByClassName("choose_company")[0] !== "undefined") ? document.getElementsByClassName("choose_company")[0].value : '';
 			
-			var xhttp = ajax("ajax_companies", "type=addCompany&title="+title+"&identity="+identity+"&contact_phone="+contact_phone+"&contact_email="+contact_email+"&address="+address+"&website="+website);
+			var xhttp = ajax("ajax_building", "type=addBuilding&title="+title+"&address="+address+"&map_coordinates="+map_coordinates+"&choose_company="+choose_company);
 
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4) {
@@ -110,27 +108,25 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 						className = "success";
 
 						setTimeout(() => {
-							location.href = "/"+Config.language+"/company/index";
+							location.href = "/"+Config.language+"/building/index";
 						},1500);
 					}
 
-					document.getElementsByClassName("companiesFormMessageBox")[0].innerHTML = messageBox(className, out.status, out.response.message);
+					document.getElementsByClassName("buildingsFormMessageBox")[0].innerHTML = messageBox(className, out.status, out.response.message);
 				}
 			};
 		});
 	}
 
-	if(typeof document.getElementsByClassName("editCompany")[0] !== "undefined"){
-		document.getElementsByClassName("editCompany")[0].addEventListener("click", function(){
-			let editid = parseInt(document.getElementsByClassName("editCompany")[0].getAttribute("data-editid"));
+	if(typeof document.getElementsByClassName("editBuilding")[0] !== "undefined"){
+		document.getElementsByClassName("editBuilding")[0].addEventListener("click", function(){
+			let editid = parseInt(document.getElementsByClassName("editBuilding")[0].getAttribute("data-editid"));
 			let title = (typeof document.getElementsByClassName("title")[0] !== "undefined") ? document.getElementsByClassName("title")[0].value : '';
-			let identity = (typeof document.getElementsByClassName("identity")[0] !== "undefined") ? document.getElementsByClassName("identity")[0].value : '';
-			let contact_phone = (typeof document.getElementsByClassName("contact_phone")[0] !== "undefined") ? document.getElementsByClassName("contact_phone")[0].value : '';
-			let contact_email = (typeof document.getElementsByClassName("contact_email")[0] !== "undefined") ? document.getElementsByClassName("contact_email")[0].value : '';
 			let address = (typeof document.getElementsByClassName("address")[0] !== "undefined") ? document.getElementsByClassName("address")[0].value : '';
-			let website = (typeof document.getElementsByClassName("website")[0] !== "undefined") ? document.getElementsByClassName("website")[0].value : '';
+			let map_coordinates = (typeof document.getElementsByClassName("map_coordinates")[0] !== "undefined") ? document.getElementsByClassName("map_coordinates")[0].value : '';
+			let company_id = (typeof document.getElementsByClassName("choose_company")[0] !== "undefined") ? document.getElementsByClassName("choose_company")[0].value : '';
 			
-			var xhttp = ajax("ajax_companies", "type=editCompany&editid="+editid+"&title="+title+"&identity="+identity+"&contact_phone="+contact_phone+"&contact_email="+contact_email+"&address="+address+"&website="+website);
+			var xhttp = ajax("ajax_building", "type=editBuilding&editid="+editid+"&title="+title+"&address="+address+"&map_coordinates="+map_coordinates+"&company_id="+company_id);
 
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4) {
@@ -144,11 +140,11 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 						className = "success";
 
 						setTimeout(() => {
-							location.href = "/"+Config.language+"/company/edit/"+editid;
+							location.href = "/"+Config.language+"/building/edit/"+editid;
 						},1500);
 					}
 
-					document.getElementsByClassName("companiesFormMessageBox")[0].innerHTML = messageBox(className, out.status, out.response.message);
+					document.getElementsByClassName("buildingsFormMessageBox")[0].innerHTML = messageBox(className, out.status, out.response.message);
 					window.scrollTo(0, 0);
 				}
 			};

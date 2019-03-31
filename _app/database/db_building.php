@@ -13,59 +13,49 @@ class db_building
 		return $out;
 	}
 
-	// private function edit($args)
-	// {
-	// 	$insert = "UPDATE `shindi_companies` SET 
-	// 	`title`=:title,
-	// 	`identity`=:identity,
-	// 	`contact_phone`=:contact_phone,
-	// 	`contact_email`=:contact_email,
-	// 	`address`=:address,
-	// 	`website`=:website
-	// 	WHERE
-	// 	`id`=:id
-	// 	";
+	private function edit($args)
+	{
+		$insert = "UPDATE `shindi_buildings` SET 
+		`title`=:title,
+		`company_id`=:company_id,
+		`address`=:address,
+		`map_coordinates`=:map_coordinates
+		WHERE
+		`id`=:id
+		";
 
-	// 	$prepare = $this->conn->prepare($insert);
-	// 	$prepare->execute(array(
-	// 		":title"=>$args["title"],
-	// 		":identity"=>$args["identity"],
-	// 		":contact_phone"=>$args["contact_phone"],
-	// 		":contact_email"=>$args["contact_email"],
-	// 		":address"=>$args["address"],
-	// 		":website"=>$args["website"],
-	// 		":id"=>(int)$args["id"]
-	// 	));
+		$prepare = $this->conn->prepare($insert);
+		$prepare->execute(array(
+			":title"=>$args["title"],
+			":company_id"=>$args["company_id"],
+			":address"=>$args["address"],
+			":map_coordinates"=>$args["map_coordinates"],
+			":id"=>(int)$args["id"]
+		));
 
-	// 	return true;
-	// }
+		return true;
+	}
 
-	// private function add($args)
-	// {
-	// 	$insert = "INSERT INTO `shindi_companies` SET 
-	// 	`title`=:title,
-	// 	`identity`=:identity,
-	// 	`contact_phone`=:contact_phone,
-	// 	`contact_email`=:contact_email,
-	// 	`address`=:address,
-	// 	`website`=:website,
-	// 	`status`=:zero";
+	private function add($args)
+	{
+		$insert = "INSERT INTO `shindi_buildings` SET 
+		`title`=:title,
+		`address`=:address,
+		`map_coordinates`=:map_coordinates,
+		`company_id`=:company_id";
 
-	// 	$prepare = $this->conn->prepare($insert);
-	// 	$prepare->execute(array(
-	// 		":title"=>$args["title"],
-	// 		":identity"=>$args["identity"],
-	// 		":contact_phone"=>$args["contact_phone"],
-	// 		":contact_email"=>$args["contact_email"],
-	// 		":address"=>$args["address"],
-	// 		":website"=>$args["website"],
-	// 		":zero"=>0
-	// 	));
+		$prepare = $this->conn->prepare($insert);
+		$prepare->execute(array(
+			":title"=>$args["title"],
+			":address"=>$args["address"],
+			":map_coordinates"=>$args["map_coordinates"],
+			":company_id"=>$args["company_id"]
+		));
 
-	// 	return true;
-	// }
+		return true;
+	}
 
-	private function deleteCompany($args)
+	private function deleteBuildings($args)
 	{
 		$update = "UPDATE `shindi_buildings` SET 
 		`status`=:one
@@ -96,7 +86,7 @@ class db_building
 		FROM 
 		`shindi_buildings` 
 		WHERE 
-		`shindi_buildings`.`status`!=:one".$limit;
+		`shindi_buildings`.`status`!=:one ORDER BY `shindi_buildings`.`id` DESC".$limit."";
 		$prepare = $this->conn->prepare($select);
 		$prepare->execute(array(
 			":one"=>1

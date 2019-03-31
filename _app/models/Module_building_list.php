@@ -48,7 +48,7 @@ class Module_building_list
 					$value["id"]
 				);
 				$this->out .= sprintf(
-					"<a href=\"javascript:void(0)\" class=\"nc-icon nc-simple-remove removeBuilding\" data-modalTitle=\"შეტყობინება\" data-modalBody=\"გნებავთ წაშალოთ კომპანია?\" data-yesText=\"დიახ\" data-noText=\"არა\" data-id=\"%d\" style=\"font-size: 18px; margin-left: 10px;\"></a>",
+					"<a href=\"javascript:void(0)\" class=\"nc-icon nc-simple-remove removeBuilding\" data-modalTitle=\"შეტყობინება\" data-modalBody=\"გნებავთ წაშალოთ მშენებლობა?\" data-yesText=\"დიახ\" data-noText=\"არა\" data-id=\"%d\" style=\"font-size: 18px; margin-left: 10px;\"></a>",
 					$value["id"]	
 				);
 				$this->out .= "</td>";

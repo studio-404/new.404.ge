@@ -37,20 +37,21 @@ class Building extends Controller
 			$redirect->gotoUrl("/".$language."/home/index");
 		endif;
 
-		$Module_users_form = $this->model('Module_users_form');
-		$Module_users_form->type = "add";
+		$Module_building_form = $this->model('Module_building_form');
+		$Module_building_form->type = "add";
 
 		$mainName = $_SESSION["user_data"]["firstname"] . " " . $_SESSION["user_data"]["lastname"];
 		$user_type = $_SESSION["user_data"]["user_type"];		
 
-		$this->view('users/add', array(
+		$this->view('building/add', array(
 			"title"=>Config::WEBSITE_TITLE,
 			"v"=>Config::WEBSITE_VERSION,
-			"controller"=>"users",
+			"controller"=>"building",
 			"language"=>$language,
 			"user_type"=>$user_type,
 			"mainName"=>$mainName,
-			"form"=>$Module_users_form->index(),
+			"form"=>$Module_building_form->index(),
+			"map"=>$Module_building_form->map_coordinates
 		));
 	}
 
@@ -62,23 +63,24 @@ class Building extends Controller
 			$redirect->gotoUrl("/".$language."/home/index");
 		endif;
 
-		$Module_users_form = $this->model('Module_users_form');
-		$Module_users_form->type = "edit";
-		$Module_users_form->language = $language;
-		$Module_users_form->editId = $id;
+		$Module_building_form = $this->model('Module_building_form');
+		$Module_building_form->type = "edit";
+		$Module_building_form->language = $language;
+		$Module_building_form->editId = $id;
 
 		$mainName = $_SESSION["user_data"]["firstname"] . " " . $_SESSION["user_data"]["lastname"];
 		$user_type = $_SESSION["user_data"]["user_type"];		
 
-		$this->view('users/edit', array(
+		$this->view('building/edit', array(
 			"title"=>Config::WEBSITE_TITLE,
 			"v"=>Config::WEBSITE_VERSION,
-			"controller"=>"users",
+			"controller"=>"building",
 			"language"=>$language,
 			"user_type"=>$user_type,
 			"mainName"=>$mainName,
 			"id"=>$id,
-			"form"=>$Module_users_form->index(),
+			"form"=>$Module_building_form->index(),
+			"map"=>$Module_building_form->map_coordinates
 		));
 	}
 }

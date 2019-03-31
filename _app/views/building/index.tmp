@@ -52,6 +52,6 @@ var Config = {
 	language:"[language]"
 };
 </script>
-<script src="/js/companies.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/building.js" type="text/javascript" charset="utf-8"></script>
 
 [#include parts/footer]
