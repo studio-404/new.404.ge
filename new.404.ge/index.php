@@ -1,8 +1,13 @@
 <?php 
-session_start();
+ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+session_start([
+    'cookie_lifetime' => 86400,
+    'read_and_close'  => true
+]);
+session_name("newwebsite");
+
 header('X-Frame-Options: DENY');
 header("Content-type: text/html; charset=utf-8");
-session_name("newwebsite");
 date_default_timezone_set('Asia/Tbilisi');
 
 ini_set('post_max_size', '5120M');

@@ -35,10 +35,6 @@ class App
 		$this->params = $url ? array_values($url) : [];
 		array_unshift($this->params, $this->language);
 
-		// echo "<pre>";
-		// print_r($this->params);
-		// echo "</pre>";
-
 		call_user_func_array([$this->controller, $this->method], $this->params);
 	}
 
