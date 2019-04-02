@@ -98,7 +98,7 @@ class db_building
 		return $db_fetch;
 	}
 
-	private function selectUserById($args)
+	private function selectBuildingById($args)
 	{
 		$db_fetch = [];
 		

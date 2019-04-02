@@ -41,12 +41,13 @@ class Module_users_list
 
 				$this->out .= "<td>";
 				$this->out .= sprintf(
-					"<a href=\"/%s/users/edit/%d\" class=\"nc-icon nc-settings\" style=\"font-size: 18px\"></a>",
+					"<a href=\"/%s/users/edit/%d\" class=\"nc-icon nc-settings\" style=\"font-size: 18px\" title=\"რედაქტირება\"></a>",
 					$this->language,
 					$value["id"]
 				);
+				
 				$this->out .= sprintf(
-					"<a href=\"javascript:void(0)\" class=\"nc-icon nc-simple-remove removeUser\" data-modalTitle=\"შეტყობინება\" data-modalBody=\"გნებავთ წაშალოთ მომხმარებელი?\" data-yesText=\"დიახ\" data-noText=\"არა\" data-id=\"%d\" style=\"font-size: 18px; margin-left: 10px;\"></a>",
+					"<a href=\"javascript:void(0)\" class=\"nc-icon nc-simple-remove removeUser\" data-modalTitle=\"შეტყობინება\" data-modalBody=\"გნებავთ წაშალოთ მომხმარებელი?\" data-yesText=\"დიახ\" data-noText=\"არა\" data-id=\"%d\" style=\"font-size: 18px; margin-left: 10px;\" title=\"წაშლა\"></a>",
 					$value["id"]	
 				);
 				$this->out .= "</td>";

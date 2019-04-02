@@ -55,7 +55,7 @@ class Module_building_form
 	{
 		if($this->type=="edit"){
 			$Database = new Database("db_building", array(
-				"method"=>"selectUserById",
+				"method"=>"selectBuildingById",
 				"id"=>$this->editId
 			));
 			$fetch = $Database->getter();

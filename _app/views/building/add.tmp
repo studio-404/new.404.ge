@@ -23,6 +23,14 @@
 		<div class="content">
 			
 			<div class="row">
+				<div class="col-md-12" style="margin-top: 0; margin-bottom: 20px;">
+					<div style="display: inline-block;">
+						<a href="[language]/dashboard/index" style="display: inline-block;">მთავარი</a> &#8594; 
+						<a href="/[language]/building/index" style="display: inline-block;">მშენებლობა</a> &#8594;
+						<a href="/[language]/building/add" style="display: inline-block;">დამატება</a>
+					</div>
+				</div>
+
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
@@ -59,7 +67,7 @@ var Config = {
         var latlng = new google.maps.LatLng(41.7003244, 44.87244);
 
         var myOptions = {
-            zoom: 8,
+            zoom: 12,
             center: latlng,
             streetViewControl: false,
             mapTypeControl: false

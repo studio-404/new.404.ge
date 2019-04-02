@@ -26,20 +26,23 @@
 				<div class="col-md-12" style="margin-top: 0; margin-bottom: 20px;">
 					<div style="display: inline-block;">
 						<a href="[language]/dashboard/index" style="display: inline-block;">მთავარი</a> &#8594; 
-						<a href="/[language]/building/index" style="display: inline-block;">მშენებლობა</a>
+						<a href="/[language]/building/index" style="display: inline-block;">მშენებლობა</a> &#8594; 
+						<a href="/[language]/entrance/index/[building_id]" style="display: inline-block;">სადარბაზო</a> &#8594;
+						<a href="/[language]/entrance/edit/[building_id]/[id]" style="display: inline-block;">რედაქტირება</a> 
 					</div>
 				</div>
+
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<h4 class="card-title" style="display: inline-block;"> მშენებლობა</h4>
+							<h4 class="card-title" style="display: inline-block;"> სადარბაზოს რედაქტირება</h4>
 							<div class="update ml-auto mr-auto" style="float:right">
-		                      <a href="/[language]/building/add" class="btn btn-primary btn-round">დამატება</a>
+		                      <a href="/[language]/entrance/index/[building_id]" class="btn btn-primary btn-round">უკან</a>
 		                    </div>
 						</div>
 						
 						<div class="card-body">
-							[buildingList]
+							[form]
 						</div>
 					</div>
 				</div>
@@ -58,6 +61,7 @@ var Config = {
 	language:"[language]"
 };
 </script>
-<script src="/js/building.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="/js/entrance.js" type="text/javascript" charset="utf-8"></script>
 
 [#include parts/footer]

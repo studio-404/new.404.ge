@@ -1,9 +1,10 @@
 <?php 
 
-class Module_building_list
+class Module_entrance_list
 {
 	public $page;
 	public $language;
+	public $building_id;
 	private $out = '';
 
 	public function __construct()
@@ -13,9 +14,10 @@ class Module_building_list
 
 	public function index()
 	{
-		$Database = new Database("db_building", array(
+		$Database = new Database("db_entrance", array(
 			"method"=>"select",
-			"page"=>$this->page
+			"building_id"=>$this->building_id,
+			"page"=>$this->page			
 		));	
 
 		$data = $Database->getter();
@@ -28,7 +30,7 @@ class Module_building_list
 			$this->out .= "<th>ს.კ.</th>";
 			$this->out .= "<th>კომპანია</th>";
 			$this->out .= "<th>მშენებლობა</th>";
-			$this->out .= "<th>მისამართი</th>";
+			$this->out .= "<th>სადარბაზო</th>";
 			$this->out .= "<th>მოქმედება</th>";
 			$this->out .= "</tr>";
 			$this->out .= "</thead>";
@@ -38,24 +40,26 @@ class Module_building_list
 				
 				$this->out .= sprintf("<td>%s</td>", $value["id"]);
 				$this->out .= sprintf("<td>%s</td>", $value["companyTitle"]);
-				$this->out .= sprintf("<td>%s</td>", $value["title"]);
-				$this->out .= sprintf("<td>%s</td>", $value["address"]);
+				$this->out .= sprintf("<td>%s</td>", $value["building_title"]);
+				$this->out .= sprintf("<td>%s</td>", $value["title"]);				
 
 				$this->out .= "<td>";
 				$this->out .= sprintf(
-					"<a href=\"/%s/building/edit/%d\" class=\"nc-icon nc-settings\" title=\"რედაქტირება\" style=\"font-size: 18px\"></a>",
+					"<a href=\"/%s/entrance/edit/%d/%d\" class=\"nc-icon nc-settings\" title=\"რედაქტირება\" style=\"font-size: 18px\"></a>",
 					$this->language,
+					$this->building_id,
 					$value["id"]
 				);
 
 				$this->out .= sprintf(
-					"<a href=\"/%s/entrance/index/%d\" class=\"nc-icon nc-shop\" style=\"font-size: 18px; margin-left: 10px;\" title=\"სადარბაზო\"></a>",
+					"<a href=\"/%s/floor/index/%d/%d\" class=\"nc-icon nc-tile-56\" style=\"font-size: 18px; margin-left: 10px;\" title=\"სართული\"></a>",
 					$this->language,
+					$this->building_id,
 					$value["id"]
 				);
 
 				$this->out .= sprintf(
-					"<a href=\"javascript:void(0)\" class=\"nc-icon nc-simple-remove removeBuilding\" data-modalTitle=\"შეტყობინება\" data-modalBody=\"გნებავთ წაშალოთ მშენებლობა?\" data-yesText=\"დიახ\" data-noText=\"არა\" data-id=\"%d\" style=\"font-size: 18px; margin-left: 10px;\" title=\"წაშლა\"></a>",
+					"<a href=\"javascript:void(0)\" class=\"nc-icon nc-simple-remove removeEntrance\" data-modalTitle=\"შეტყობინება\" data-modalBody=\"გნებავთ წაშალოთ სადარბაზო?\" data-yesText=\"დიახ\" data-noText=\"არა\" data-id=\"%d\" style=\"font-size: 18px; margin-left: 10px;\" title=\"წაშლა\"></a>",
 					$value["id"]	
 				);
 				$this->out .= "</td>";
@@ -67,15 +71,16 @@ class Module_building_list
 			$this->out .= '</div>';
 			
 
-			$buttons = (int)ceil((int)@$data[0]["counted"] / Config::BUILDING_LIST_PERPAGE);
+			$buttons = (int)ceil((int)@$data[0]["counted"] / Config::ENTRANCE_LIST_PERPAGE);
 			
 			$this->out .= "<ul class=\"pagination\">";
 			for($i=1; $i<=$buttons; $i++){
 				$active = ($this->page==$i) ? ' active' : '';
 				$this->out .= sprintf(
-					"<li class=\"paginate_button page-item%s\"><a href=\"/%s/building/index/%s\" class=\"page-link\">%s</a></li>",
+					"<li class=\"paginate_button page-item%s\"><a href=\"/%s/entrance/index/%d/%s\" class=\"page-link\">%s</a></li>",
 					$active,
 					$this->language,
+					$this->building_id,
 					$i,
 					$i
 				);

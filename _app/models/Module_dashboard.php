@@ -17,7 +17,7 @@ class Module_dashboard
 
 	private function card($icon, $title, $num, $href)
 	{
-		$out = "<div class=\"col-lg-3 col-md-6 col-sm-6\">";
+		$out = "<div class=\"col-lg-4 col-md-12 col-sm-12\">";
 		$out .= "<div class=\"card card-stats\">";
 		$out .= "<div class=\"card-body\">";
 		$out .= "<div class=\"row\">";
@@ -51,10 +51,13 @@ class Module_dashboard
 	public function index()
 	{
 		$href = "/".$this->language."/users/index";
-		$this->out .= $this->card("nc-single-02","მომხმარე.", (int)@$this->data["userCount"], $href);
+		$this->out .= $this->card("nc-single-02","მომხმარებელი", (int)@$this->data["userCount"], $href);
 
 		$href = "/".$this->language."/company/index";
 		$this->out .= $this->card("nc-alert-circle-i","კომპანია", (int)@$this->data["companyCount"], $href);
+
+		$href = "/".$this->language."/building/index";
+		$this->out .= $this->card("nc-bank","მშენებლობა", (int)@$this->data["buildingCount"], $href);
 
 		return $this->out;
 	}
