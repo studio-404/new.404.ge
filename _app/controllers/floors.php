@@ -29,7 +29,7 @@ class Floors extends Controller
 			"page"=>$page,
 			"building_id"=>$building_id,
 			"entrance_id"=>$entrance_id,
-			"entranceList"=>$Module_floor_list->index()
+			"floorsList"=>$Module_floor_list->index()
 		));
 	}
 

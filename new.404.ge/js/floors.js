@@ -65,7 +65,7 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 				}
 			};
 		});
-	}
+	};
 
 	if(typeof document.getElementsByClassName("editFloor")[0] !== "undefined"){
 		document.getElementsByClassName("editFloor")[0].addEventListener("click", function(){
@@ -97,7 +97,7 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 				}
 			};
 		});
-	}
+	};
 
 	if(typeof document.getElementsByClassName("removeFloor") !== "undefined"){
 		var removeFloor = document.getElementsByClassName("removeFloor");
@@ -146,6 +146,6 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 				}
 			});
 		}
-	}
+	};
 
 })();
