@@ -153,6 +153,7 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 					}
 
 					document.getElementsByClassName("userFormMessageBox")[0].innerHTML = messageBox(className, out.status, out.response.message);
+					window.scrollTo(0, 0);
 				}
 			};
 		});
@@ -263,6 +264,7 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 					}
 
 					document.getElementsByClassName("userFormPasswordMessageBox")[0].innerHTML = messageBox(className, out.status, out.response.message);
+					window.scrollTo(0, 0);
 				}
 			};
 		});

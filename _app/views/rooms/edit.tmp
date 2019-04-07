@@ -1,0 +1,78 @@
+[#include parts/header]
+
+<div class="wrapper">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      	<div class="logo">
+			<a href="/" class="simple-text logo-mini">
+				<div class="logo-image-small">
+					<img src="/img/logo-small.png">
+				</div>
+			</a>
+			<a href="/[language]/dashboard/index" class="simple-text logo-normal">
+				[mainName]
+			</a>
+		</div>
+
+
+		[#include parts/leftNav]
+	</div>
+
+	<div class="main-panel">
+		[#include parts/topNav]
+		
+		<div class="content">
+			<div class="row">
+				<div class="col-md-12" style="margin-top: 0; margin-bottom: 20px;">
+					<div style="display: inline-block;">
+						<a href="[language]/dashboard/index" style="display: inline-block;">მთავარი</a> &#8594; 
+						<a href="/[language]/building/index" style="display: inline-block;">მშენებლობა</a> &#8594; 
+						<a href="/[language]/entrance/index/[building_id]" style="display: inline-block;">სადარბაზო</a> &#8594;
+						<a href="/[language]/floors/index/[building_id]/[entrance_id]" style="display: inline-block;">სართული</a> &#8594;
+
+						<a href="/[language]/rooms/index/[building_id]/[entrance_id]/[floor_id]" style="display: inline-block;">ბინა</a> &#8594;
+
+						<a href="/[language]/rooms/edit/[building_id]/[entrance_id]/[floor_id][id]" style="display: inline-block;">რედაქტირება</a> 
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title" style="display: inline-block;"> ბინის რედაქტირება</h4>
+							<div class="update ml-auto mr-auto" style="float:right">
+		                      <a href="/[language]/rooms/index/[building_id]/[entrance_id]/[floor_id]" class="btn btn-primary btn-round">უკან</a>
+		                    </div>
+						</div>
+						
+						<div class="card-body">
+							[form]
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+		[#include parts/topFooter]
+	</div>
+</div>appendPhoto
+
+<script type="text/javascript">
+var Config = {
+	ajax:"/[language]/ajax",
+	language:"[language]",
+	maxFileSize:"[maxFileSize]"
+};
+</script>
+
+<script src="/js/rooms.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- if '[message]'=='true' -->
+<script type="text/javascript" charset="utf-8">
+	messageBox("roomFormMessageBox", "200", "ოპერაცია წარმატებით დასრულდა!");
+</script>
+<!-- endif -->
+
+
+[#include parts/footer]

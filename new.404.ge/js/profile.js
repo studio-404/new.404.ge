@@ -39,6 +39,7 @@ var ajax = (request, post) => {
 				}
 
 				document.getElementsByClassName("updateProfileMessageBox")[0].innerHTML = messageBox(className, out.status, out.response.message);
+				window.scrollTo(0, 0);
 			}
 		};
 	});
@@ -67,6 +68,7 @@ var ajax = (request, post) => {
 				}
 
 				document.getElementsByClassName("updatePasswordMessageBox")[0].innerHTML = messageBox(className, out.status, out.response.message);
+				window.scrollTo(0, 0);
 			}
 		};
 	});

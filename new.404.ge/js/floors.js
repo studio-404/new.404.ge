@@ -62,6 +62,7 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 					}
 
 					document.getElementsByClassName("floorFormMessageBox")[0].innerHTML = messageBox(className, out.status, out.response.message);
+					window.scrollTo(0, 0);
 				}
 			};
 		});

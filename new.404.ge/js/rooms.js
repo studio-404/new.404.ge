@@ -35,7 +35,7 @@ var filesCount = 1;
 
 (function(){
 	
-	if(typeof document.getElementsByClassName("photo_upload") !== "undefined"){
+	if(typeof document.getElementsByClassName("photo_upload")[0] !== "undefined"){
 		document.getElementsByClassName("photo_upload")[0].addEventListener("click", function(){
 			
 			if(document.getElementsByClassName("files") !== "undefined"){
@@ -86,6 +86,71 @@ var filesCount = 1;
 					input.style.cssText = "height: 1px;";
 					document.getElementsByClassName("filex_box")[0].appendChild(input);
 				});
+			};
+		});
+	};
+
+	if(typeof document.getElementsByClassName("editRoom")[0] !== "undefined"){
+		document.getElementsByClassName("editRoom")[0].addEventListener("click", function(){
+			let editid = parseInt(document.getElementsByClassName("editRoom")[0].getAttribute("data-editid"));
+			let building_id = parseInt(document.getElementsByClassName("editRoom")[0].getAttribute("data-building"));
+			let entrance_id = parseInt(document.getElementsByClassName("editRoom")[0].getAttribute("data-entrance"));
+			let floor_id = parseInt(document.getElementsByClassName("editRoom")[0].getAttribute("data-floor"));
+			let title = (typeof document.getElementsByClassName("title")[0] !== "undefined") ? document.getElementsByClassName("title")[0].value : '';
+			let rooms = (typeof document.getElementsByClassName("rooms")[0] !== "undefined") ? document.getElementsByClassName("rooms")[0].value : '';
+			let bedroom = (typeof document.getElementsByClassName("bedroom")[0] !== "undefined") ? document.getElementsByClassName("bedroom")[0].value : '';
+			let bathrooms = (typeof document.getElementsByClassName("bathrooms")[0] !== "undefined") ? document.getElementsByClassName("bathrooms")[0].value : '';
+			let square = (typeof document.getElementsByClassName("square")[0] !== "undefined") ? document.getElementsByClassName("square")[0].value : '';
+			let ceil_height = (typeof document.getElementsByClassName("ceil_height")[0] !== "undefined") ? document.getElementsByClassName("ceil_height")[0].value : '';
+
+			let additional_info = (typeof document.getElementsByClassName("additional_info") !== "undefined") ? document.getElementsByClassName("additional_info") : [{}];
+			let addInfo = new Array();
+			for(var i = 0; i<additional_info.length; i++){
+				if(additional_info[i].checked){
+					var cols = additional_info[i].getAttribute("data-column");
+					addInfo.push(cols);
+				}
+			}
+
+			let description = (typeof document.getElementsByClassName("description")[0] !== "undefined") ? document.getElementsByClassName("description")[0].value : '';
+
+			let data = 'type=editRoom';
+			data += '&building_id='+building_id;
+			data += '&entrance_id='+entrance_id;
+			data += '&floor_id='+floor_id;
+			data += '&title='+title;
+			data += '&rooms='+rooms;
+			data += '&bedroom='+bedroom;
+			data += '&bathrooms='+bathrooms;
+			data += '&square='+square;
+			data += '&ceil_height='+ceil_height;
+			data += '&addInfo='+addInfo.join();
+			data += '&description='+description;
+			data += '&id='+editid;
+
+			var xhttp = ajax("ajax_rooms", data);
+
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4) {
+					var out = {
+						status: this.status,
+						response: JSON.parse(this.responseText)
+					};
+					
+					var className = "danger";
+					if(out.status==200){
+						className = "success";
+						var input = document.createElement("input");
+						input.type = "hidden";
+						input.name = "insertedId";
+						input.value = out.response.insertedId;
+						document.getElementById("roomsForm").appendChild(input);
+						document.getElementById("roomsForm").submit();			
+					}
+
+					document.getElementsByClassName("roomFormMessageBox")[0].innerHTML = messageBox(className, out.status, out.response.message);
+					window.scrollTo(0, 0);
+				}
 			};
 		});
 	};
@@ -147,9 +212,41 @@ var filesCount = 1;
 					}
 
 					document.getElementsByClassName("roomFormMessageBox")[0].innerHTML = messageBox(className, out.status, out.response.message);
+					window.scrollTo(0, 0);
 				}
 			};
 		});
+	};
+
+	if(typeof document.getElementsByClassName("removePhoto")[0] !== "undefined"){
+		var removePhoto = document.getElementsByClassName("removePhoto");
+
+		for(var i = 0; i < removePhoto.length; i++){
+			removePhoto[i].addEventListener("click", function(){
+				var id = parseInt(this.getAttribute("data-id"));
+
+				let data = 'type=removePhoto';
+				data += '&id='+id;
+
+				var xhttp = ajax("ajax_rooms", data);
+				var that = this;
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4) {
+						var out = {
+							status: this.status,
+							response: JSON.parse(this.responseText)
+						};
+
+						if(out.status==200){
+							console.log("removed");		
+							that.parentNode.remove();
+						}else{
+							bootModal("შეტყობინება", out.response.message);
+						}
+					}
+				};				
+			});
+		}
 	};
 
 })();

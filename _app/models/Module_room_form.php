@@ -85,6 +85,12 @@ class Module_room_form
 			$elevator = $fetch["elevator"];
 			$description = $fetch["description"];
 
+			$db_photos = new Database("db_photos", array(
+				"method"=>"selectByRoomId",
+				"attach_id"=>$this->editId
+			));
+			$photos = $db_photos->getter();
+
 			$submitText = "რედაქტირება";
 			$submitClass = "editRoom";			
 		}else{
@@ -111,7 +117,8 @@ class Module_room_form
 			$furniture = 0;
 			$fridge = 0;
 			$elevator = 0;
-			$description = 0;
+			$description = "";
+			$photos = false;
 			$submitText = "დამატება";
 			$submitClass = "addRoom";			
 		}
@@ -161,13 +168,30 @@ class Module_room_form
 		$this->out .= "<input type=\"file\" name=\"files[]\" class=\"form-control files\" value=\"\" style=\"height:1px\" />"; 
 		$this->out .= "</div>";
 
-		// $this->out .= "<div class=\"row\">";
+		
 		$this->out .= "<div class=\"filex_photos\">";
 		$this->out .= "<div class=\"row\">";
+		
 		$this->out .= "<div class=\"col-md-2\"><span class=\"photo_upload\">ატვირთვა</span></div>"; 
+		
+		if(count($photos)){
+			foreach($photos as $v):				
+				$this->out .= "<div class=\"col-md-2\" style=\"margin-bottom: 5px;\">";
+				$this->out .= "<span class=\"photo_upload\">";
+				$this->out .= "<img src=\"/".$v["path"]."\" style=\"max-height: 90px;\">";
+				$this->out .= "</span>";
+				$this->out .= sprintf(
+					"<i class=\"fa fa-window-close removePhoto\" data-id=\"%d\"></i>",
+					$v["id"]
+				);
+				$this->out .= "</div>";
+			endforeach;
+		}
+
 		$this->out .= "</div>";
 		$this->out .= "</div>";
-		// $this->out .= "</div>";
+
+		
 
 		$this->out .= "</div>";
 		$this->out .= "</div>";	
@@ -175,7 +199,10 @@ class Module_room_form
 		$this->out .= "<div class=\"col-md-12\" style=\"margin: 25px 0 0 0\">";
 		$this->out .= "<div class=\"form-group\">"; 
 		$this->out .= "<label>აღწერა</label>"; 
-		$this->out .= "<textarea name=\"description\" class=\"form-control description\"></textarea>"; 
+		$this->out .= sprintf(
+			"<textarea name=\"description\" class=\"form-control description\">%s</textarea>",
+			$description
+		); 
 		$this->out .= "</div>";
 		$this->out .= "</div>";		
 		

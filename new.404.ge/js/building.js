@@ -113,6 +113,7 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 					}
 
 					document.getElementsByClassName("buildingsFormMessageBox")[0].innerHTML = messageBox(className, out.status, out.response.message);
+					window.scrollTo(0, 0);
 				}
 			};
 		});
