@@ -3,6 +3,7 @@
 class ajax_users
 {
 	public $message = array("error"=>true, "success"=>false, "message"=>"მოთხოვნა ვერ მოიძებნა!");
+	
 	public function output($language)
 	{
 		$Functions = new Functions;

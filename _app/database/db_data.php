@@ -17,6 +17,7 @@ class db_data
 	{
 		$db_fetch = [];
 		$select = "SELECT 
+		*,
 		COUNT(`id`) AS userCount,
 		(SELECT COUNT(`shindi_companies`.`id`) FROM `shindi_companies` WHERE `shindi_companies`.`status`!=:one) AS companyCount,
 		(SELECT COUNT(`shindi_buildings`.`id`) FROM `shindi_buildings` WHERE `shindi_buildings`.`status`!=:one) AS buildingCount  

@@ -2,6 +2,14 @@
 
 class Users extends Controller
 {
+	private function checkUserType($language)
+	{
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]!="manager"){
+			$Functions = new Functions;
+			$fu_redirect = $Functions->load("fu_redirect");
+			$fu_redirect->gotoUrl("/".$language."/dashboard/index");
+		}
+	}
 	public function index($language='', $page = 1)
 	{
 		if(!isset($_SESSION["user_data"])):
@@ -9,6 +17,8 @@ class Users extends Controller
 			$redirect = $Functions->load("fu_redirect");
 			$redirect->gotoUrl("/".$language."/home/index");
 		endif;
+
+		$this->checkUserType($language);
 
 		$Module_users_list = $this->model('Module_users_list');
 		$Module_users_list->page = $page;
@@ -37,6 +47,8 @@ class Users extends Controller
 			$redirect->gotoUrl("/".$language."/home/index");
 		endif;
 
+		$this->checkUserType($language);
+
 		$Module_users_form = $this->model('Module_users_form');
 		$Module_users_form->type = "add";
 
@@ -61,6 +73,8 @@ class Users extends Controller
 			$redirect = $Functions->load("fu_redirect");
 			$redirect->gotoUrl("/".$language."/home/index");
 		endif;
+
+		$this->checkUserType($language);
 
 		$Module_users_form = $this->model('Module_users_form');
 		$Module_users_form->type = "edit";

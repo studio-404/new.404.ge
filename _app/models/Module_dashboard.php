@@ -48,6 +48,76 @@ class Module_dashboard
 		return $out;
 	}
 
+	private function permitions()
+	{
+		$Functions = new Functions();
+		$permition = $Functions->load("fu_permision");
+
+		$out = "<div class=\"col-lg-12 col-md-12 col-sm-12\">";
+		$out .= "<div class=\"card card-stats\">";
+		$out .= "<div class=\"card-header\">
+                <h4 class=\"card-title\"> ნებართვები</h4>
+              </div>";
+		$out .= "<div class=\"card-body\">";
+		
+		$out .= "<div class=\"table-responsive\">";
+		$out .= "<table class=\"table\">";
+		$out .= "<thead class=\"text-primary\">";
+		
+		$out .= "<tr>";
+		$out .= "<th>მოქმედება</th>";
+		$out .= "<th>კომპანია</th>";
+		$out .= "<th>მშენებლობა</th>";
+		$out .= "<th>სადარბაზო</th>";
+		$out .= "<th>სართული</th>";
+		$out .= "<th>ოთახი</th>";
+		$out .= "</tr>";
+
+		$out .= "</thead>";
+		$out .= "<tbody>";
+		
+		$out .= "<tr>";
+		$out .= "<td>დამატება</td>";		
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_company", "add")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_buldings", "add")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_entrance", "add")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_floor", "add")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_room", "add")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		$out .= "</tr>";
+
+		$out .= "<tr>";
+		$out .= "<td>რედაქტირება</td>";		
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_company", "edit")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_buldings", "edit")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_entrance", "edit")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_floor", "edit")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_room", "edit")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		$out .= "</tr>";
+
+		$out .= "<tr>";
+		$out .= "<td>წაშლა</td>";		
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_company", "delete")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_buldings", "delete")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_entrance", "delete")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_floor", "delete")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_room", "delete")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		$out .= "</tr>";
+		
+		$out .= "</tbody>";
+		$out .= "</table>";
+		$out .= "</div>";
+		
+
+		$out .= "</div>";
+
+		
+
+		$out .= "</div>";
+		$out .= "</div>";
+
+		return $out;
+	}
+
 	public function index()
 	{
 		$href = "/".$this->language."/users/index";
@@ -58,6 +128,8 @@ class Module_dashboard
 
 		$href = "/".$this->language."/building/index";
 		$this->out .= $this->card("nc-bank","მშენებლობა", (int)@$this->data["buildingCount"], $href);
+
+		$this->out .= $this->permitions();
 
 		return $this->out;
 	}
