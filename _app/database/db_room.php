@@ -13,6 +13,35 @@ class db_room
 		return $out;
 	}
 
+	private function deleteRoom($args)
+	{
+		$update = "UPDATE `shindi_rooms` SET 
+		`status`=:one
+		WHERE
+		`id`=:id";
+
+		$prepare = $this->conn->prepare($update);
+		$prepare->execute(array(
+			":one"=>1,
+			":id"=>(int)$args["id"]
+		));
+
+
+		$update2 = "UPDATE `shindi_photos` SET 
+		`status`=:one
+		WHERE
+		`attach_id`=:id";
+
+		$prepare2 = $this->conn->prepare($update2);
+		$prepare2->execute(array(
+			":one"=>1,
+			":id"=>(int)$args["id"]
+		));
+
+
+		return true;
+	}
+
 	private function select($args)
 	{
 		$db_fetch = [];

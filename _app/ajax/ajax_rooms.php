@@ -18,10 +18,56 @@ class ajax_rooms
 			case 'editRoom':
 				return $this->editRoom($request, $language);
 				break;
+			case 'deleteRoom':
+				return $this->deleteRoom($request, $language);
+				break;
 		}
 
 		http_response_code(404);
 		return $this->message;
+	}
+
+	private function deleteRoom($request, $language)
+	{
+		$Functions = new Functions();
+		$permition = $Functions->load("fu_permision");
+
+		if(
+			!$request->index("POST", "id")
+		){
+			http_response_code(400);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"ყველა ველი სავალდებულოა!"
+			);
+			return $this->message;
+			exit;
+		}else if(!$permition->check("permission_room", "delete")){
+			http_response_code(401);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"თქვენ არ გაქვთ წაშლის უფლება!"
+			);
+			return $this->message;
+			exit;
+		}else{
+			$Database = new Database("db_room", array(
+				"method"=>"deleteRoom",
+				"id"=>$request->index("POST", "id")
+			));
+
+			$this->message = array(
+				"error"=>false,
+				"success"=>true,
+				"message"=>"ოპერაცია წარმატებით შესრულდა!"
+			);
+			http_response_code(200);
+
+			return $this->message;
+			exit;
+		}
 	}
 
 	private function removePhoto($request, $language)

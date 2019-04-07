@@ -11,7 +11,7 @@ var ajax = (request, post) => {
 	return xhttp;
 };
 
-var bootModal = (modalTitle, modalBody) => {
+var bootModal = (modalTitle, modalBody, modalFooter = '') => {
 	$(".modal").remove();
 	let out = "<div class=\"modal\" tabindex=\"-1\" role=\"dialog\">";
 	out += "<div class=\"modal-dialog\" role=\"document\">";
@@ -25,6 +25,12 @@ var bootModal = (modalTitle, modalBody) => {
     out += "<div class=\"modal-body\">";
     out += modalBody;
 	out += "</div>";
+	if(modalFooter!=''){
+		out += "<div class=\"modal-footer\">";
+    	out += modalFooter;  
+    	out += "</div>";
+	}
+
    	out += "</div>";
   	out += "</div>";
 	out += "</div>";
@@ -245,6 +251,56 @@ var filesCount = 1;
 						}
 					}
 				};				
+			});
+		}
+	};
+
+
+	if(typeof document.getElementsByClassName("removeRoom") !== "undefined"){
+		var removeRoom = document.getElementsByClassName("removeRoom");
+		for(var i = 0; i < removeRoom.length; i++){
+			removeRoom[i].addEventListener("click", function(){
+				let modalTitle = this.getAttribute("data-modalTitle");
+				let modalBody = this.getAttribute("data-modalBody");
+				let yesText = this.getAttribute("data-yesText");
+				let noText = this.getAttribute("data-noText");
+				let id = this.getAttribute("data-id");
+
+				var modalFooter = "<button type=\"button\" class=\"btn btn-primary btn-round deleteRoom\" data-id=\""+id+"\">"+yesText+"</button>";
+			    modalFooter += "<button type=\"button\" class=\"btn btn-secondary btn-round\" data-dismiss=\"modal\">"+noText+"</button>";
+			      
+				bootModal(modalTitle, modalBody, modalFooter);
+
+
+				if(typeof document.getElementsByClassName("deleteRoom")[0] !== "undefined"){
+					document.getElementsByClassName("deleteRoom")[0].addEventListener("click", function(){
+						let id = document.getElementsByClassName("deleteRoom")[0].getAttribute("data-id");
+
+						var xhttp = ajax("ajax_rooms", "type=deleteRoom&id="+id);
+
+						xhttp.onreadystatechange = function() {
+							if (this.readyState == 4) {
+								var out = {
+									status: this.status,
+									response: JSON.parse(this.responseText)
+								};
+								
+								if(out.status==200){
+									location.reload();
+								}else{
+									if(document.getElementsByClassName("modal-body")[0] !== "undefined"){
+										document.getElementsByClassName("modal-body")[0].innerHTML = "<p>"+out.response.message+"</p>";
+									}
+
+									if(document.getElementsByClassName("modal-footer")[0] !== "undefined"){
+										document.getElementsByClassName("modal-footer")[0].remove();
+									}
+									console.log(out);
+								}
+							}
+						};
+					});		
+				}
 			});
 		}
 	};
