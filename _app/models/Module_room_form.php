@@ -15,8 +15,10 @@ class Module_room_form
 		
 	}
 
-	private function input($label, $className, $value, $readonly = false, $cols = 6){
-		$out = sprintf("<div class=\"col-md-%d\">", $cols); 
+	private function input($label, $className, $value, $readonly = false, $cols = 6, $display = false)
+	{
+		$display = ($display) ? ' style="display:none"' : '';
+		$out = sprintf("<div class=\"col-md-%d\"%s>", $cols, $display); 
 		$out .= "<div class=\"form-group\">"; 
 		$out .= sprintf("<label>%s</label>", $label); 
 		$readonly = ($readonly) ? ' readonly="readonly"' : '';
@@ -46,6 +48,50 @@ class Module_room_form
         $out .= "</div>";        
 
         return $out;
+	}
+
+	private function radio($radioName, $value, $text, $checked = false)
+	{
+		$out = "<div class=\"form-check-radio\">";
+       	$out .= "<label class=\"form-check-label\">";
+        
+        $checked = ($checked) ? 'checked="checked"' : '';
+        $out .= sprintf(
+        	"<input class=\"form-check-input %s\" type=\"radio\" name=\"%s\" value=\"%s\" %s/> %s",
+        	$radioName,
+        	$radioName,
+        	$value,
+        	$checked,
+        	$text
+        );
+
+        $out .= "<span class=\"form-check-sign\"></span>";
+        $out .= "</label>";
+        $out .= "</div>";
+
+        return $out;
+	}
+
+	private function input_select($selectedName, $id, $list, $selected=0, $col=6)
+	{
+		$out = sprintf("<div class=\"col-md-%d\">", $col); 
+		$out .= "<div class=\"form-group\">"; 
+		$out .= sprintf("<label>%s</label>", $selectedName); 
+		$out .= sprintf("<select class=\"form-control %s\" style=\"padding:0 10px\">", $id);
+		foreach($list as $v):
+		$selected_ = ($v["val"]==$selected) ? ' selected="selected"' : '';
+		$out .= sprintf(
+			"<option value=\"%s\"%s>%s</option>",
+			$v["val"],
+			$selected_,
+			$v["title"]
+		);
+		endforeach;		
+		$out .= "</select>";
+		$out .= "</div>";
+		$out .= "</div>";
+
+		return $out;
 	}
 
 	public function index()
@@ -84,6 +130,12 @@ class Module_room_form
 			$fridge = $fetch["fridge"];
 			$elevator = $fetch["elevator"];
 			$description = $fetch["description"];
+			$totalprice = $fetch["totalprice"];
+			$pre_pay = $fetch["pre_pay"];
+			$paying_start_day = $fetch["paying_start_day"];
+			$payed_months = $fetch["payed_months"];
+			$installment_months = $fetch["installment_months"];
+			$available_status = $fetch["available_status"];
 
 			$db_photos = new Database("db_photos", array(
 				"method"=>"selectByRoomId",
@@ -118,6 +170,12 @@ class Module_room_form
 			$fridge = 0;
 			$elevator = 0;
 			$description = "";
+			$totalprice = 0;
+			$pre_pay = 0;
+			$installment_months = 0;
+			$paying_start_day = date("Y-m-d");
+			$payed_months = "";
+			$available_status = "avaliable";
 			$photos = false;
 			$submitText = "დამატება";
 			$submitClass = "addRoom";			
@@ -136,9 +194,7 @@ class Module_room_form
 		$this->out .= $this->input("სააბაზანო", "bathrooms", htmlentities($bathrooms), false, 4);
 		$this->out .= $this->input("კვ.მ.", "square", htmlentities($square), false, 6);
 		$this->out .= $this->input("ჭერის სიმაღლე", "ceil_height", htmlentities($ceil_height), false, 6);
-
-
-
+		
 		$this->out .= "<div class=\"col-md-12\" style=\"margin: 25px 0 0 0\">";
 		$this->out .= "<div class=\"typography-line\"><h6>დამატებითი ინფორმაცია</h6></div>";
 		$this->out .= "</div>";
@@ -158,8 +214,8 @@ class Module_room_form
 		$this->out .= $this->checkbox("furniture", $furniture, "ავეჯი", 1);
 		$this->out .= $this->checkbox("fridge", $fridge, "მაცივარი", 1);
 		$this->out .= $this->checkbox("elevator", $elevator, "ლიფტი", 1);
-		
-		
+
+				
 		$this->out .= "<div class=\"col-md-12\" style=\"margin: 25px 0 0 0\">";
 		$this->out .= "<div class=\"form-group\">"; 
 		$this->out .= "<label>ფოტო (jpg, png, gif, jpeg) <5mb</label>"; 
@@ -174,7 +230,7 @@ class Module_room_form
 		
 		$this->out .= "<div class=\"col-md-2\"><span class=\"photo_upload\">ატვირთვა</span></div>"; 
 		
-		if(count($photos)){
+		if(count($photos) && is_array($photos)){
 			foreach($photos as $v):				
 				$this->out .= "<div class=\"col-md-2\" style=\"margin-bottom: 5px;\">";
 				$this->out .= "<span class=\"photo_upload\">";
@@ -194,9 +250,138 @@ class Module_room_form
 		
 
 		$this->out .= "</div>";
-		$this->out .= "</div>";	
+		$this->out .= "</div>";
+
+		$this->out .= "<div class=\"col-md-12\" style=\"margin: 10px 0 0 0\">";	
+		$this->out .= "&nbsp;";
+		$this->out .= "</div>";
+
+		$this->out .= "<div class=\"col-md-12\">";
+		$this->out .= "<div class=\"typography-line\"><h6>სტატუსი</h6></div>";
+		$this->out .= "</div>";
+
+		$this->out .= "<div class=\"col-md-3\">";
+		$this->out .= $this->radio("choose_status", "avaliable", "ხელმისაწვდომი", ($available_status=="avaliable") ? true : false);
+		$this->out .= "</div>";
+
+		$this->out .= "<div class=\"col-md-3\">";
+		$this->out .= $this->radio("choose_status", "sold", "გაყიდული", ($available_status=="sold") ? true : false);
+		$this->out .= "</div>";
+
+		$this->out .= "<div class=\"col-md-3\">";
+		$this->out .= $this->radio("choose_status", "internal_installment", "შიდა განვადება", ($available_status=="internal_installment") ? true : false);
+		$this->out .= "</div>";
+
+		$this->out .= "<div class=\"col-md-3\">";
+		$this->out .= $this->radio("choose_status", "bank_installment", "ბანკის განვადება", ($available_status=="bank_installment") ? true : false);
+		$this->out .= "</div>";
 		
-		$this->out .= "<div class=\"col-md-12\" style=\"margin: 25px 0 0 0\">";
+
+		$this->out .= "<div class=\"col-md-12\" style=\"margin: 10px 0 0 0\">";	
+		$this->out .= "&nbsp;";
+		$this->out .= "</div>";
+
+
+		$this->out .= $this->input("სრული ღირებულება", "totalprice", htmlentities($totalprice), false, ($available_status=="internal_installment" || $available_status=="bank_installment") ? 3 : 12);
+		
+		$this->out .= $this->input("გადახდილი თანხა", "pre_pay", htmlentities($pre_pay), false, 3, ($available_status=="internal_installment" || $available_status=="bank_installment") ? false : true);
+
+		$this->out .= $this->input("გადახდის საწყისი თარიღი", "paying_start_day datepicker", htmlentities($paying_start_day), false, 3, ($available_status=="internal_installment" || $available_status=="bank_installment") ? false : true);
+
+		$this->out .= $this->input("განვადების თვეების რაოდენობა", "installment_months", htmlentities($installment_months), false, 3, ($available_status=="internal_installment" || $available_status=="bank_installment") ? false : true);
+
+		
+		$installment_list_display = ($available_status=="internal_installment" || $available_status=="bank_installment") ? "block" : "none";
+		$this->out .= sprintf(
+			"<div class=\"col-md-12\" style=\"display:%s; margin-top:20px;\">",
+			$installment_list_display
+		);
+		$this->out .= "<div class=\"typography-line\">";
+		$this->out .= "<h6>გადახდის გრაფიკი</h6>";
+		$this->out .= "</div>";
+		$this->out .= "</div>";
+
+		$this->out .= sprintf(
+			"<div class=\"col-md-12 installment_list\" style=\"display:%s\">",
+			$installment_list_display
+		);
+		
+		$this->out .= "<div class=\"card card-plain\">";
+        
+        $this->out .= "<div class=\"card-body\" style=\"border:solid 1px #f2f2f2;\">";
+		$this->out .= "<div class=\"table-responsive\">";
+		
+		$this->out .= "<table class=\"table\">";
+
+		$this->out .= "<thead class=\"text-primary\">";
+		$this->out .= "<tr>";
+		$this->out .= "<th class=\"text-left\">გადახდის თარიღი ( Y-m-d )</th>";
+		$this->out .= "<th class=\"text-left\">გადასახადი თანხა</th>";
+		$this->out .= "<th class=\"text-left\">დარჩენილი ძირი</th>";
+		$this->out .= "<th class=\"text-left\">სტატუსი</th>";
+		$this->out .= "</tr>";
+		$this->out .= "</thead>";
+		$this->out .= "<tbody class=\"installment_tbody\">";
+
+		$total_installment = (int)$totalprice - (int)$pre_pay;
+		$this->out .= "<tr>";
+		$this->out .= sprintf(
+			"<td colspan=\"4\" style=\"border-top:0px; padding-bottom:20px;\"><strong>სესხის ოდენობა:</strong> %s</td>",
+			number_format((int)$total_installment, 2, ".", " ")
+		);
+		$this->out .= "</tr>";
+		
+		$payed = 0;	
+
+		$payed_months_array = explode(";", $payed_months);	
+		for ($i=1; $i <= (int)$installment_months; $i++):
+			$date = new DateTime($paying_start_day);
+			$modify = sprintf("+%d month", $i);
+			$date->modify($modify);
+			
+			$monthPay = (int)$total_installment / (int)$installment_months;
+			$payed += $monthPay;
+			$remaining = $total_installment - $payed;
+			
+			$payed_month = (in_array($date->format("Y-m-d"), $payed_months_array)) ? true : false;
+			$this->out .= "<tr>";
+			$this->out .= sprintf("<td class=\"text-left\">%s</td>", $date->format("Y-m-d"));
+			$this->out .= sprintf("<td class=\"text-left\">%s</td>", number_format($monthPay, 2, ".", " "));
+			$this->out .= sprintf("<td class=\"text-left\">%s</td>", number_format($remaining, 2, ".", " "));
+			$this->out .= "<td class=\"text-left\">";
+			
+			if($payed_month){
+				$this->out .= sprintf(
+					"<btn class=\"btn btn-sm btn-outline-success btn-round btn-icon gchangepaystatus active\" data-status=\"on\" data-month=\"%s\">",
+					$date->format("Y-m-d")
+				);
+				$this->out .= "<i class=\"fa fa-toggle-on\"></i>";
+				$this->out .= "</btn>";
+			}else{
+				$this->out .= sprintf(
+					"<btn class=\"btn btn-sm btn-outline-success btn-round btn-icon gchangepaystatus\" data-status=\"off\" data-month=\"%s\">",
+					$date->format("Y-m-d")
+				);
+				$this->out .= "<i class=\"fa fa-toggle-off\"></i>";
+				$this->out .= "</btn>";
+			}
+			$this->out .= "</td>";
+			$this->out .= "</tr>";
+		endfor;
+		
+		$this->out .= "</tbody>";
+		$this->out .= "</table>";
+
+		$this->out .= "</div>";
+		$this->out .= "</div>";
+		$this->out .= "</div>";
+
+		$this->out .= "</div>";
+
+
+
+		
+		$this->out .= "<div class=\"col-md-12\">";
 		$this->out .= "<div class=\"form-group\">"; 
 		$this->out .= "<label>აღწერა</label>"; 
 		$this->out .= sprintf(

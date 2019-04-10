@@ -135,6 +135,7 @@ class ajax_rooms
 			!$request->index("POST", "bathrooms") || 
 			!$request->index("POST", "square") || 
 			!$request->index("POST", "ceil_height") || 
+			!$request->index("POST", "choose_status") || 
 			!$request->index("POST", "description") 
 		){
 			http_response_code(400);
@@ -157,7 +158,13 @@ class ajax_rooms
 				"bathrooms"=>$request->index("POST", "bathrooms"),  
 				"square"=>$request->index("POST", "square"),  
 				"ceil_height"=>$request->index("POST", "ceil_height"),  
+				"available_status"=>$request->index("POST", "choose_status"),  
+				"totalprice"=>(int)$request->index("POST", "totalprice"),  
+				"pre_pay"=>(int)$request->index("POST", "pre_pay"),  
+				"paying_start_day"=>$request->index("POST", "paying_start_day"),  
+				"installment_months"=>(int)$request->index("POST", "installment_months"),  
 				"addInfo"=>$request->index("POST", "addInfo"),  
+				"payed_months"=>$request->index("POST", "payed_months"),  
 				"description"=>$request->index("POST", "description")  
 			));
 
@@ -199,6 +206,7 @@ class ajax_rooms
 			!$request->index("POST", "bathrooms") || 
 			!$request->index("POST", "square") || 
 			!$request->index("POST", "ceil_height") || 
+			!$request->index("POST", "choose_status") || 
 			!$request->index("POST", "description") 
 		){
 			http_response_code(400);
@@ -222,6 +230,12 @@ class ajax_rooms
 				"square"=>$request->index("POST", "square"),  
 				"ceil_height"=>$request->index("POST", "ceil_height"),  
 				"addInfo"=>$request->index("POST", "addInfo"),  
+				"payed_months"=>$request->index("POST", "payed_months"),  
+				"available_status"=>$request->index("POST", "choose_status"),  
+				"totalprice"=>(int)$request->index("POST", "totalprice"),  
+				"pre_pay"=>(int)$request->index("POST", "pre_pay"),  
+				"paying_start_day"=>$request->index("POST", "paying_start_day"),  
+				"installment_months"=>(int)$request->index("POST", "installment_months"), 
 				"description"=>$request->index("POST", "description"),  
 				"id"=>$request->index("POST", "id")
 			));

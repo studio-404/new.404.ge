@@ -65,12 +65,10 @@ var Config = {
 	maxFileSize:"[maxFileSize]"
 };
 </script>
-
 <script src="/js/rooms.js" type="text/javascript" charset="utf-8"></script>
-
 <!-- if '[message]'=='true' -->
 <script type="text/javascript" charset="utf-8">
-	messageBox("roomFormMessageBox", "200", "ოპერაცია წარმატებით დასრულდა!");
+	messageBox("roomFormMessageBox", "200", "ოპერაცია წარმატებით დასრულდა!");	
 </script>
 <!-- endif -->
 

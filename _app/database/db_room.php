@@ -166,7 +166,13 @@ class db_room
 		`alarms`=:alarms,
 		`furniture`=:furniture,
 		`fridge`=:fridge,
-		`elevator`=:elevator
+		`elevator`=:elevator,
+		`available_status`=:available_status,
+		`totalprice`=:totalprice,
+		`pre_pay`=:pre_pay,
+		`paying_start_day`=:paying_start_day,
+		`payed_months`=:payed_months,
+		`installment_months`=:installment_months
 		";
 
 		$prepare = $this->conn->prepare($insert);
@@ -196,7 +202,13 @@ class db_room
 			":alarms"=>$alarms,
 			":furniture"=>$furniture,
 			":fridge"=>$fridge,
-			":elevator"=>$elevator
+			":elevator"=>$elevator,
+			":available_status"=>$args["available_status"],
+			":totalprice"=>$args["totalprice"],
+			":pre_pay"=>$args["pre_pay"],
+			":payed_months"=>$args["payed_months"],
+			":paying_start_day"=>$args["paying_start_day"],
+			":installment_months"=>$args["installment_months"]
 		));
 
 		$lastInsertId = $this->conn->lastInsertId();
@@ -268,7 +280,13 @@ class db_room
 		`alarms`=:alarms,
 		`furniture`=:furniture,
 		`fridge`=:fridge,
-		`elevator`=:elevator
+		`elevator`=:elevator,
+		`available_status`=:available_status,
+		`totalprice`=:totalprice,
+		`pre_pay`=:pre_pay,
+		`paying_start_day`=:paying_start_day,
+		`payed_months`=:payed_months,
+		`installment_months`=:installment_months
 		WHERE
 		`id`=:id
 		";
@@ -301,6 +319,12 @@ class db_room
 			":furniture"=>$furniture,
 			":fridge"=>$fridge,
 			":elevator"=>$elevator,
+			":available_status"=>$args["available_status"],
+			":totalprice"=>$args["totalprice"],
+			":pre_pay"=>$args["pre_pay"],
+			":paying_start_day"=>$args["paying_start_day"],
+			":payed_months"=>$args["payed_months"],
+			":installment_months"=>$args["installment_months"],
 			":id"=>$args["id"]
 		));
 

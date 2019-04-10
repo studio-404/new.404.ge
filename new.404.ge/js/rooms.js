@@ -40,6 +40,31 @@ var bootModal = (modalTitle, modalBody, modalFooter = '') => {
 var filesCount = 1;
 
 (function(){
+
+	if(typeof document.getElementsByClassName("choose_status")[0] !== "undefined"){
+		var status = document.getElementsByClassName("choose_status");
+
+		for(var i = 0; i < status.length; i++){
+			status[i].addEventListener("click", function(){
+				console.log(this.value);
+				if(this.value=="internal_installment" || this.value=="bank_installment"){
+					document.getElementsByClassName("totalprice")[0].parentNode.parentNode.classList.remove("col-md-12");
+					document.getElementsByClassName("totalprice")[0].parentNode.parentNode.classList.add("col-md-3");
+					document.getElementsByClassName("pre_pay")[0].parentNode.parentNode.style.display = "block";
+					document.getElementsByClassName("installment_months")[0].parentNode.parentNode.style.display = "block";
+					document.getElementsByClassName("installment_list")[0].style.display = "block";
+					document.getElementsByClassName("paying_start_day")[0].style.display = "block";
+				}else{
+					document.getElementsByClassName("totalprice")[0].parentNode.parentNode.classList.remove("col-md-3");
+					document.getElementsByClassName("totalprice")[0].parentNode.parentNode.classList.add("col-md-12");
+					document.getElementsByClassName("pre_pay")[0].parentNode.parentNode.style.display = "none";
+					document.getElementsByClassName("installment_months")[0].parentNode.parentNode.style.display = "none";
+					document.getElementsByClassName("installment_list")[0].style.display = "none";
+					document.getElementsByClassName("paying_start_day")[0].style.display = "none";
+				}
+			});
+		}
+	}
 	
 	if(typeof document.getElementsByClassName("photo_upload")[0] !== "undefined"){
 		document.getElementsByClassName("photo_upload")[0].addEventListener("click", function(){
@@ -118,6 +143,24 @@ var filesCount = 1;
 				}
 			}
 
+			let choose_status = (typeof document.querySelector("input[name='choose_status']:checked") !== "undefined") ? document.querySelector("input[name='choose_status']:checked").value : 'avaliable';
+			let totalprice = (typeof document.getElementsByClassName("totalprice")[0] !== "undefined") ? document.getElementsByClassName("totalprice")[0].value : '0';
+			let pre_pay = (typeof document.getElementsByClassName("pre_pay")[0] !== "undefined") ? document.getElementsByClassName("pre_pay")[0].value : '0';
+			let paying_start_day = (typeof document.getElementsByClassName("paying_start_day")[0] !== "undefined") ? document.getElementsByClassName("paying_start_day")[0].value : '0';
+			let installment_months = (typeof document.getElementsByClassName("installment_months")[0] !== "undefined") ? document.getElementsByClassName("installment_months")[0].value : '0';
+
+			let payed_months = new Array();
+			let gchangepaystatus = document.getElementsByClassName("gchangepaystatus");
+			for(var i = 0; i < gchangepaystatus.length; i++){
+				let status = gchangepaystatus[i].getAttribute("data-status");
+				let month = gchangepaystatus[i].getAttribute("data-month");
+
+				if(status=="on"){
+					payed_months.push(month);
+				}
+			};
+
+
 			let description = (typeof document.getElementsByClassName("description")[0] !== "undefined") ? document.getElementsByClassName("description")[0].value : '';
 
 			let data = 'type=editRoom';
@@ -130,7 +173,13 @@ var filesCount = 1;
 			data += '&bathrooms='+bathrooms;
 			data += '&square='+square;
 			data += '&ceil_height='+ceil_height;
+			data += '&choose_status='+choose_status;
+			data += '&totalprice='+totalprice;
+			data += '&pre_pay='+pre_pay;
+			data += '&paying_start_day='+paying_start_day;
+			data += '&installment_months='+installment_months;
 			data += '&addInfo='+addInfo.join();
+			data += '&payed_months='+payed_months.join(";");
 			data += '&description='+description;
 			data += '&id='+editid;
 
@@ -182,6 +231,23 @@ var filesCount = 1;
 				}
 			}
 
+			let choose_status = (typeof document.querySelector("input[name='choose_status']:checked") !== "undefined") ? document.querySelector("input[name='choose_status']:checked").value : 'avaliable';
+			let totalprice = (typeof document.getElementsByClassName("totalprice")[0] !== "undefined") ? document.getElementsByClassName("totalprice")[0].value : '0';
+			let pre_pay = (typeof document.getElementsByClassName("pre_pay")[0] !== "undefined") ? document.getElementsByClassName("pre_pay")[0].value : '0';
+			let paying_start_day = (typeof document.getElementsByClassName("paying_start_day")[0] !== "undefined") ? document.getElementsByClassName("paying_start_day")[0].value : '0';
+			let installment_months = (typeof document.getElementsByClassName("installment_months")[0] !== "undefined") ? document.getElementsByClassName("installment_months")[0].value : '0';
+
+			let payed_months = new Array();
+			let gchangepaystatus = document.getElementsByClassName("gchangepaystatus");
+			for(var i = 0; i < gchangepaystatus.length; i++){
+				let status = gchangepaystatus[i].getAttribute("data-status");
+				let month = gchangepaystatus[i].getAttribute("data-month");
+
+				if(status=="on"){
+					payed_months.push(month);
+				}
+			};
+
 			let description = (typeof document.getElementsByClassName("description")[0] !== "undefined") ? document.getElementsByClassName("description")[0].value : '';
 
 			let data = 'type=addRoom';
@@ -194,7 +260,14 @@ var filesCount = 1;
 			data += '&bathrooms='+bathrooms;
 			data += '&square='+square;
 			data += '&ceil_height='+ceil_height;
+			data += '&choose_status='+choose_status;
+			data += '&totalprice='+totalprice;
+			data += '&totalprice='+totalprice;
+			data += '&pre_pay='+pre_pay;
+			data += '&paying_start_day='+paying_start_day;
+			data += '&installment_months='+installment_months;
 			data += '&addInfo='+addInfo.join();
+			data += '&payed_months='+payed_months.join(";");
 			data += '&description='+description;
 
 			var xhttp = ajax("ajax_rooms", data);
@@ -303,6 +376,30 @@ var filesCount = 1;
 				}
 			});
 		}
+	};
+
+
+	if(typeof document.getElementsByClassName("gchangepaystatus")[0] !== "undefined"){
+		var gchangepaystatus = document.getElementsByClassName("gchangepaystatus");
+
+		for(var i = 0; i < gchangepaystatus.length; i++){
+			gchangepaystatus[i].addEventListener("click", function(){
+				let status = this.getAttribute("data-status");
+
+				if(status=="off"){//change to on
+					this.setAttribute("data-status", "on");
+					this.classList.add("active");
+					this.childNodes[0].classList.remove("fa-toggle-off");
+					this.childNodes[0].classList.add("fa-toggle-on");
+				}else{//change to off
+					this.setAttribute("data-status", "off");
+					this.classList.remove("active");
+					this.childNodes[0].classList.remove("fa-toggle-on");
+					this.childNodes[0].classList.add("fa-toggle-off");
+				}
+
+			});
+		};
 	};
 
 })();

@@ -10,6 +10,15 @@
 			</a>
 		</li>
 
+		<li class="<!-- if '[controller]'=='search' --> 
+		active 
+		<!-- endif -->">
+			<a href="/[language]/search/index">
+				<i class="nc-icon nc-zoom-split"></i>
+				<p>ძიება</p>
+			</a>
+		</li>
+
 		<!-- if '[user_type]'=='manager' -->
 		<li class="<!-- if '[controller]'=='users' --> 
 		active 
@@ -20,6 +29,7 @@
 			</a>
 		</li>
 		<!-- endif -->
+
 
 		<li class="<!-- if '[controller]'=='company' --> 
 		active 

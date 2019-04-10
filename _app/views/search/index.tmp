@@ -1,0 +1,54 @@
+[#include parts/header]
+
+<div class="wrapper">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      	<div class="logo">
+			<a href="/" class="simple-text logo-mini">
+				<div class="logo-image-small">
+					<img src="/img/logo-small.png">
+				</div>
+			</a>
+			<a href="/[language]/dashboard/index" class="simple-text logo-normal">
+				[mainName]
+			</a>
+		</div>
+
+
+		[#include parts/leftNav]
+	</div>
+
+	<div class="main-panel">
+		[#include parts/topNav]
+		
+		<div class="content">
+			
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title"> გაფართოებული ძიება</h4>
+						</div>
+						
+						<div class="card-body">
+							ფორმა
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+		[#include parts/topFooter]
+	</div>
+</div>
+
+<script type="text/javascript">
+var Config = {
+	ajax:"/[language]/ajax",
+	language:"[language]"
+};
+</script>
+<script src="/js/search.js" type="text/javascript" charset="utf-8"></script>
+
+[#include parts/footer]
