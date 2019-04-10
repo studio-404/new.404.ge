@@ -292,95 +292,44 @@ class Module_room_form
 
 		
 		$installment_list_display = ($available_status=="internal_installment" || $available_status=="bank_installment") ? "block" : "none";
-		$this->out .= sprintf(
-			"<div class=\"col-md-12\" style=\"display:%s; margin-top:20px;\">",
-			$installment_list_display
-		);
-		$this->out .= "<div class=\"typography-line\">";
-		$this->out .= "<h6>გადახდის გრაფიკი</h6>";
-		$this->out .= "</div>";
-		$this->out .= "</div>";
-
-		$this->out .= sprintf(
-			"<div class=\"col-md-12 installment_list\" style=\"display:%s\">",
-			$installment_list_display
-		);
-		
-		$this->out .= "<div class=\"card card-plain\">";
-        
-        $this->out .= "<div class=\"card-body\" style=\"border:solid 1px #f2f2f2;\">";
-		$this->out .= "<div class=\"table-responsive\">";
-		
-		$this->out .= "<table class=\"table\">";
-
-		$this->out .= "<thead class=\"text-primary\">";
-		$this->out .= "<tr>";
-		$this->out .= "<th class=\"text-left\">გადახდის თარიღი ( Y-m-d )</th>";
-		$this->out .= "<th class=\"text-left\">გადასახადი თანხა</th>";
-		$this->out .= "<th class=\"text-left\">დარჩენილი ძირი</th>";
-		$this->out .= "<th class=\"text-left\">სტატუსი</th>";
-		$this->out .= "</tr>";
-		$this->out .= "</thead>";
-		$this->out .= "<tbody class=\"installment_tbody\">";
-
 		$total_installment = (int)$totalprice - (int)$pre_pay;
-		$this->out .= "<tr>";
-		$this->out .= sprintf(
-			"<td colspan=\"4\" style=\"border-top:0px; padding-bottom:20px;\"><strong>სესხის ოდენობა:</strong> %s</td>",
-			number_format((int)$total_installment, 2, ".", " ")
+		$payed_months_array = explode(";", $payed_months);
+
+		/* instalment start */
+		$this->out .= "<div class=\"col-md-12\" style=\"margin: 10px 0 0 0\">";	
+		$this->out .= "<ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\">";
+		
+		$this->out .= "<li class=\"nav-item\">";
+		$this->out .= "<a class=\"nav-link active\" id=\"home-tab\" data-toggle=\"tab\" href=\"#home\" role=\"tab\" aria-controls=\"home\" aria-selected=\"true\">სესხი</a>";
+		$this->out .= "</li>";
+
+		$this->out .= "<li class=\"nav-item\">";
+		$this->out .= "<a class=\"nav-link\" id=\"graphic-tab\" data-toggle=\"tab\" href=\"#graphic\" role=\"tab\" aria-controls=\"graphic\" aria-selected=\"false\">გრაფიკი</a>";
+		$this->out .= "</li>";
+		$this->out .= "</ul>";
+		
+		$this->out .= "<div class=\"tab-content\" id=\"myTabContent\">";
+		
+		$this->out .= "<div class=\"tab-pane fade show active\" id=\"home\" role=\"tabpanel\" aria-labelledby=\"home-tab\">";
+		$this->out .= "<div style=\"padding: 10px;\">";
+		$this->out .= "<p><strong>სესხის ოდენობა:</strong> ".number_format((int)$total_installment, 2, ".", " ")."</p>";
+		$this->out .= "</div>";
+		$this->out .= "</div>";
+
+		$this->out .= "<div class=\"tab-pane fade\" id=\"graphic\" role=\"tabpanel\" aria-labelledby=\"graphic-tab\">";
+		$this->out .= $this->instalment(
+			$installment_list_display,
+			$total_installment,
+			$installment_months,
+			$paying_start_day,
+			$payed_months_array
 		);
-		$this->out .= "</tr>";
-		
-		$payed = 0;	
-
-		$payed_months_array = explode(";", $payed_months);	
-		for ($i=1; $i <= (int)$installment_months; $i++):
-			$date = new DateTime($paying_start_day);
-			$modify = sprintf("+%d month", $i);
-			$date->modify($modify);
-			
-			$monthPay = (int)$total_installment / (int)$installment_months;
-			$payed += $monthPay;
-			$remaining = $total_installment - $payed;
-			
-			$payed_month = (in_array($date->format("Y-m-d"), $payed_months_array)) ? true : false;
-			$this->out .= "<tr>";
-			$this->out .= sprintf("<td class=\"text-left\">%s</td>", $date->format("Y-m-d"));
-			$this->out .= sprintf("<td class=\"text-left\">%s</td>", number_format($monthPay, 2, ".", " "));
-			$this->out .= sprintf("<td class=\"text-left\">%s</td>", number_format($remaining, 2, ".", " "));
-			$this->out .= "<td class=\"text-left\">";
-			
-			if($payed_month){
-				$this->out .= sprintf(
-					"<btn class=\"btn btn-sm btn-outline-success btn-round btn-icon gchangepaystatus active\" data-status=\"on\" data-month=\"%s\">",
-					$date->format("Y-m-d")
-				);
-				$this->out .= "<i class=\"fa fa-toggle-on\"></i>";
-				$this->out .= "</btn>";
-			}else{
-				$this->out .= sprintf(
-					"<btn class=\"btn btn-sm btn-outline-success btn-round btn-icon gchangepaystatus\" data-status=\"off\" data-month=\"%s\">",
-					$date->format("Y-m-d")
-				);
-				$this->out .= "<i class=\"fa fa-toggle-off\"></i>";
-				$this->out .= "</btn>";
-			}
-			$this->out .= "</td>";
-			$this->out .= "</tr>";
-		endfor;
-		
-		$this->out .= "</tbody>";
-		$this->out .= "</table>";
-
-		$this->out .= "</div>";
 		$this->out .= "</div>";
 		$this->out .= "</div>";
 
-		$this->out .= "</div>";
-
-
-
-		
+		$this->out .= "</div>";				
+		/* instalment end */
+	
 		$this->out .= "<div class=\"col-md-12\">";
 		$this->out .= "<div class=\"form-group\">"; 
 		$this->out .= "<label>აღწერა</label>"; 
@@ -400,10 +349,101 @@ class Module_room_form
 		$this->out .= "</div>";		
 		$this->out .= "</div>";
 
-		
-
 		$this->out .= "</div>";
 		$this->out .= "</form>";		
 		return $this->out;
+	}
+
+	private function instalment(
+		$installment_list_display,
+		$total_installment,
+		$installment_months,
+		$paying_start_day,
+		$payed_months_array
+	){
+		$out = sprintf(
+			"<div class=\"col-md-12\" style=\"display:%s; margin-top:20px;\">",
+			$installment_list_display
+		);
+		$out .= "<div class=\"typography-line\">";
+		$out .= "<h6>გადახდის გრაფიკი</h6>";
+		$out .= "</div>";
+		$out .= "</div>";
+
+		$out .= sprintf(
+			"<div class=\"col-md-12 installment_list\" style=\"display:%s\">",
+			$installment_list_display
+		);
+		
+		$out .= "<div class=\"card card-plain\">";
+        
+        $out .= "<div class=\"card-body\" style=\"border:solid 1px #f2f2f2;\">";
+		$out .= "<div class=\"table-responsive\">";
+		
+		$out .= "<table class=\"table\">";
+
+		$out .= "<thead class=\"text-primary\">";
+		$out .= "<tr>";
+		$out .= "<th class=\"text-left\">გადახდის თარიღი ( Y-m-d )</th>";
+		$out .= "<th class=\"text-left\">გადასახადი თანხა</th>";
+		$out .= "<th class=\"text-left\">დარჩენილი ძირი</th>";
+		$out .= "<th class=\"text-left\">სტატუსი</th>";
+		$out .= "</tr>";
+		$out .= "</thead>";
+		$out .= "<tbody class=\"installment_tbody\">";
+
+		
+		// $out .= "<tr>";
+		// $out .= sprintf(
+		// 	"<td colspan=\"4\" style=\"border-top:0px; padding-bottom:20px;\"><strong>სესხის ოდენობა:</strong> %s</td>",
+		// 	number_format((int)$total_installment, 2, ".", " ")
+		// );
+		// $out .= "</tr>";
+		
+		$payed = 0;		
+		for ($i=1; $i <= (int)$installment_months; $i++):
+			$date = new DateTime($paying_start_day);
+			$modify = sprintf("+%d month", $i);
+			$date->modify($modify);
+			
+			$monthPay = (int)$total_installment / (int)$installment_months;
+			$payed += $monthPay;
+			$remaining = $total_installment - $payed;
+			
+			$payed_month = (in_array($date->format("Y-m-d"), $payed_months_array)) ? true : false;
+			$out .= "<tr>";
+			$out .= sprintf("<td class=\"text-left\">%s</td>", $date->format("Y-m-d"));
+			$out .= sprintf("<td class=\"text-left\">%s</td>", number_format($monthPay, 2, ".", " "));
+			$out .= sprintf("<td class=\"text-left\">%s</td>", number_format($remaining, 2, ".", " "));
+			$out .= "<td class=\"text-left\">";
+			
+			if($payed_month){
+				$out .= sprintf(
+					"<btn class=\"btn btn-sm btn-outline-success btn-round btn-icon gchangepaystatus active\" data-status=\"on\" data-month=\"%s\">",
+					$date->format("Y-m-d")
+				);
+				$out .= "<i class=\"fa fa-toggle-on\"></i>";
+				$out .= "</btn>";
+			}else{
+				$out .= sprintf(
+					"<btn class=\"btn btn-sm btn-outline-success btn-round btn-icon gchangepaystatus\" data-status=\"off\" data-month=\"%s\">",
+					$date->format("Y-m-d")
+				);
+				$out .= "<i class=\"fa fa-toggle-off\"></i>";
+				$out .= "</btn>";
+			}
+			$out .= "</td>";
+			$out .= "</tr>";
+		endfor;
+		
+		$out .= "</tbody>";
+		$out .= "</table>";
+
+		$out .= "</div>";
+		$out .= "</div>";
+		$out .= "</div>";
+
+		$out .= "</div>";
+		return $out;
 	}
 }
