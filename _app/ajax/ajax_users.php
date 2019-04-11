@@ -465,6 +465,14 @@ class ajax_users
 
 			if($getter){
 				$_SESSION["user_data"] = $getter;
+
+				if(!isset($Functions)){ $Functions = new Functions; }
+				$log = $Functions->load("fu_log");
+				$log->insert(
+					"users",
+					"logged",
+					$_SESSION["user_data"]["id"]
+				);
 				
 				$this->message = array(
 					"error"=>false,

@@ -38,6 +38,13 @@ class db_room
 			":id"=>(int)$args["id"]
 		));
 
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"room",
+			"delete",
+			$_SESSION["user_data"]["id"]
+		);
 
 		return true;
 	}
@@ -213,6 +220,14 @@ class db_room
 
 		$lastInsertId = $this->conn->lastInsertId();
 
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"room",
+			"add",
+			$_SESSION["user_data"]["id"]
+		);
+
 		return $lastInsertId;
 	}
 
@@ -329,6 +344,14 @@ class db_room
 		));
 
 		$lastInsertId = $this->conn->lastInsertId();
+
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"room",
+			"edit",
+			$_SESSION["user_data"]["id"]
+		);
 
 		return $lastInsertId;
 	}

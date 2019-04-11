@@ -33,6 +33,14 @@ class db_building
 			":id"=>(int)$args["id"]
 		));
 
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"building",
+			"edit",
+			$_SESSION["user_data"]["id"]
+		);
+
 		return true;
 	}
 
@@ -52,6 +60,14 @@ class db_building
 			":company_id"=>$args["company_id"]
 		));
 
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"building",
+			"add",
+			$_SESSION["user_data"]["id"]
+		);
+
 		return true;
 	}
 
@@ -67,6 +83,14 @@ class db_building
 			":one"=>1,
 			":id"=>(int)$args["id"]
 		));
+
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"building",
+			"delete",
+			$_SESSION["user_data"]["id"]
+		);
 
 		return true;
 	}

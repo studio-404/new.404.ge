@@ -21,10 +21,25 @@ class db_logs
 			$limit = ' LIMIT '.(($args["page"]-1) * Config::LOGS_LIST_PERPAGE).','.Config::LOGS_LIST_PERPAGE;
 		}
 		
-		$select = "SELECT * FROM `shindi_logs` ORDER BY `date` DESC".$limit;
+		$select = "SELECT 
+		(
+			SELECT 
+			`shidni_users`.`username` 
+			FROM 
+			`shidni_users` 
+			WHERE 
+			`shidni_users`.`id`=`shindi_logs`.`user_id` AND 
+			`shidni_users`.`status`!=:one
+		) AS usersName, `shindi_logs`.* 
+		FROM 
+		`shindi_logs` 
+		ORDER BY `shindi_logs`.`date` 
+		DESC".$limit;
 
 		$prepare = $this->conn->prepare($select);
-		$prepare->execute();
+		$prepare->execute(array(
+			":one"=>1
+		));
 		if($prepare->rowCount()){
 			$db_fetch = $prepare->fetchAll(PDO::FETCH_ASSOC);
 		}		

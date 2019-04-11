@@ -27,6 +27,14 @@ class db_users
 			":id"=>(int)$args["id"]
 		));
 
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"users",
+			"changePassword",
+			$_SESSION["user_data"]["id"]
+		);
+
 		return true;
 	}
 
@@ -42,6 +50,14 @@ class db_users
 			":one"=>1,
 			":id"=>(int)$args["id"]
 		));
+
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"users",
+			"deleteUser",
+			$_SESSION["user_data"]["id"]
+		);
 
 		return true;
 	}
@@ -79,6 +95,14 @@ class db_users
 			":permission_room"=>(!empty($args["permission_room"])) ? $args["permission_room"] : "none",
 			":id"=>(int)$args["id"]
 		));
+
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"users",
+			"edit",
+			$_SESSION["user_data"]["id"]
+		);
 
 		return true;
 	}
@@ -118,6 +142,14 @@ class db_users
 			":permission_room"=>(!empty($args["permission_room"])) ? $args["permission_room"] : "none",
 			":status"=>0
 		));
+
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"users",
+			"add",
+			$_SESSION["user_data"]["id"]
+		);
 
 		return true;
 	}
@@ -220,7 +252,15 @@ class db_users
 			"username"=>$username
 		));
 
-		$_SESSION["user_data"] = $fetchUserDate;		
+		$_SESSION["user_data"] = $fetchUserDate;	
+
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"users",
+			"update",
+			$_SESSION["user_data"]["id"]
+		);	
 
 		return true;
 	}
@@ -235,6 +275,14 @@ class db_users
 			":password"=>md5($args["password"]),
 			":username"=>$username
 		));
+
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"users",
+			"updatePassword",
+			$_SESSION["user_data"]["id"]
+		);
 
 		return true;
 	}

@@ -58,6 +58,14 @@ class db_entrance
 			":id"=>(int)$args["id"]
 		));
 
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"entrance",
+			"delete",
+			$_SESSION["user_data"]["id"]
+		);
+
 		return true;
 	}
 
@@ -90,6 +98,14 @@ class db_entrance
 			":building_id"=>$args["building_id"]
 		));
 
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"entrance",
+			"add",
+			$_SESSION["user_data"]["id"]
+		);
+
 		return true;
 	}
 
@@ -108,6 +124,14 @@ class db_entrance
 			":building_id"=>$args["building_id"],
 			":id"=>(int)$args["id"]
 		));
+
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"entrance",
+			"edit",
+			$_SESSION["user_data"]["id"]
+		);
 
 		return true;
 	}

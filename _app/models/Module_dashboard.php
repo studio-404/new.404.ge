@@ -118,6 +118,62 @@ class Module_dashboard
 		return $out;
 	}
 
+	private function logs()
+	{
+		$Database = new Database("db_logs", array(
+			"method"=>"select",
+			"page"=>1
+		));
+
+		$logs = $Database->getter();
+
+		$out = "<div class=\"col-lg-12 col-md-12 col-sm-12\">";
+		$out .= "<div class=\"card card-stats\">";
+		
+		$out .= "<div class=\"card-header\">";
+		$out .= "<h4 class=\"card-title\">ლოგები</h4>";
+		$out .= "</div>";
+		
+		$out .= "<div class=\"card-body\">";
+		$out .= "<div class=\"table-responsive\">";
+		
+		$out .= "<table class=\"table\">";
+		// $out .= print_r($logs, true);
+		$out .= "<thead class=\"text-primary\">";
+		$out .= "<tr>";
+		$out .= "<th>თარიღი</th>";
+		$out .= "<th>IP</th>";
+		$out .= "<th>მომხმარებელი</th>";
+		$out .= "<th>მოქმედება</th>";
+		$out .= "</tr>";
+		$out .= "</thead>";
+
+		$out .= "<tbody>";
+		foreach($logs as $log):
+			$out .= "<tr>";
+			$out .= sprintf(
+				"<td>%s</td>",
+				date("Y-m-d H:i:s", $log["date"])
+			);
+			$out .= sprintf("<td>%s</td>", $log["ip"]);
+			$out .= sprintf("<td>%s</td>", $log["usersName"]);
+			$out .= sprintf("<td>%s:%s</td>", $log["type"], $log["action"]);
+			$out .= "</tr>";
+		endforeach;
+		
+		$out .= "</tbody>";
+
+		$out .= "</table>";
+
+		$out .= "</div>";
+		$out .= "</div>";
+		
+		$out .= "</div>";
+		$out .= "</div>";
+
+		return $out;
+	}
+
 	public function index()
 	{
 		$href = "/".$this->language."/users/index";
@@ -130,6 +186,7 @@ class Module_dashboard
 		$this->out .= $this->card("nc-bank","მშენებლობა", (int)@$this->data["buildingCount"], $href);
 
 		$this->out .= $this->permitions();
+		$this->out .= $this->logs();
 
 		return $this->out;
 	}

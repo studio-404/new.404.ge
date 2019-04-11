@@ -37,6 +37,14 @@ class db_companies
 			":id"=>(int)$args["id"]
 		));
 
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"companies",
+			"edit",
+			$_SESSION["user_data"]["id"]
+		);
+
 		return true;
 	}
 
@@ -62,6 +70,14 @@ class db_companies
 			":zero"=>0
 		));
 
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"companies",
+			"add",
+			$_SESSION["user_data"]["id"]
+		);
+
 		return true;
 	}
 
@@ -77,6 +93,14 @@ class db_companies
 			":one"=>1,
 			":id"=>(int)$args["id"]
 		));
+
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"companies",
+			"delete",
+			$_SESSION["user_data"]["id"]
+		);
 
 		return true;
 	}

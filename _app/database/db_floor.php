@@ -80,6 +80,14 @@ class db_floor
 			":entrance_id"=>$args["entrance_id"]
 		));
 
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"floor",
+			"add",
+			$_SESSION["user_data"]["id"]
+		);
+
 		return true;
 	}
 
@@ -100,6 +108,14 @@ class db_floor
 			":id"=>(int)$args["id"]
 		));
 
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"floor",
+			"edit",
+			$_SESSION["user_data"]["id"]
+		);
+
 		return true;
 	}
 
@@ -115,6 +131,14 @@ class db_floor
 			":one"=>1,
 			":id"=>(int)$args["id"]
 		));
+
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"floor",
+			"delete",
+			$_SESSION["user_data"]["id"]
+		);
 
 		return true;
 	}

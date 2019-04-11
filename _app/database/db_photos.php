@@ -26,6 +26,14 @@ class db_photos
 			":id"=>(int)$args["id"]
 		));
 
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"photos",
+			"delete",
+			$_SESSION["user_data"]["id"]
+		);
+
 		return true;
 	}
 
@@ -46,6 +54,14 @@ class db_photos
 			":path"=>$args["path"],
 			":size"=>$args["size"]
 		));
+
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"photos",
+			"add",
+			$_SESSION["user_data"]["id"]
+		);
 
 		return true;
 	}
