@@ -46,7 +46,7 @@ class db_room
 	{
 		$db_fetch = [];
 		$limit = '';
-		if($args["page"]){
+		if((int)$args["page"] > 0){
 			$limit = ' LIMIT '.(($args["page"]-1) * Config::ROOM_LIST_PERPAGE).','.Config::ROOM_LIST_PERPAGE;
 		}
 		

@@ -17,7 +17,7 @@ class db_floor
 	{
 		$db_fetch = [];
 		$limit = '';
-		if($args["page"]){
+		if((int)$args["page"] > 0){
 			$limit = ' LIMIT '.(($args["page"]-1) * Config::FLOOR_LIST_PERPAGE).','.Config::FLOOR_LIST_PERPAGE;
 		}
 		

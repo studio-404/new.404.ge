@@ -126,7 +126,7 @@ class db_users
 	{
 		$db_fetch = [];
 		$limit = '';
-		if($args["page"]){
+		if((int)$args["page"] > 0){
 			$limit = ' LIMIT '.(($args["page"]-1) * Config::USER_LIST_PERPAGE).','.Config::USER_LIST_PERPAGE;
 		}
 		

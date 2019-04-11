@@ -17,7 +17,7 @@ class db_entrance
 	{
 		$db_fetch = [];
 		$limit = '';
-		if($args["page"]){
+		if((int)$args["page"] > 0){
 			$limit = ' LIMIT '.(($args["page"]-1) * Config::ENTRANCE_LIST_PERPAGE).','.Config::ENTRANCE_LIST_PERPAGE;
 		}
 		

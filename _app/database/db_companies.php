@@ -85,7 +85,7 @@ class db_companies
 	{
 		$db_fetch = [];
 		$limit = '';
-		if($args["page"] && !isset($args["noLimit"])){
+		if(((int)$args["page"] > 0) && !isset($args["noLimit"])){
 			$limit = ' LIMIT '.(($args["page"]-1) * Config::COMPANY_LIST_PERPAGE).','.Config::COMPANY_LIST_PERPAGE;
 		}
 		

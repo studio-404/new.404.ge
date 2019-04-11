@@ -75,7 +75,7 @@ class db_building
 	{
 		$db_fetch = [];
 		$limit = '';
-		if($args["page"]){
+		if((int)$args["page"]>0){
 			$limit = ' LIMIT '.(($args["page"]-1) * Config::BUILDING_LIST_PERPAGE).','.Config::BUILDING_LIST_PERPAGE;
 		}
 		
