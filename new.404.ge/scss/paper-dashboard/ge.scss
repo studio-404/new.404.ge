@@ -10,6 +10,7 @@ $fontSizeNormal: 14px;
     font-style: normal;
 }
 
+*:not(.nc-icon):not(.fa){ font-family: 'NotoSansGeorgian' !important; }
 .card .card-header .card-title{ font-family: 'NotoSansGeorgian' !important; }
 .card label{ font-family: 'NotoSansGeorgian' !important; }
 .btn-round{ font-family: 'NotoSansGeorgian' !important; }
