@@ -49,6 +49,17 @@
 			</a>
 		</li>
 
+		<!-- if '[user_type]'=='manager' -->
+		<li class="<!-- if '[controller]'=='ip' --> 
+		active 
+		<!-- endif -->">
+			<a href="/[language]/ip/index">
+				<i class="nc-icon nc-lock-circle-open"></i>
+				<p>IP მისამართები</p>
+			</a>
+		</li>
+		<!-- endif -->
+
 		<li class="<!-- if '[controller]'=='profile' --> 
 		active 
 		<!-- endif -->">
