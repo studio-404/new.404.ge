@@ -43,6 +43,22 @@ class Module_users_form
         return $out;
 	}
 
+	private function select($label, $className, $list, $selected = [])
+	{
+		$out = "<div class=\"col-md-12\">"; 
+		$out .= sprintf("<label>%s</label>", $label); 
+
+		$out .= "<div class=\"selectpicker\">";
+		foreach ($list as $item):
+			$checked = (in_array($item["id"], $selected)) ? true : false;
+			$out .= $this->checkbox($className, $checked, $item["title"], $item["id"]);
+		endforeach;
+		$out .= "</div>";
+		
+		$out .= "</div>"; 
+		return $out;
+	}
+
 	private function radio($radioName, $value, $text, $checked = false)
 	{
 		$out = "<div class=\"form-check-radio\">";
@@ -90,6 +106,7 @@ class Module_users_form
 			$permission_entrance = explode(",", $fetch["permission_entrance"]);
 			$permission_floor = explode(",", $fetch["permission_floor"]);
 			$permission_room = explode(",", $fetch["permission_room"]);
+			$own_company = explode(",", $fetch["own_company"]);
 			
 			$companyAdd = (in_array("add", $permission_company)) ? true : false;
 			$companyEdit = (in_array("edit", $permission_company)) ? true : false;
@@ -141,6 +158,8 @@ class Module_users_form
 			$roomAdd = true;
 			$roomEdit = true;
 			$roomDelete = true;
+
+			$own_company = [];
 		}
 		$this->out .= "<form>";
 		$this->out .= "<div class=\"row\">";
@@ -161,6 +180,17 @@ class Module_users_form
 		}
 		$this->out .= $this->input("ელ-ფოსტა", "contact_email", htmlentities($contact_email));
 		$this->out .= $this->input("საკონტაქტო ნომერი", "contact_phone", htmlentities($contact_phone));
+		
+		$Database2 = new Database("db_companies", array(
+			"method"=>"select",
+			"page"=>1,
+			"noLimit"=>true
+		));
+		$fetch = $Database2->getter();
+		// $this->out .= print_r($fetch, true);
+		$this->out .= $this->select("კომპანია", "companiesOwned", $fetch, $own_company);
+
+
 		
 		$this->out .= "<div class=\"col-md-12\" style=\"margin: 25px 0 0 0\">";
 		$this->out .= "<div class=\"typography-line\">";

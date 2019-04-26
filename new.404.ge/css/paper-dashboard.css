@@ -6500,3 +6500,9 @@ License - nucleoapp.com/license/
   background-color: #ef8157 !important;
   background-image:none !important;
 }
+
+.selectpicker{
+  width: 100%;
+  height: 100px;
+  overflow: auto;
+}

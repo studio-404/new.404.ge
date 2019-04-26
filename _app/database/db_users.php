@@ -75,7 +75,8 @@ class db_users
 		`permission_buldings`=:permission_buldings,
 		`permission_entrance`=:permission_entrance,
 		`permission_floor`=:permission_floor,
-		`permission_room`=:permission_room
+		`permission_room`=:permission_room,
+		`own_company`=:own_company
 		WHERE
 		`id`=:id
 		";
@@ -93,6 +94,7 @@ class db_users
 			":permission_entrance"=>(!empty($args["permission_entrance"])) ? $args["permission_entrance"] : "none",
 			":permission_floor"=>(!empty($args["permission_floor"])) ? $args["permission_floor"] : "none",
 			":permission_room"=>(!empty($args["permission_room"])) ? $args["permission_room"] : "none",
+			":own_company"=>(!empty($args["own_company"])) ? $args["own_company"] : "",
 			":id"=>(int)$args["id"]
 		));
 
@@ -123,6 +125,7 @@ class db_users
 		`permission_entrance`=:permission_entrance,
 		`permission_floor`=:permission_floor,
 		`permission_room`=:permission_room,
+		`own_company`=:own_company,
 		`status`=:status";
 
 		$prepare = $this->conn->prepare($insert);
@@ -140,6 +143,7 @@ class db_users
 			":permission_entrance"=>(!empty($args["permission_entrance"])) ? $args["permission_entrance"] : "none",
 			":permission_floor"=>(!empty($args["permission_floor"])) ? $args["permission_floor"] : "none",
 			":permission_room"=>(!empty($args["permission_room"])) ? $args["permission_room"] : "none",
+			":own_company"=>(!empty($args["own_company"])) ? $args["own_company"] : "",
 			":status"=>0
 		));
 

@@ -133,8 +133,15 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 				}
 			}
 
+			var own_company = new Array();
+			var companies = document.getElementsByClassName("companiesOwned");
+			for(var i = 0; i<companies.length; i++){
+				if(companies[i].checked){
+					own_company.push(companies[i].value);
+				}
+			}
 
-			var xhttp = ajax("ajax_users", "type=addUser&firstname="+firstname+"&lastname="+lastname+"&username="+username+"&password="+password+"&contact_email="+contact_email+"&contact_phone="+contact_phone+"&user_type="+user_type+"&permission_company="+permission_company.join()+"&permission_buldings="+permission_buldings.join()+"&permission_entrance="+permission_entrance.join()+"&permission_floor="+permission_floor.join()+"&permission_room="+permission_room.join());
+			var xhttp = ajax("ajax_users", "type=addUser&firstname="+firstname+"&lastname="+lastname+"&username="+username+"&password="+password+"&contact_email="+contact_email+"&contact_phone="+contact_phone+"&user_type="+user_type+"&permission_company="+permission_company.join()+"&permission_buldings="+permission_buldings.join()+"&permission_entrance="+permission_entrance.join()+"&permission_floor="+permission_floor.join()+"&permission_room="+permission_room.join()+"&own_company="+own_company.join());
 
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4) {
@@ -214,8 +221,15 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 				}
 			}
 
+			var own_company = new Array();
+			var companies = document.getElementsByClassName("companiesOwned");
+			for(var i = 0; i<companies.length; i++){
+				if(companies[i].checked){
+					own_company.push(companies[i].value);
+				}
+			}
 
-			var xhttp = ajax("ajax_users", "type=editUser&editid="+editid+"&firstname="+firstname+"&lastname="+lastname+"&username="+username+"&contact_email="+contact_email+"&contact_phone="+contact_phone+"&user_type="+user_type+"&permission_company="+permission_company.join()+"&permission_buldings="+permission_buldings.join()+"&permission_entrance="+permission_entrance.join()+"&permission_floor="+permission_floor.join()+"&permission_room="+permission_room.join());
+			var xhttp = ajax("ajax_users", "type=editUser&editid="+editid+"&firstname="+firstname+"&lastname="+lastname+"&username="+username+"&contact_email="+contact_email+"&contact_phone="+contact_phone+"&user_type="+user_type+"&permission_company="+permission_company.join()+"&permission_buldings="+permission_buldings.join()+"&permission_entrance="+permission_entrance.join()+"&permission_floor="+permission_floor.join()+"&permission_room="+permission_room.join()+"&own_company="+own_company.join());
 
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4) {

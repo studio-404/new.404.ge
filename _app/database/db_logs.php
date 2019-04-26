@@ -22,6 +22,7 @@ class db_logs
 		}
 		
 		$select = "SELECT 
+		(SELECT count(`id`) FROM `shindi_logs`) AS counted, 
 		(
 			SELECT 
 			`shidni_users`.`username` 

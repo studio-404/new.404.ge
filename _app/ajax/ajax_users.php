@@ -184,7 +184,8 @@ class ajax_users
 				"permission_buldings"=>$request->index("POST", "permission_buldings"),
 				"permission_entrance"=>$request->index("POST", "permission_entrance"),
 				"permission_floor"=>$request->index("POST", "permission_floor"),
-				"permission_room"=>$request->index("POST", "permission_room")
+				"permission_room"=>$request->index("POST", "permission_room"),
+				"own_company"=>$request->index("POST", "own_company")
 			));
 
 			$db_users = new Database("db_users", array(
@@ -271,7 +272,8 @@ class ajax_users
 				"permission_buldings"=>$request->index("POST", "permission_buldings"),
 				"permission_entrance"=>$request->index("POST", "permission_entrance"),
 				"permission_floor"=>$request->index("POST", "permission_floor"),
-				"permission_room"=>$request->index("POST", "permission_room")
+				"permission_room"=>$request->index("POST", "permission_room"),
+				"own_company"=>$request->index("POST", "own_company")
 			));
 
 			$this->message = array(
