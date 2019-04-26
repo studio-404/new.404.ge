@@ -84,11 +84,10 @@ class Module_building_form
 		
 		$this->out .= $this->input("დასახელება", "title", htmlentities($title));
 		$this->out .= $this->input("მისამართი", "address", htmlentities($address));
-		
+
 		$Countries = new Database("db_companies", array(
-			"method"=>"select",
-			"noLimit"=>true,
-			"page"=>1
+			"method"=>"selectOnlyOwn",
+			"own_company"=>$_SESSION["user_data"]["own_company"]
 		));
 		$this->out .= $this->input_select(
 			"აირჩიეთ კომპანია", 

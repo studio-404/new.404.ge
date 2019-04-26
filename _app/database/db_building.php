@@ -102,6 +102,8 @@ class db_building
 		if((int)$args["page"]>0){
 			$limit = ' LIMIT '.(($args["page"]-1) * Config::BUILDING_LIST_PERPAGE).','.Config::BUILDING_LIST_PERPAGE;
 		}
+
+		$own_company = ($_SESSION["user_data"]["user_type"]!="manager") ? "`shindi_buildings`.`company_id` IN (".$_SESSION["user_data"]["own_company"].") AND " : "";
 		
 		$select = "SELECT 
 		(SELECT COUNT(`id`) FROM `shindi_buildings` WHERE `status`!=:one) as counted,
@@ -110,7 +112,7 @@ class db_building
 		FROM 
 		`shindi_buildings` 
 		WHERE 
-		`shindi_buildings`.`status`!=:one ORDER BY `shindi_buildings`.`id` DESC".$limit."";
+		".$own_company."`shindi_buildings`.`status`!=:one ORDER BY `shindi_buildings`.`id` DESC".$limit."";
 		$prepare = $this->conn->prepare($select);
 		$prepare->execute(array(
 			":one"=>1

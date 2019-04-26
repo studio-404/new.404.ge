@@ -131,6 +131,29 @@ class db_companies
 		return $db_fetch;
 	}
 
+	private function selectOnlyOwn($args)
+	{
+		$own_company = ($_SESSION["user_data"]["user_type"]!="manager") ? "`id` IN (".$args["own_company"].") AND " : "";
+		$db_fetch = [];
+		
+		$select = "SELECT 
+		* 
+		FROM 
+		`shindi_companies` 
+		WHERE 
+		".$own_company."`status`!=:one";
+
+		$prepare = $this->conn->prepare($select);
+		$prepare->execute(array(
+			":one"=>1
+		));
+		if($prepare->rowCount()){
+			$db_fetch = $prepare->fetchAll(PDO::FETCH_ASSOC);
+		}		
+
+		return $db_fetch;
+	}
+
 	private function selectUserById($args)
 	{
 		$db_fetch = [];

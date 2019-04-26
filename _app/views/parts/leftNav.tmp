@@ -10,16 +10,16 @@
 			</a>
 		</li>
 
-		<li class="<!-- if '[controller]'=='search' --> 
+		<!-- if '[user_type]'=='manager' -->
+		<li class="<!-- if '[controller]'=='ip' --> 
 		active 
 		<!-- endif -->">
-			<a href="/[language]/search/index">
-				<i class="nc-icon nc-zoom-split"></i>
-				<p>ძიება</p>
+			<a href="/[language]/ip/index">
+				<i class="nc-icon nc-lock-circle-open"></i>
+				<p>IP მისამართები</p>
 			</a>
 		</li>
 
-		<!-- if '[user_type]'=='manager' -->
 		<li class="<!-- if '[controller]'=='users' --> 
 		active 
 		<!-- endif -->">
@@ -28,8 +28,6 @@
 				<p>მომხმარებელი</p>
 			</a>
 		</li>
-		<!-- endif -->
-
 
 		<li class="<!-- if '[controller]'=='company' --> 
 		active 
@@ -37,6 +35,16 @@
 			<a href="/[language]/company/index">
 				<i class="nc-icon nc-alert-circle-i"></i>
 				<p>კომპანია</p>
+			</a>
+		</li>
+		<!-- endif -->
+
+		<li class="<!-- if '[controller]'=='search' --> 
+		active 
+		<!-- endif -->">
+			<a href="/[language]/search/index">
+				<i class="nc-icon nc-zoom-split"></i>
+				<p>ძიება</p>
 			</a>
 		</li>
 
@@ -48,17 +56,6 @@
 				<p>მშენებლობა</p>
 			</a>
 		</li>
-
-		<!-- if '[user_type]'=='manager' -->
-		<li class="<!-- if '[controller]'=='ip' --> 
-		active 
-		<!-- endif -->">
-			<a href="/[language]/ip/index">
-				<i class="nc-icon nc-lock-circle-open"></i>
-				<p>IP მისამართები</p>
-			</a>
-		</li>
-		<!-- endif -->
 
 		<li class="<!-- if '[controller]'=='profile' --> 
 		active 
