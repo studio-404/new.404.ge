@@ -13,6 +13,55 @@ class db_owners
 		return $out;
 	}
 
+	private function deleteOwner($args)
+	{
+		$update = "UPDATE `shidni_oweners` SET 
+		`status`=:one
+		WHERE
+		`id`=:id";
+
+		$prepare = $this->conn->prepare($update);
+		$prepare->execute(array(
+			":one"=>1,
+			":id"=>(int)$args["id"]
+		));
+
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"owner",
+			"deleteOwner",
+			$_SESSION["user_data"]["id"]
+		);
+
+		return true;
+	}
+
+	private function changePassword($args)
+	{
+		$update = "UPDATE `shidni_oweners` SET 
+		`owners_password`=:owners_password
+		WHERE
+		`id`=:id
+		";
+
+		$prepare = $this->conn->prepare($update);
+		$prepare->execute(array(
+			":owners_password"=>md5($args["password"]),
+			":id"=>(int)$args["id"]
+		));
+
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"owner",
+			"changePassword",
+			$_SESSION["user_data"]["id"]
+		);
+
+		return true;
+	}
+
 	private function select($args)
 	{
 		$db_fetch = [];
@@ -54,6 +103,47 @@ class db_owners
 		}		
 
 		return $db_fetch;
+	}
+
+	private function edit($args)
+	{
+		$update = "UPDATE `shidni_oweners` SET 
+		`firstname`=:firstname,
+		`lastname`=:lastname,
+		`owners_name`=:owners_name,
+		`owners_id`=:owners_id,
+		`owners_birthday`=:owners_birthday,
+		`owners_gender`=:owners_gender,
+		`owners_phone`=:owners_phone,
+		`owners_phone2`=:owners_phone2,
+		`owners_email`=:owners_email
+		WHERE
+		`id`=:id
+		";
+
+		$prepare = $this->conn->prepare($update);
+		$prepare->execute(array(
+			":firstname"=>$args["firstname"],
+			":lastname"=>$args["lastname"],
+			":owners_name"=>$args["owners_name"],
+			":owners_id"=>$args["owners_id"],
+			":owners_birthday"=>$args["owners_birthday"],
+			":owners_gender"=>$args["owners_gender"],
+			":owners_phone"=>$args["owners_phone"],
+			":owners_phone2"=>$args["owners_phone2"],
+			":owners_email"=>$args["owners_email"],
+			":id"=>(int)$args["id"]
+		));
+
+		if(!isset($Functions)){ $Functions = new Functions; }
+		$log = $Functions->load("fu_log");
+		$log->insert(
+			"owener",
+			"edit",
+			$_SESSION["user_data"]["id"]
+		);
+
+		return true;
 	}
 
 	private function add($args)

@@ -97,6 +97,15 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 				}
 			}
 
+			var ownerCheckbox = document.getElementsByClassName("ownerCheckbox");
+			var permission_owner = new Array();
+			for(var i = 0; i < ownerCheckbox.length; i++){
+				if(ownerCheckbox[i].checked){
+					let v = ownerCheckbox[i].value;
+					permission_owner.push(v);
+				}
+			}
+
 			var buildingCheckbox = document.getElementsByClassName("buildingCheckbox");
 			var permission_buldings = new Array();
 			for(var i = 0; i < buildingCheckbox.length; i++){
@@ -141,7 +150,7 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 				}
 			}
 
-			var xhttp = ajax("ajax_users", "type=addUser&firstname="+firstname+"&lastname="+lastname+"&username="+username+"&password="+password+"&contact_email="+contact_email+"&contact_phone="+contact_phone+"&user_type="+user_type+"&permission_company="+permission_company.join()+"&permission_buldings="+permission_buldings.join()+"&permission_entrance="+permission_entrance.join()+"&permission_floor="+permission_floor.join()+"&permission_room="+permission_room.join()+"&own_company="+own_company.join());
+			var xhttp = ajax("ajax_users", "type=addUser&firstname="+firstname+"&lastname="+lastname+"&username="+username+"&password="+password+"&contact_email="+contact_email+"&contact_phone="+contact_phone+"&user_type="+user_type+"&permission_company="+permission_company.join()+"&permission_owner="+permission_owner.join()+"&permission_buldings="+permission_buldings.join()+"&permission_entrance="+permission_entrance.join()+"&permission_floor="+permission_floor.join()+"&permission_room="+permission_room.join()+"&own_company="+own_company.join());
 
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4) {
@@ -185,6 +194,15 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 				}
 			}
 
+			var ownerCheckbox = document.getElementsByClassName("ownerCheckbox");
+			var permission_owner = new Array();
+			for(var i = 0; i < ownerCheckbox.length; i++){
+				if(ownerCheckbox[i].checked){
+					let v = ownerCheckbox[i].value;
+					permission_owner.push(v);
+				}
+			}
+
 			var buildingCheckbox = document.getElementsByClassName("buildingCheckbox");
 			var permission_buldings = new Array();
 			for(var i = 0; i < buildingCheckbox.length; i++){
@@ -229,7 +247,7 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 				}
 			}
 
-			var xhttp = ajax("ajax_users", "type=editUser&editid="+editid+"&firstname="+firstname+"&lastname="+lastname+"&username="+username+"&contact_email="+contact_email+"&contact_phone="+contact_phone+"&user_type="+user_type+"&permission_company="+permission_company.join()+"&permission_buldings="+permission_buldings.join()+"&permission_entrance="+permission_entrance.join()+"&permission_floor="+permission_floor.join()+"&permission_room="+permission_room.join()+"&own_company="+own_company.join());
+			var xhttp = ajax("ajax_users", "type=editUser&editid="+editid+"&firstname="+firstname+"&lastname="+lastname+"&username="+username+"&contact_email="+contact_email+"&contact_phone="+contact_phone+"&user_type="+user_type+"&permission_company="+permission_company.join()+"&permission_owner="+permission_owner+"&permission_buldings="+permission_buldings.join()+"&permission_entrance="+permission_entrance.join()+"&permission_floor="+permission_floor.join()+"&permission_room="+permission_room.join()+"&own_company="+own_company.join());
 
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4) {

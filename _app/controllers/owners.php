@@ -73,4 +73,32 @@ class Owners extends Controller
 			"form"=>$Module_owners_form->index(),
 		));
 	}
+
+	public function edit($language, $id = 0)
+	{
+		if(!isset($_SESSION["user_data"])):
+			$Functions = new Functions;
+			$redirect = $Functions->load("fu_redirect");
+			$redirect->gotoUrl("/".$language."/home/index");
+		endif;
+
+		$Module_owners_form = $this->model('Module_owners_form');
+		$Module_owners_form->type = "edit";
+		$Module_owners_form->language = $language;
+		$Module_owners_form->editId = $id;
+
+		$mainName = $_SESSION["user_data"]["firstname"] . " " . $_SESSION["user_data"]["lastname"];
+		$user_type = $_SESSION["user_data"]["user_type"];		
+
+		$this->view('owners/edit', array(
+			"title"=>Config::WEBSITE_TITLE,
+			"v"=>Config::WEBSITE_VERSION,
+			"controller"=>"owners",
+			"language"=>$language,
+			"user_type"=>$user_type,
+			"mainName"=>$mainName,
+			"id"=>$id,
+			"form"=>$Module_owners_form->index(),
+		));
+	}
 }

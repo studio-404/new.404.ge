@@ -47,7 +47,7 @@ class Module_owners_list
 				);
 				
 				$this->out .= sprintf(
-					"<a href=\"javascript:void(0)\" class=\"nc-icon nc-simple-remove removeOwener\" data-modalTitle=\"შეტყობინება\" data-modalBody=\"გნებავთ წაშალოთ მომხმარებელი?\" data-yesText=\"დიახ\" data-noText=\"არა\" data-id=\"%d\" style=\"font-size: 18px; margin-left: 10px;\" title=\"წაშლა\"></a>",
+					"<a href=\"javascript:void(0)\" class=\"nc-icon nc-simple-remove removeOwener\" data-modalTitle=\"შეტყობინება\" data-modalBody=\"გნებავთ წაშალოთ მეპატრონე?\" data-yesText=\"დიახ\" data-noText=\"არა\" data-id=\"%d\" style=\"font-size: 18px; margin-left: 10px;\" title=\"წაშლა\"></a>",
 					$value["id"]	
 				);
 				$this->out .= "</td>";
@@ -65,7 +65,7 @@ class Module_owners_list
 			for($i=1; $i<=$buttons; $i++){
 				$active = ($this->page==$i) ? ' active' : '';
 				$this->out .= sprintf(
-					"<li class=\"paginate_button page-item%s\"><a href=\"/%s/oweners/index/%s\" class=\"page-link\">%s</a></li>",
+					"<li class=\"paginate_button page-item%s\"><a href=\"/%s/owners/index/%s\" class=\"page-link\">%s</a></li>",
 					$active,
 					$this->language,
 					$i,

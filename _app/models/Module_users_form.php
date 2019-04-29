@@ -102,6 +102,7 @@ class Module_users_form
 			$submitClass = "editUser";
 
 			$permission_company = explode(",", $fetch["permission_company"]);
+			$permission_owner = explode(",", $fetch["permission_owner"]);
 			$permission_buldings = explode(",", $fetch["permission_buldings"]);
 			$permission_entrance = explode(",", $fetch["permission_entrance"]);
 			$permission_floor = explode(",", $fetch["permission_floor"]);
@@ -111,6 +112,10 @@ class Module_users_form
 			$companyAdd = (in_array("add", $permission_company)) ? true : false;
 			$companyEdit = (in_array("edit", $permission_company)) ? true : false;
 			$companyDelete = (in_array("delete", $permission_company)) ? true : false;
+
+			$ownerAdd = (in_array("add", $permission_owner)) ? true : false;
+			$ownerEdit = (in_array("edit", $permission_owner)) ? true : false;
+			$ownerDelete = (in_array("delete", $permission_owner)) ? true : false;
 
 			$buildingAdd = (in_array("add", $permission_buldings)) ? true : false;
 			$buildingEdit = (in_array("edit", $permission_buldings)) ? true : false;
@@ -142,6 +147,10 @@ class Module_users_form
 			$companyAdd = false;
 			$companyEdit = false;
 			$companyDelete = false;
+
+			$ownerAdd = false;
+			$ownerEdit = false;
+			$ownerDelete = false;
 
 			$buildingAdd = false;
 			$buildingEdit = false;
@@ -214,6 +223,15 @@ class Module_users_form
        	$this->out .= $this->checkbox("companyCheckbox addChecked", $companyAdd, "დამატება", "add");
        	$this->out .= $this->checkbox("companyCheckbox editChecked", $companyEdit, "რედაქტირება", "edit");
        	$this->out .= $this->checkbox("companyCheckbox deleteChecked", $companyDelete, "წაშლა", "delete");
+       	$this->out .= "</div>";
+
+       	$this->out .= "<div class=\"col-md-2\">";		
+		$this->out .= "<div class=\"typography-line\">";
+        $this->out .= "<h6>მეპატრონე</h6>";
+       	$this->out .= "</div>";
+       	$this->out .= $this->checkbox("ownerCheckbox addOwner", $ownerAdd, "დამატება", "add");
+       	$this->out .= $this->checkbox("ownerCheckbox editOwner", $ownerEdit, "რედაქტირება", "edit");
+       	$this->out .= $this->checkbox("ownerCheckbox deleteOwner", $ownerDelete, "წაშლა", "delete");
        	$this->out .= "</div>";
 
        	$this->out .= "<div class=\"col-md-2\">";		

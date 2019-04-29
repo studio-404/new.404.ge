@@ -26,7 +26,7 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<h4 class="card-title" style="display: inline-block;"> მეპატრონის დამატება</h4>
+							<h4 class="card-title" style="display: inline-block;">მეპატრონის რედაქტირება</h4>
 							<div class="update ml-auto mr-auto" style="float:right">
 		                      <a href="/[language]/owners/index" class="btn btn-primary btn-round">უკან</a>
 		                    </div>
@@ -36,8 +36,39 @@
 							[form]
 						</div>
 					</div>
+
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">პაროლის შეცვლა</h4>
+						</div>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="ownerFormPasswordMessageBox"></div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>ახალი პაროლი</label>
+										<input type="text" class="form-control newpassword" value=""  />
+									</div>
+								</div>
+
+								<div class="col-md-12">
+									<div class="form-group">
+										<div class="update ml-auto mr-auto">
+	                  						<button type="button" class="btn btn-primary btn-round editOwnerPassword" data-editid="[id]">განახლება</button>
+	                					</div>
+	                				</div>
+	                			</div>
+                			</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
+
+
 		</div>
 
 		[#include parts/topFooter]
