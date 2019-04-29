@@ -1,0 +1,10 @@
+<div class="logo">
+	<a href="/[language]/dashboard/index" class="simple-text logo-mini">
+		<div class="logo-image-small">
+			<img src="/img/cabbage.svg">
+		</div>
+	</a>
+	<a href="/[language]/dashboard/index" class="simple-text logo-normal">
+		[mainName]
+	</a>
+</div>
