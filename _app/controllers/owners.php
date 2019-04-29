@@ -1,6 +1,6 @@
 <?php 
 
-class Building extends Controller
+class Owners extends Controller
 {
 	public function __construct()
 	{
@@ -20,7 +20,7 @@ class Building extends Controller
 			exit; 
 		}
 	}
-
+	
 	public function index($language='', $page = 1)
 	{
 		if(!isset($_SESSION["user_data"])):
@@ -29,22 +29,22 @@ class Building extends Controller
 			$redirect->gotoUrl("/".$language."/home/index");
 		endif;
 
-		$Module_building_list = $this->model('Module_building_list');
-		$Module_building_list->page = $page;
-		$Module_building_list->language = $language;
+		$Module_owners_list = $this->model('Module_owners_list');
+		$Module_owners_list->page = $page;
+		$Module_owners_list->language = $language;
 		
 		$mainName = $_SESSION["user_data"]["firstname"] . " " . $_SESSION["user_data"]["lastname"];
 		$user_type = $_SESSION["user_data"]["user_type"];		
 
-		$this->view('building/index', array(
+		$this->view('owners/index', array(
 			"title"=>Config::WEBSITE_TITLE,
 			"v"=>Config::WEBSITE_VERSION,
-			"controller"=>"building",
+			"controller"=>"owners",
 			"language"=>$language,
 			"user_type"=>$user_type,
 			"mainName"=>$mainName,
 			"page"=>$page,
-			"buildingList"=>$Module_building_list->index()
+			"owenersList"=>$Module_owners_list->index()
 		));
 	}
 
@@ -56,50 +56,21 @@ class Building extends Controller
 			$redirect->gotoUrl("/".$language."/home/index");
 		endif;
 
-		$Module_building_form = $this->model('Module_building_form');
-		$Module_building_form->type = "add";
+		$Module_owners_form = $this->model('Module_owners_form');
+		$Module_owners_form->type = "add";
 
 		$mainName = $_SESSION["user_data"]["firstname"] . " " . $_SESSION["user_data"]["lastname"];
 		$user_type = $_SESSION["user_data"]["user_type"];		
 
-		$this->view('building/add', array(
+		$this->view('owners/add', array(
 			"title"=>Config::WEBSITE_TITLE,
 			"v"=>Config::WEBSITE_VERSION,
-			"controller"=>"building",
+			"controller"=>"owners",
+			"datepicker"=>true,
 			"language"=>$language,
 			"user_type"=>$user_type,
 			"mainName"=>$mainName,
-			"form"=>$Module_building_form->index(),
-			"map"=>$Module_building_form->map_coordinates
-		));
-	}
-
-	public function edit($language, $id = 0)
-	{
-		if(!isset($_SESSION["user_data"])):
-			$Functions = new Functions;
-			$redirect = $Functions->load("fu_redirect");
-			$redirect->gotoUrl("/".$language."/home/index");
-		endif;
-
-		$Module_building_form = $this->model('Module_building_form');
-		$Module_building_form->type = "edit";
-		$Module_building_form->language = $language;
-		$Module_building_form->editId = $id;
-
-		$mainName = $_SESSION["user_data"]["firstname"] . " " . $_SESSION["user_data"]["lastname"];
-		$user_type = $_SESSION["user_data"]["user_type"];		
-
-		$this->view('building/edit', array(
-			"title"=>Config::WEBSITE_TITLE,
-			"v"=>Config::WEBSITE_VERSION,
-			"controller"=>"building",
-			"language"=>$language,
-			"user_type"=>$user_type,
-			"mainName"=>$mainName,
-			"id"=>$id,
-			"form"=>$Module_building_form->index(),
-			"map"=>$Module_building_form->map_coordinates
+			"form"=>$Module_owners_form->index(),
 		));
 	}
 }

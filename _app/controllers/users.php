@@ -2,6 +2,25 @@
 
 class Users extends Controller
 {
+	public function __construct()
+	{
+		$IP = new Database("db_ip", array(
+			"method"=>"select",
+			"page"=>0,
+			"noLimit"=>true
+		));
+		$fetchIps = $IP->getter();
+		$allow = array();
+		foreach ($fetchIps as $v) {
+			$allow[] = $v["ip"];
+		}
+
+		if(!in_array($_SERVER["REMOTE_ADDR"], $allow)){ 
+			die("Your Ip Address <b>(".$_SERVER["REMOTE_ADDR"].")</b> is not allowed. Please contact your administrator."); 
+			exit; 
+		}
+	}
+	
 	private function checkUserType($language)
 	{
 		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]!="manager"){

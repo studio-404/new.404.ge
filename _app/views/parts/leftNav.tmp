@@ -39,6 +39,15 @@
 		</li>
 		<!-- endif -->
 
+		<li class="<!-- if '[controller]'=='owners' --> 
+		active 
+		<!-- endif -->">
+			<a href="/[language]/owners/index">
+				<i class="nc-icon nc-money-coins"></i>
+				<p>მეპატრონე</p>
+			</a>
+		</li>
+
 		<li class="<!-- if '[controller]'=='search' --> 
 		active 
 		<!-- endif -->">

@@ -2,6 +2,25 @@
 
 class ajax_companies
 {
+	public function __construct()
+	{
+		$IP = new Database("db_ip", array(
+			"method"=>"select",
+			"page"=>0,
+			"noLimit"=>true
+		));
+		$fetchIps = $IP->getter();
+		$allow = array();
+		foreach ($fetchIps as $v) {
+			$allow[] = $v["ip"];
+		}
+
+		if(!in_array($_SERVER["REMOTE_ADDR"], $allow)){ 
+			die("Your Ip Address <b>(".$_SERVER["REMOTE_ADDR"].")</b> is not allowed. Please contact your administrator."); 
+			exit; 
+		}
+	}
+	
 	public $message = array("error"=>true, "success"=>false, "message"=>"მოთხოვნა ვერ მოიძებნა!");
 	public function output($language)
 	{

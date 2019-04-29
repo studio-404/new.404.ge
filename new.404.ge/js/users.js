@@ -283,5 +283,4 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 			};
 		});
 	}
-
 })();
