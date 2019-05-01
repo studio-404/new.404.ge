@@ -18,7 +18,7 @@ var ajax = (request, post) => {
 		let password = (typeof document.getElementsByClassName("password")[0] !== "undefind") ? document.getElementsByClassName("password")[0].value : '';
 		let code = (typeof document.getElementsByClassName("code")[0] !== "undefind") ? document.getElementsByClassName("code")[0].value : '';
 
-		var xhttp = ajax("ajax_users", "type=select&username="+username+"&password="+password+"&code="+code);
+		var xhttp = ajax("ajax_users", "type=select&signtry=true&username="+username+"&password="+password+"&code="+code);
 		
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4) {
@@ -32,7 +32,7 @@ var ajax = (request, post) => {
 					className = "success";
 
 					setTimeout(() => {
-						location.href = "/"+Config.language+"/dashboard/index";
+						location.href = "/"+Config.language+out.response.redirect;
 					},1500);
 				}
 

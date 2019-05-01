@@ -45,7 +45,7 @@
 
 		[#include parts/topFooter]
 	</div>
-</div>appendPhoto
+</div>
 
 <script type="text/javascript">
 var Config = {

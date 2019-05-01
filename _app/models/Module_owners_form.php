@@ -98,6 +98,10 @@ class Module_owners_form
 			));
 			$fetch = $Database->getter();
 
+			if(!count($fetch)){
+				die("Opps permition denied...");
+			}
+
 			$firstname = $fetch["firstname"];
 			$lastname = $fetch["lastname"];
 			$owners_name = $fetch["owners_name"];

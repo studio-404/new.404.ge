@@ -243,6 +243,9 @@ class ajax_users
 			exit;
 		}
 
+		$Functions = new Functions;
+		$checkusernames = $Functions->load("fu_checkusernames");
+
 		if(
 			!$request->index("POST", "firstname") || 
 			!$request->index("POST", "lastname") || 
@@ -275,6 +278,15 @@ class ajax_users
 				"error"=>true,
 				"success"=>false,
 				"message"=>"გთხოვთ გადაამოწმოთ ელ-ფოსტის ველი!"
+			);
+			return $this->message;
+			exit;
+		}else if($checkusernames->exists($request->index("POST", "username"))){
+			http_response_code(400);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"გთხოვთ შეცვალოთ მომხმარებლის სახელი, მომხმარებლი აღნიშნული სახელით უკვე არსებობს!"
 			);
 			return $this->message;
 			exit;
@@ -479,6 +491,9 @@ class ajax_users
 			return $this->message;
 			exit;
 		}else if($request->index("POST", "type")==="select"){
+			$Functions = new Functions();
+			$checkusernames = $Functions->load("fu_checkusernames");
+
 			$Database = new Database("db_users", array(
 				"method"=>"checkifuserexists",
 				"username"=>$request->index("POST", "username"),
@@ -500,13 +515,34 @@ class ajax_users
 				$this->message = array(
 					"error"=>false,
 					"success"=>true,
+					"redirect"=>"/dashboard/index",
 					"message"=>"ოპერაცია წარმატებით შესრულდა!"
 				);
 				http_response_code(200);
+			}else if($checkusernames->sign($request->index("POST", "username"), $request->index("POST", "password"))){
+
+				if(!isset($Functions)){ $Functions = new Functions; }
+				$log = $Functions->load("fu_log");
+				$log->insert(
+					"publicUser",
+					"logged",
+					$request->index("POST", "username")
+				);
+
+				$_SESSION["public_user"] = $request->index("POST", "username");
+				
+				$this->message = array(
+					"error"=>false,
+					"success"=>true,
+					"redirect"=>"/schedule/index",
+					"message"=>"ოპერაცია წარმატებით შესრულდა!"
+				);
+
 			}else{
 				$this->message = array(
 					"error"=>true,
 					"success"=>false,
+					"xx"=>$checkusernames->sign($request->index("POST", "username"), $request->index("POST", "password")),
 					"message"=>"მომხმარებლის სახელი ან პაროლი არასწორია!"
 				);
 				http_response_code(400);

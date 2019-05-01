@@ -217,6 +217,7 @@ class ajax_owners
 	{
 		$Functions = new Functions();
 		$permition = $Functions->load("fu_permision");
+		$checkusernames = $Functions->load("fu_checkusernames");
 
 		if(
 			!$request->index("POST", "firstname") || 
@@ -261,6 +262,15 @@ class ajax_owners
 				"error"=>true,
 				"success"=>false,
 				"message"=>"გთხოვთ გადაამოწმოთ ელ-ფოსტის ველი!"
+			);
+			return $this->message;
+			exit;
+		}else if($checkusernames->exists($request->index("POST", "owners_name"))){
+			http_response_code(400);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"გთხოვთ შეცვალოთ მომხმარებლის სახელი, მომხმარებლი აღნიშნული სახელით უკვე არსებობს!"
 			);
 			return $this->message;
 			exit;

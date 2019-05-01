@@ -54,6 +54,7 @@ var filesCount = 1;
 					document.getElementsByClassName("installment_months")[0].parentNode.parentNode.style.display = "block";
 					document.getElementsByClassName("installment_list")[0].style.display = "block";
 					document.getElementsByClassName("paying_start_day")[0].style.display = "block";
+					document.getElementById("schedule_graph").style.display = "block";
 				}else{
 					document.getElementsByClassName("totalprice")[0].parentNode.parentNode.classList.remove("col-md-3");
 					document.getElementsByClassName("totalprice")[0].parentNode.parentNode.classList.add("col-md-12");
@@ -61,6 +62,7 @@ var filesCount = 1;
 					document.getElementsByClassName("installment_months")[0].parentNode.parentNode.style.display = "none";
 					document.getElementsByClassName("installment_list")[0].style.display = "none";
 					document.getElementsByClassName("paying_start_day")[0].style.display = "none";
+					document.getElementById("schedule_graph").style.display = "none";
 				}
 			});
 		}
@@ -400,6 +402,31 @@ var filesCount = 1;
 
 			});
 		};
+	};
+
+
+	if(typeof document.getElementsByClassName("owner_list")[0] !== "undefined"){
+		document.getElementsByClassName("owner_list")[0].addEventListener("keyup", (e) => {
+			var val = e.target.value;
+			if(val.length >= 3){
+				var xhttp = ajax("ajax_owners", "type=searchownerbyusername&key="+val);
+
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4) {
+						var out = {
+							status: this.status,
+							response: JSON.parse(this.responseText)
+						};
+						
+						if(out.status==200){
+							document.getElementById("lists").innerHTML = out.response.list;
+						}else{
+							document.getElementById("lists").innerHTML = out.response.message;
+						}
+					}
+				};
+			};
+		});
 	};
 
 })();

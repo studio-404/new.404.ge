@@ -296,7 +296,7 @@ class Module_room_form
 		$payed_months_array = explode(";", $payed_months);
 
 		/* instalment start */
-		$this->out .= "<div class=\"col-md-12\" style=\"margin: 10px 0 0 0\">";	
+		$this->out .= "<div class=\"col-md-12\" id=\"schedule_graph\" style=\"margin: 10px 0 0 0; display:".$installment_list_display."\">";	
 		$this->out .= "<ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\">";
 		
 		$this->out .= "<li class=\"nav-item\">";
@@ -329,6 +329,11 @@ class Module_room_form
 
 		$this->out .= "</div>";				
 		/* instalment end */
+
+		$this->out .= "<div class=\"owner_list_box\">";
+		$this->out .= $this->input("მეპატრონე ( მომხმარებლის სახელი )", "owner_list", "", false, 12);
+		$this->out .= "<div id=\"lists\"></div>";
+		$this->out .= "</div>";
 	
 		$this->out .= "<div class=\"col-md-12\">";
 		$this->out .= "<div class=\"form-group\">"; 
@@ -338,7 +343,8 @@ class Module_room_form
 			$description
 		); 
 		$this->out .= "</div>";
-		$this->out .= "</div>";		
+		$this->out .= "</div>";	
+
 		
 
 		$this->out .= "<div class=\"col-md-12\">"; 

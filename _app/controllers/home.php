@@ -7,6 +7,10 @@ class Home extends Controller
 		if(isset($_SESSION["user_data"])):
 			unset($_SESSION["user_data"]);
 		endif;
+
+		if(isset($_SESSION["public_user"])):
+			unset($_SESSION["public_user"]);
+		endif;
 	}
 
 	public function index($language='', $name = '')

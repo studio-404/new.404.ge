@@ -48,15 +48,6 @@
 			</a>
 		</li>
 
-		<li class="<!-- if '[controller]'=='search' --> 
-		active 
-		<!-- endif -->">
-			<a href="/[language]/search/index">
-				<i class="nc-icon nc-zoom-split"></i>
-				<p>ძიება</p>
-			</a>
-		</li>
-
 		<li class="<!-- if '[controller]'=='building' --> 
 		active 
 		<!-- endif -->">

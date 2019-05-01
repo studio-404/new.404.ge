@@ -15,11 +15,10 @@
 
 	<link href="/css/bootstrap.min.css?v=[v]" rel="stylesheet" />
 	<link href="/css/bootstrap-datepicker.css?v=[v]" rel="stylesheet" />
+
 	<link href="/css/paper-dashboard.css?v=[v]" rel="stylesheet" />
 	<!-- if '[language]'=='ge' -->
 	<link href="/css/ge.css?v=[v]" rel="stylesheet" />
 	<!-- endif -->
-	
-
 </head>
 <body> 

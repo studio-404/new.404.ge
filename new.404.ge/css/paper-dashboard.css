@@ -6506,3 +6506,37 @@ License - nucleoapp.com/license/
   height: 100px;
   overflow: auto;
 }
+
+.owner_list_box{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  position: relative;
+}
+
+.owner_list_box #lists{
+  margin: 0;
+  padding: 10px;
+  width: calc(100% - 30px);
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: white;
+  box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);
+  border: solid 1px #DDDDDD;
+  position: absolute;
+  top: 65px;
+  left: 15px;
+  z-index: 10000;
+  display: none;
+}
+
+.owner_list_box #lists ul{
+  margin:0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.owner_list_box #lists ul li{
+  margin:0;
+  padding: 0;
+}
