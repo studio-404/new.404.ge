@@ -41,10 +41,56 @@ class ajax_owners
 			case 'deleteOwner':
 				return $this->deleteOwner($request, $language);
 				break;
+			case 'searchownerbyusername':
+				return $this->searchownerbyusername($request, $language);
+				break;
 		}
 
 		http_response_code(404);
 		return $this->message;
+	}
+
+	private function searchownerbyusername($request, $language)
+	{
+		$list = "";
+		if(
+			!$request->index("POST", "key") && 
+			mb_strlen($request->index("POST", "key"), 'UTF-8')
+		){
+			http_response_code(400);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"list"=>$list,
+				"message"=>"ყველა ველი სავალდებულოა!"
+			);
+			return $this->message;
+			exit;
+		}else{
+			$Database = new Database("db_owners", array(
+				"method"=>"search",
+				"key"=>$request->index("POST", "key")
+			));
+
+			if($Database->getter()){
+				$list = "<ul>";
+				foreach ($Database->getter() as $v) {
+					$list .= sprintf("<li><a href=\"javascript:void(0)\" data-id=\"%d\" class=\"ownersListItem\">%s</a></li>", $v["id"], $v["owners_name"]);	
+				}
+				$list .= "</ul>";
+			}
+
+			$this->message = array(
+				"error"=>false,
+				"success"=>true,
+				"list"=>$list,
+				"message"=>"ოპერაცია წარმატებით შესრულდა!"
+			);
+			http_response_code(200);
+
+			return $this->message;
+			exit;
+		}
 	}
 
 	private function deleteOwner($request, $language)

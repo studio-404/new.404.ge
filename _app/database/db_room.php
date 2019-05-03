@@ -108,10 +108,20 @@ class db_room
 		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
 			$insert_admin = "";
 		}else{
-			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `shindi_rooms`.`insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
 		}
 		
-		$select = "SELECT * FROM `shindi_rooms` WHERE `id`=:id AND `building_id`=:building_id AND `entrance_id`=:entrance_id AND `floor_id`=:floor_id AND `status`!=:one".$insert_admin;
+		$select = "SELECT 
+		(SELECT `shidni_oweners`.`owners_name` FROM `shidni_oweners` WHERE `shidni_oweners`.`id`=`shindi_rooms`.`owner_id`) AS owner_name,
+		`shindi_rooms`.* 
+		FROM 
+		`shindi_rooms` 
+		WHERE 
+		`shindi_rooms`.`id`=:id AND 
+		`shindi_rooms`.`building_id`=:building_id AND 
+		`shindi_rooms`.`entrance_id`=:entrance_id AND 
+		`shindi_rooms`.`floor_id`=:floor_id AND 
+		`shindi_rooms`.`status`!=:one".$insert_admin;
 		$prepare = $this->conn->prepare($select);
 		$prepare->execute(array(
 			":building_id"=>$args["building_id"],
@@ -198,6 +208,7 @@ class db_room
 		`pre_pay`=:pre_pay,
 		`paying_start_day`=:paying_start_day,
 		`payed_months`=:payed_months,
+		`owner_id`=:owner_id,
 		`installment_months`=:installment_months
 		";
 
@@ -235,6 +246,7 @@ class db_room
 			":pre_pay"=>$args["pre_pay"],
 			":payed_months"=>$args["payed_months"],
 			":paying_start_day"=>$args["paying_start_day"],
+			":owner_id"=>$args["owner_id"],
 			":installment_months"=>$args["installment_months"]
 		));
 
@@ -327,6 +339,7 @@ class db_room
 		`pre_pay`=:pre_pay,
 		`paying_start_day`=:paying_start_day,
 		`payed_months`=:payed_months,
+		`owner_id`=:owner_id,
 		`installment_months`=:installment_months
 		WHERE
 		`id`=:id".$insert_admin;
@@ -365,6 +378,7 @@ class db_room
 			":paying_start_day"=>$args["paying_start_day"],
 			":payed_months"=>$args["payed_months"],
 			":installment_months"=>$args["installment_months"],
+			":owner_id"=>$args["owner_id"],
 			":id"=>$args["id"]
 		));
 

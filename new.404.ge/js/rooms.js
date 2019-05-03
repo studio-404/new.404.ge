@@ -135,7 +135,8 @@ var filesCount = 1;
 			let bathrooms = (typeof document.getElementsByClassName("bathrooms")[0] !== "undefined") ? document.getElementsByClassName("bathrooms")[0].value : '';
 			let square = (typeof document.getElementsByClassName("square")[0] !== "undefined") ? document.getElementsByClassName("square")[0].value : '';
 			let ceil_height = (typeof document.getElementsByClassName("ceil_height")[0] !== "undefined") ? document.getElementsByClassName("ceil_height")[0].value : '';
-
+			let owner_id = (typeof document.getElementsByClassName("owner_id")[0] !== "undefined") ? document.getElementsByClassName("owner_id")[0].value : '';
+			
 			let additional_info = (typeof document.getElementsByClassName("additional_info") !== "undefined") ? document.getElementsByClassName("additional_info") : [{}];
 			let addInfo = new Array();
 			for(var i = 0; i<additional_info.length; i++){
@@ -180,6 +181,7 @@ var filesCount = 1;
 			data += '&pre_pay='+pre_pay;
 			data += '&paying_start_day='+paying_start_day;
 			data += '&installment_months='+installment_months;
+			data += '&owner_id='+owner_id;
 			data += '&addInfo='+addInfo.join();
 			data += '&payed_months='+payed_months.join(";");
 			data += '&description='+description;
@@ -223,6 +225,7 @@ var filesCount = 1;
 			let bathrooms = (typeof document.getElementsByClassName("bathrooms")[0] !== "undefined") ? document.getElementsByClassName("bathrooms")[0].value : '';
 			let square = (typeof document.getElementsByClassName("square")[0] !== "undefined") ? document.getElementsByClassName("square")[0].value : '';
 			let ceil_height = (typeof document.getElementsByClassName("ceil_height")[0] !== "undefined") ? document.getElementsByClassName("ceil_height")[0].value : '';
+			let owner_id = (typeof document.getElementsByClassName("owner_id")[0] !== "undefined") ? document.getElementsByClassName("owner_id")[0].value : '';
 
 			let additional_info = (typeof document.getElementsByClassName("additional_info") !== "undefined") ? document.getElementsByClassName("additional_info") : [{}];
 			let addInfo = new Array();
@@ -268,6 +271,7 @@ var filesCount = 1;
 			data += '&pre_pay='+pre_pay;
 			data += '&paying_start_day='+paying_start_day;
 			data += '&installment_months='+installment_months;
+			data += '&owner_id='+owner_id;
 			data += '&addInfo='+addInfo.join();
 			data += '&payed_months='+payed_months.join(";");
 			data += '&description='+description;
@@ -406,6 +410,7 @@ var filesCount = 1;
 
 
 	if(typeof document.getElementsByClassName("owner_list")[0] !== "undefined"){
+		document.getElementById("lists").style.display = "none";
 		document.getElementsByClassName("owner_list")[0].addEventListener("keyup", (e) => {
 			var val = e.target.value;
 			if(val.length >= 3){
@@ -420,6 +425,19 @@ var filesCount = 1;
 						
 						if(out.status==200){
 							document.getElementById("lists").innerHTML = out.response.list;
+							document.getElementById("lists").style.display = "block";
+
+							var ownersListItem = document.getElementsByClassName("ownersListItem");
+							for(var x = 0; x < ownersListItem.length; x++){
+								ownersListItem[x].addEventListener("click", (e) => {
+									var vo = e.target.innerHTML;
+									var io = parseInt(e.target.getAttribute("data-id"));
+
+									document.getElementsByClassName("owner_list")[0].value = vo;
+									document.getElementsByClassName("owner_id")[0].value = io;
+									document.getElementById("lists").style.display = "none";
+								});
+							}
 						}else{
 							document.getElementById("lists").innerHTML = out.response.message;
 						}

@@ -184,6 +184,7 @@ class ajax_rooms
 				"installment_months"=>(int)$request->index("POST", "installment_months"),  
 				"addInfo"=>$request->index("POST", "addInfo"),  
 				"payed_months"=>$request->index("POST", "payed_months"),  
+				"owner_id"=>$request->index("POST", "owner_id"),  
 				"description"=>$request->index("POST", "description")  
 			));
 
@@ -256,6 +257,7 @@ class ajax_rooms
 				"paying_start_day"=>$request->index("POST", "paying_start_day"),  
 				"installment_months"=>(int)$request->index("POST", "installment_months"), 
 				"description"=>$request->index("POST", "description"),  
+				"owner_id"=>$request->index("POST", "owner_id"),  
 				"id"=>$request->index("POST", "id")
 			));
 

@@ -13,6 +13,28 @@ class db_owners
 		return $out;
 	}
 
+	private function search($args)
+	{
+		$db_fetch = [];
+
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
+		
+		$select = "SELECT `id`,`owners_name` FROM `shidni_oweners` WHERE `owners_name` LIKE '%".$args["key"]."%' AND `status`!=:one".$insert_admin;
+		$prepare = $this->conn->prepare($select);
+		$prepare->execute(array(
+			":one"=>1
+		));
+		if($prepare->rowCount()){
+			$db_fetch = $prepare->fetchAll(PDO::FETCH_ASSOC);
+		}		
+
+		return $db_fetch;
+	}
+
 	private function deleteOwner($args)
 	{
 		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){

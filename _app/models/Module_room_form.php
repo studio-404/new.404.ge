@@ -140,6 +140,14 @@ class Module_room_form
 			$payed_months = $fetch["payed_months"];
 			$installment_months = $fetch["installment_months"];
 			$available_status = $fetch["available_status"];
+			$owner_id = $fetch["owner_id"];
+			$owner_name = $fetch["owner_name"];
+
+			$owner_link = sprintf(
+				"<a href=\"/%s/owners/edit/%s\" target=\"_blank\">ნახვა</a>", 
+				$this->language, 
+				$owner_id
+			);
 
 			$db_photos = new Database("db_photos", array(
 				"method"=>"selectByRoomId",
@@ -181,6 +189,9 @@ class Module_room_form
 			$payed_months = "";
 			$available_status = "avaliable";
 			$photos = false;
+			$owner_id = 0;
+			$owner_name = "";
+			$owner_link = "";
 			$submitText = "დამატება";
 			$submitClass = "addRoom";			
 		}
@@ -335,7 +346,11 @@ class Module_room_form
 		/* instalment end */
 
 		$this->out .= "<div class=\"owner_list_box\">";
-		$this->out .= $this->input("მეპატრონე ( მომხმარებლის სახელი )", "owner_list", "", false, 12);
+		$this->out .= sprintf(
+			"<input type=\"hidden\" name=\"owner_id\" class=\"owner_id\" value=\"%s\" />",
+			$owner_id
+		);
+		$this->out .= $this->input("მეპატრონე ( მომხმარებლის სახელი ) ".$owner_link, "owner_list", $owner_name, false, 12);
 		$this->out .= "<div id=\"lists\"></div>";
 		$this->out .= "</div>";
 	
