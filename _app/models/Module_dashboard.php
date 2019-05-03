@@ -29,7 +29,7 @@ class Module_dashboard
 		$out .= "<div class=\"col-7 col-md-8\">";
 		$out .= "<div class=\"numbers\">";
 		$out .= sprintf("<p class=\"card-category\">%s</p>", $title);
-		$out .= sprintf("<p class=\"card-title\">%d<p>", $num);
+		$out .= sprintf("<p class=\"card-title\">%s<p>", $num);
 		$out .= "</div>";
 		$out .= "</div>";
 		$out .= "</div>";
@@ -193,6 +193,25 @@ class Module_dashboard
 
 			$href = "/".$this->language."/building/index";
 			$this->out .= $this->card("nc-bank","მშენებლობა", (int)@$this->data["buildingCount"], $href);
+		}
+
+		if($_SESSION["user_data"]["user_type"]=="user"){
+			$href = "#";
+
+			$own_company = count(explode(",", $_SESSION["user_data"]["own_company"]));
+			$this->out .= $this->card("nc-alert-circle-i","კომპანია", (int)$own_company, $href);
+
+			$href = "/".$this->language."/building/index";
+			$this->out .= $this->card("nc-bank","მშენებლობა", (int)@$this->data["buildingCount"], $href);
+
+			$href = "#";
+			$flats = sprintf(
+				"<font color=\"green\">%s</font> / <font color=\"yellow\">%s</font> / <font color=\"red\">%s</font>", 
+				(int)@$this->data["avaliableRooms"],
+				(int)@$this->data["installmentRooms"],
+				(int)@$this->data["soldRooms"]
+			);
+			$this->out .= $this->card("nc-bank","ბინები (ხელ/გან/გაყ)", $flats, $href);
 		}
 
 		$this->out .= $this->permitions();
