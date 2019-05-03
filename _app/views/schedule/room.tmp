@@ -79,10 +79,14 @@
 					<div class="card">
 						<div class="card-header">
 							<h4 class="card-title" style="display: inline-block;"> ბინები</h4>
+
+							<div class="update ml-auto mr-auto" style="float:right">
+		                      <a href="/[language]/schedule/index" class="btn btn-primary btn-round">უკან</a>
+		                    </div>
 						</div>
 						
 						<div class="card-body">
-							[flat_list]
+							[flat_view]
 						</div>
 					</div>
 				</div>

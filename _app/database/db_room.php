@@ -13,6 +13,40 @@ class db_room
 		return $out;
 	}
 
+	private function selectMyRooms($args)
+	{
+		$db_fetch = [];
+
+		$Database = new Database("db_owners", array(
+			"method"=>"selectOwnerByUsername",
+			"owners_name"=>$_SESSION["public_user"]
+		));
+		$fetch = $Database->getter();
+
+		$limit = '';
+		if((int)$args["page"] > 0){
+			$limit = ' LIMIT '.(($args["page"]-1) * Config::USERS_FLAT_LIST_PERPAGE).','.Config::USERS_FLAT_LIST_PERPAGE;
+		}
+		
+		$select = "SELECT 
+		(SELECT COUNT(`shindi_rooms`.`id`) FROM `shindi_rooms` WHERE `shindi_rooms`.`owner_id`=:owner_id AND `shindi_rooms`.`status`!=:one) as counted,
+		`shindi_rooms`.* 
+		FROM 
+		`shindi_rooms` 
+		WHERE 
+		`shindi_rooms`.`owner_id`=:owner_id AND 
+		`shindi_rooms`.`status`!=:one ORDER BY `id`".$limit;
+		$prepare = $this->conn->prepare($select);
+		$prepare->execute(array(
+			":owner_id"=>$fetch["id"],
+			":one"=>1
+		));
+		if($prepare->rowCount()){
+			$db_fetch = $prepare->fetchAll(PDO::FETCH_ASSOC);
+		}		
+		return $db_fetch;
+	}
+
 	private function deleteRoom($args)
 	{
 		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
@@ -127,6 +161,33 @@ class db_room
 			":building_id"=>$args["building_id"],
 			":entrance_id"=>$args["entrance_id"],
 			":floor_id"=>$args["floor_id"],
+			":id"=>$args["id"],
+			":one"=>1
+		));
+		if($prepare->rowCount()){
+			$db_fetch = $prepare->fetch(PDO::FETCH_ASSOC);
+		}		
+		return $db_fetch;
+	}
+
+	private function selectRoomByIdAndOwner($args)
+	{
+		$db_fetch = [];
+		
+		$select = "SELECT 
+		(SELECT `shindi_buildings`.`title` FROM `shindi_buildings` WHERE `shindi_buildings`.`id`=`shindi_rooms`.`building_id` AND `shindi_buildings`.`status`!=:one) AS building_title,
+		(SELECT `shindi_entrance`.`title` FROM `shindi_entrance` WHERE `shindi_entrance`.`id`=`shindi_rooms`.`entrance_id` AND `shindi_entrance`.`status`!=:one) AS entrance_title,
+		(SELECT `shindi_floors`.`title` FROM `shindi_floors` WHERE `shindi_floors`.`id`=`shindi_rooms`.`floor_id` AND `shindi_floors`.`status`!=:one) AS floor_title,
+		`shindi_rooms`.* 
+		FROM 
+		`shindi_rooms` 
+		WHERE 
+		`shindi_rooms`.`id`=:id AND 
+		`shindi_rooms`.`owner_id`=:owner_id AND 
+		`shindi_rooms`.`status`!=:one";
+		$prepare = $this->conn->prepare($select);
+		$prepare->execute(array(
+			":owner_id"=>$args["owner_id"],
 			":id"=>$args["id"],
 			":one"=>1
 		));
