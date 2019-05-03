@@ -67,6 +67,7 @@ class Module_dashboard
 		$out .= "<tr>";
 		$out .= "<th>მოქმედება</th>";
 		$out .= "<th>კომპანია</th>";
+		$out .= "<th>მეპატრონე</th>";
 		$out .= "<th>მშენებლობა</th>";
 		$out .= "<th>სადარბაზო</th>";
 		$out .= "<th>სართული</th>";
@@ -79,6 +80,9 @@ class Module_dashboard
 		$out .= "<tr>";
 		$out .= "<td>დამატება</td>";		
 		$out .= sprintf("<td>%s</td>", ($permition->check("permission_company", "add")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_owner", "add")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		
 		$out .= sprintf("<td>%s</td>", ($permition->check("permission_buldings", "add")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
 		$out .= sprintf("<td>%s</td>", ($permition->check("permission_entrance", "add")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
 		$out .= sprintf("<td>%s</td>", ($permition->check("permission_floor", "add")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
@@ -88,6 +92,9 @@ class Module_dashboard
 		$out .= "<tr>";
 		$out .= "<td>რედაქტირება</td>";		
 		$out .= sprintf("<td>%s</td>", ($permition->check("permission_company", "edit")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_owner", "edit")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		
 		$out .= sprintf("<td>%s</td>", ($permition->check("permission_buldings", "edit")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
 		$out .= sprintf("<td>%s</td>", ($permition->check("permission_entrance", "edit")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
 		$out .= sprintf("<td>%s</td>", ($permition->check("permission_floor", "edit")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
@@ -97,6 +104,7 @@ class Module_dashboard
 		$out .= "<tr>";
 		$out .= "<td>წაშლა</td>";		
 		$out .= sprintf("<td>%s</td>", ($permition->check("permission_company", "delete")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
+		$out .= sprintf("<td>%s</td>", ($permition->check("permission_owner", "delete")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
 		$out .= sprintf("<td>%s</td>", ($permition->check("permission_buldings", "delete")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
 		$out .= sprintf("<td>%s</td>", ($permition->check("permission_entrance", "delete")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
 		$out .= sprintf("<td>%s</td>", ($permition->check("permission_floor", "delete")) ? '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:red"></i');
@@ -176,17 +184,22 @@ class Module_dashboard
 
 	public function index()
 	{
-		$href = "/".$this->language."/users/index";
-		$this->out .= $this->card("nc-single-02","მომხმარებელი", (int)@$this->data["userCount"], $href);
+		if($_SESSION["user_data"]["user_type"]=="manager"){
+			$href = "/".$this->language."/users/index";
+			$this->out .= $this->card("nc-single-02","მომხმარებელი", (int)@$this->data["userCount"], $href);		
 
-		$href = "/".$this->language."/company/index";
-		$this->out .= $this->card("nc-alert-circle-i","კომპანია", (int)@$this->data["companyCount"], $href);
+			$href = "/".$this->language."/company/index";
+			$this->out .= $this->card("nc-alert-circle-i","კომპანია", (int)@$this->data["companyCount"], $href);
 
-		$href = "/".$this->language."/building/index";
-		$this->out .= $this->card("nc-bank","მშენებლობა", (int)@$this->data["buildingCount"], $href);
+			$href = "/".$this->language."/building/index";
+			$this->out .= $this->card("nc-bank","მშენებლობა", (int)@$this->data["buildingCount"], $href);
+		}
 
 		$this->out .= $this->permitions();
-		$this->out .= $this->logs();
+		
+		if($_SESSION["user_data"]["user_type"]=="manager"){
+			$this->out .= $this->logs();
+		}
 
 		return $this->out;
 	}

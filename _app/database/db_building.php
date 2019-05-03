@@ -15,14 +15,19 @@ class db_building
 
 	private function edit($args)
 	{
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
+
 		$insert = "UPDATE `shindi_buildings` SET 
 		`title`=:title,
 		`company_id`=:company_id,
 		`address`=:address,
 		`map_coordinates`=:map_coordinates
 		WHERE
-		`id`=:id
-		";
+		`id`=:id".$insert_admin;
 
 		$prepare = $this->conn->prepare($insert);
 		$prepare->execute(array(
@@ -47,6 +52,7 @@ class db_building
 	private function add($args)
 	{
 		$insert = "INSERT INTO `shindi_buildings` SET 
+		`insert_admin`=:insert_admin,
 		`title`=:title,
 		`address`=:address,
 		`map_coordinates`=:map_coordinates,
@@ -54,6 +60,7 @@ class db_building
 
 		$prepare = $this->conn->prepare($insert);
 		$prepare->execute(array(
+			":insert_admin"=>$_SESSION["user_data"]["username"],
 			":title"=>$args["title"],
 			":address"=>$args["address"],
 			":map_coordinates"=>$args["map_coordinates"],
@@ -73,10 +80,16 @@ class db_building
 
 	private function deleteBuildings($args)
 	{
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
+
 		$update = "UPDATE `shindi_buildings` SET 
 		`status`=:one
 		WHERE
-		`id`=:id";
+		`id`=:id".$insert_admin;
 
 		$prepare = $this->conn->prepare($update);
 		$prepare->execute(array(
@@ -103,7 +116,11 @@ class db_building
 			$limit = ' LIMIT '.(($args["page"]-1) * Config::BUILDING_LIST_PERPAGE).','.Config::BUILDING_LIST_PERPAGE;
 		}
 
-		$own_company = ($_SESSION["user_data"]["user_type"]!="manager") ? "`shindi_buildings`.`company_id` IN (".$_SESSION["user_data"]["own_company"].") AND " : "";
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
 		
 		$select = "SELECT 
 		(SELECT COUNT(`id`) FROM `shindi_buildings` WHERE `status`!=:one) as counted,
@@ -112,7 +129,7 @@ class db_building
 		FROM 
 		`shindi_buildings` 
 		WHERE 
-		".$own_company."`shindi_buildings`.`status`!=:one ORDER BY `shindi_buildings`.`id` DESC".$limit."";
+		`shindi_buildings`.`status`!=:one".$insert_admin." ORDER BY `shindi_buildings`.`id` DESC".$limit."";
 		$prepare = $this->conn->prepare($select);
 		$prepare->execute(array(
 			":one"=>1
@@ -127,8 +144,14 @@ class db_building
 	private function selectBuildingById($args)
 	{
 		$db_fetch = [];
+
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
 		
-		$select = "SELECT * FROM `shindi_buildings` WHERE `id`=:id AND `status`!=:one";
+		$select = "SELECT * FROM `shindi_buildings` WHERE `id`=:id AND `status`!=:one".$insert_admin;
 		$prepare = $this->conn->prepare($select);
 		$prepare->execute(array(
 			":id"=>$args["id"],

@@ -14,6 +14,15 @@ class Module_entrance_list
 
 	public function index()
 	{
+		$bulding = new Database("db_building", array(
+			"method"=>"selectBuildingById",
+			"id"=>$this->building_id
+		));
+
+		if(!$bulding->getter()){
+			die("Opps permition denied...");
+		}
+		
 		$Database = new Database("db_entrance", array(
 			"method"=>"select",
 			"building_id"=>$this->building_id,

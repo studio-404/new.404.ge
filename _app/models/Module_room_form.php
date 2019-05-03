@@ -106,6 +106,10 @@ class Module_room_form
 			));
 			$fetch = $Database->getter();
 
+			if(!$fetch){
+				die("Opps permition denied...");
+			}
+
 			$title = $fetch["title"];
 			$rooms = $fetch["rooms"];
 			$bedroom = $fetch["bedroom"];

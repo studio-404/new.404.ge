@@ -15,6 +15,22 @@ class Module_floor_list
 
 	public function index()
 	{
+
+		$bulding = new Database("db_building", array(
+			"method"=>"selectBuildingById",
+			"id"=>$this->building_id
+		));
+
+		$entrance = new Database("db_entrance", array(
+			"method"=>"selectEntranceById",
+			"building_id"=>$this->building_id,
+			"id"=>$this->entrance_id
+		));
+
+		if(!$bulding->getter() || !$entrance->getter()){
+			die("Opps permition denied...");
+		}
+
 		$Database = new Database("db_floor", array(
 			"method"=>"select",
 			"building_id"=>$this->building_id,

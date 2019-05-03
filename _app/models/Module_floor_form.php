@@ -41,6 +41,10 @@ class Module_floor_form
 			));
 			$fetch = $Database->getter();
 
+			if(!$fetch){
+				die("Opps permition denied...");
+			}
+
 			$title = $fetch["title"];
 			$submitText = "რედაქტირება";
 			$submitClass = "editFloor";			

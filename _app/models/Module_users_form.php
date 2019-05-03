@@ -148,21 +148,21 @@ class Module_users_form
 			$companyEdit = false;
 			$companyDelete = false;
 
-			$ownerAdd = false;
-			$ownerEdit = false;
-			$ownerDelete = false;
+			$ownerAdd = true;
+			$ownerEdit = true;
+			$ownerDelete = true;
 
-			$buildingAdd = false;
-			$buildingEdit = false;
-			$buildingDelete = false;
+			$buildingAdd = true;
+			$buildingEdit = true;
+			$buildingDelete = true;
 
-			$entranceAdd = false;
-			$entranceEdit = false;
-			$entranceDelete = false;
+			$entranceAdd = true;
+			$entranceEdit = true;
+			$entranceDelete = true;
 
-			$floorAdd = false;
-			$floorEdit = false;
-			$floorDelete = false;
+			$floorAdd = true;
+			$floorEdit = true;
+			$floorDelete = true;
 
 			$roomAdd = true;
 			$roomEdit = true;

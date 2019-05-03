@@ -20,6 +20,12 @@ class db_floor
 		if((int)$args["page"] > 0){
 			$limit = ' LIMIT '.(($args["page"]-1) * Config::FLOOR_LIST_PERPAGE).','.Config::FLOOR_LIST_PERPAGE;
 		}
+
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `shindi_floors`.`insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
 		
 		$select = "SELECT 
 		(SELECT COUNT(`id`) FROM `shindi_floors` WHERE `building_id`=:building_id AND `entrance_id`=:entrance_id AND `status`!=:one) AS counted,
@@ -33,7 +39,7 @@ class db_floor
 		WHERE 
 		`shindi_floors`.`building_id`=:building_id AND 
 		`shindi_floors`.`entrance_id`=:entrance_id AND 
-		`shindi_floors`.`status`!=:one ORDER BY `shindi_floors`.`id` DESC".$limit;
+		`shindi_floors`.`status`!=:one".$insert_admin." ORDER BY `shindi_floors`.`id` DESC".$limit;
 
 		$prepare = $this->conn->prepare($select);
 		$prepare->execute(array(
@@ -51,8 +57,13 @@ class db_floor
 	private function selectFloorById($args)
 	{
 		$db_fetch = [];
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
 		
-		$select = "SELECT * FROM `shindi_floors` WHERE `id`=:id AND `building_id`=:building_id AND `entrance_id`=:entrance_id AND `status`!=:one";
+		$select = "SELECT * FROM `shindi_floors` WHERE `id`=:id AND `building_id`=:building_id AND `entrance_id`=:entrance_id AND `status`!=:one".$insert_admin;
 		$prepare = $this->conn->prepare($select);
 		$prepare->execute(array(
 			":building_id"=>$args["building_id"],
@@ -69,12 +80,14 @@ class db_floor
 	private function add($args)
 	{
 		$insert = "INSERT INTO `shindi_floors` SET 
+		`insert_admin`=:insert_admin,
 		`title`=:title,
 		`building_id`=:building_id,
 		`entrance_id`=:entrance_id";
 
 		$prepare = $this->conn->prepare($insert);
 		$prepare->execute(array(
+			":insert_admin"=>$_SESSION["user_data"]["username"],
 			":title"=>$args["title"],
 			":building_id"=>$args["building_id"],
 			":entrance_id"=>$args["entrance_id"]
@@ -93,12 +106,18 @@ class db_floor
 
 	private function edit($args)
 	{
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
+
 		$insert = "UPDATE `shindi_floors` SET 
 		`title`=:title
 		WHERE
 		`building_id`=:building_id AND 
 		`entrance_id`=:entrance_id AND 
-		`id`=:id";
+		`id`=:id".$insert_admin;
 
 		$prepare = $this->conn->prepare($insert);
 		$prepare->execute(array(
@@ -121,10 +140,16 @@ class db_floor
 
 	private function deleteFloor($args)
 	{
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
+
 		$update = "UPDATE `shindi_floors` SET 
 		`status`=:one
 		WHERE
-		`id`=:id";
+		`id`=:id".$insert_admin;
 
 		$prepare = $this->conn->prepare($update);
 		$prepare->execute(array(

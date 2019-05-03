@@ -20,6 +20,12 @@ class db_entrance
 		if((int)$args["page"] > 0){
 			$limit = ' LIMIT '.(($args["page"]-1) * Config::ENTRANCE_LIST_PERPAGE).','.Config::ENTRANCE_LIST_PERPAGE;
 		}
+
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `shindi_entrance`.`insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
 		
 		$select = "SELECT 
 		(SELECT COUNT(`id`) FROM `shindi_entrance` WHERE `building_id`=:building_id AND `status`!=:one) AS counted,
@@ -31,7 +37,7 @@ class db_entrance
 		`shindi_entrance` 
 		WHERE 
 		`shindi_entrance`.`building_id`=:building_id AND 
-		`shindi_entrance`.`status`!=:one ORDER BY `shindi_entrance`.`id` DESC".$limit;
+		`shindi_entrance`.`status`!=:one".$insert_admin." ORDER BY `shindi_entrance`.`id` DESC".$limit;
 
 		$prepare = $this->conn->prepare($select);
 		$prepare->execute(array(
@@ -47,10 +53,16 @@ class db_entrance
 
 	private function deleteEntrance($args)
 	{
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
+
 		$update = "UPDATE `shindi_entrance` SET 
 		`status`=:one
 		WHERE
-		`id`=:id";
+		`id`=:id".$insert_admin;
 
 		$prepare = $this->conn->prepare($update);
 		$prepare->execute(array(
@@ -72,8 +84,14 @@ class db_entrance
 	private function selectEntranceById($args)
 	{
 		$db_fetch = [];
+
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
 		
-		$select = "SELECT * FROM `shindi_entrance` WHERE `id`=:id AND `building_id`=:building_id AND `status`!=:one";
+		$select = "SELECT * FROM `shindi_entrance` WHERE `id`=:id AND `building_id`=:building_id AND `status`!=:one".$insert_admin;
 		$prepare = $this->conn->prepare($select);
 		$prepare->execute(array(
 			":building_id"=>$args["building_id"],
@@ -90,11 +108,13 @@ class db_entrance
 	{
 		$insert = "INSERT INTO `shindi_entrance` SET 
 		`title`=:title,
+		`insert_admin`=:insert_admin,
 		`building_id`=:building_id";
 
 		$prepare = $this->conn->prepare($insert);
 		$prepare->execute(array(
 			":title"=>$args["title"],
+			":insert_admin"=>$_SESSION["user_data"]["username"],
 			":building_id"=>$args["building_id"]
 		));
 
@@ -111,12 +131,17 @@ class db_entrance
 
 	private function edit($args)
 	{
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
+
 		$insert = "UPDATE `shindi_entrance` SET 
 		`title`=:title
 		WHERE
 		`building_id`=:building_id AND 
-		`id`=:id
-		";
+		`id`=:id".$insert_admin;
 
 		$prepare = $this->conn->prepare($insert);
 		$prepare->execute(array(

@@ -15,10 +15,16 @@ class db_room
 
 	private function deleteRoom($args)
 	{
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
+
 		$update = "UPDATE `shindi_rooms` SET 
 		`status`=:one
 		WHERE
-		`id`=:id";
+		`id`=:id".$insert_admin;
 
 		$prepare = $this->conn->prepare($update);
 		$prepare->execute(array(
@@ -56,6 +62,12 @@ class db_room
 		if((int)$args["page"] > 0){
 			$limit = ' LIMIT '.(($args["page"]-1) * Config::ROOM_LIST_PERPAGE).','.Config::ROOM_LIST_PERPAGE;
 		}
+
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `shindi_rooms`.`insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
 		
 		$select = "SELECT 
 		(SELECT COUNT(`id`) FROM `shindi_rooms` WHERE `building_id`=:building_id AND `entrance_id`=:entrance_id AND `floor_id`=:floor_id AND `status`!=:one) AS counted,
@@ -71,7 +83,7 @@ class db_room
 		`shindi_rooms`.`building_id`=:building_id AND 
 		`shindi_rooms`.`entrance_id`=:entrance_id AND 
 		`shindi_rooms`.`floor_id`=:floor_id AND 
-		`shindi_rooms`.`status`!=:one ORDER BY `shindi_rooms`.`id` DESC".$limit;
+		`shindi_rooms`.`status`!=:one".$insert_admin." ORDER BY `shindi_rooms`.`id` DESC".$limit;
 
 		$prepare = $this->conn->prepare($select);
 		$prepare->execute(array(
@@ -92,8 +104,14 @@ class db_room
 	private function selectRoomById($args)
 	{
 		$db_fetch = [];
+
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
 		
-		$select = "SELECT * FROM `shindi_rooms` WHERE `id`=:id AND `building_id`=:building_id AND `entrance_id`=:entrance_id AND `floor_id`=:floor_id AND `status`!=:one";
+		$select = "SELECT * FROM `shindi_rooms` WHERE `id`=:id AND `building_id`=:building_id AND `entrance_id`=:entrance_id AND `floor_id`=:floor_id AND `status`!=:one".$insert_admin;
 		$prepare = $this->conn->prepare($select);
 		$prepare->execute(array(
 			":building_id"=>$args["building_id"],
@@ -148,6 +166,7 @@ class db_room
 		if(in_array("elevator", $addInfo)){ $elevator = 1; }
 
 		$insert = "INSERT INTO `shindi_rooms` SET 
+		`insert_admin`=:insert_admin,
 		`title`=:title,
 		`building_id`=:building_id,
 		`entrance_id`=:entrance_id,
@@ -184,6 +203,7 @@ class db_room
 
 		$prepare = $this->conn->prepare($insert);
 		$prepare->execute(array(
+			":insert_admin"=>$_SESSION["user_data"]["username"],
 			":title"=>$args["title"],
 			":building_id"=>$args["building_id"],
 			":entrance_id"=>$args["entrance_id"], 
@@ -269,6 +289,12 @@ class db_room
 		if(in_array("fridge", $addInfo)){ $fridge = 1; }
 		if(in_array("elevator", $addInfo)){ $elevator = 1; }
 
+		if(isset($_SESSION["user_data"]["user_type"]) && $_SESSION["user_data"]["user_type"]=="manager"){
+			$insert_admin = "";
+		}else{
+			$insert_admin = (isset($_SESSION["user_data"]["username"])) ? " AND `insert_admin`='".$_SESSION["user_data"]["username"]."' " : "";
+		}
+
 		$insert = "UPDATE `shindi_rooms` SET 
 		`title`=:title,
 		`building_id`=:building_id,
@@ -303,8 +329,7 @@ class db_room
 		`payed_months`=:payed_months,
 		`installment_months`=:installment_months
 		WHERE
-		`id`=:id
-		";
+		`id`=:id".$insert_admin;
 
 		$prepare = $this->conn->prepare($insert);
 		$prepare->execute(array(

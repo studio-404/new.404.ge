@@ -60,6 +60,10 @@ class Module_building_form
 			));
 			$fetch = $Database->getter();
 
+			if(!$fetch){
+				die("Opps permition denied...");
+			}
+
 			$company_id = $fetch["company_id"];
 			$title = $fetch["title"];
 			$address = $fetch["address"];
