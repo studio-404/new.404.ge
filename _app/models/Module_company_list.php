@@ -59,8 +59,8 @@ class Module_company_list
 			$this->out .= '</table>';
 			$this->out .= '</div>';
 			
-
-			$buttons = (int)ceil($data[0]["counted"] / Config::COMPANY_LIST_PERPAGE);
+			$c = (isset($data[0]["counted"])) ? $data[0]["counted"] : 0;
+			$buttons = (int)ceil($c / Config::COMPANY_LIST_PERPAGE);
 			$this->out .= "<ul class=\"pagination\">";
 			for($i=1; $i<=$buttons; $i++){
 				$active = ($this->page==$i) ? ' active' : '';

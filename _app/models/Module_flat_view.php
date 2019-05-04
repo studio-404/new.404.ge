@@ -8,7 +8,7 @@ class Module_flat_view
 
 	public function index()
 	{	
-		$this->out .= print_r($this->data, true);
+		// $this->out .= print_r($this->data, true);
 		
 		$this->out .= "<div class=\"table-responsive table-upgrade\">";
 		$this->out .= "<table class=\"table\">";
