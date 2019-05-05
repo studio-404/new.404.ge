@@ -1,0 +1,25 @@
+<?php 
+class Register extends Controller
+{
+	public function __construct()
+	{
+		if(isset($_SESSION["user_data"])):
+			unset($_SESSION["user_data"]);
+		endif;
+
+		if(isset($_SESSION["public_user"])):
+			unset($_SESSION["public_user"]);
+		endif;
+	}
+
+	public function index($language='', $name = '')
+	{
+		// $Module_name_list = $this->model('Module_name_list');		
+
+		$this->view('register/index', array(
+			"title"=>Config::WEBSITE_TITLE,
+			"v"=>Config::WEBSITE_VERSION,
+			"language"=>$language
+		));
+	}
+}

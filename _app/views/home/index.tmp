@@ -73,6 +73,10 @@
 						</div>
 					</div>
 				</div>
+				<div style="width: 100%; clear:both;"></div>
+				<div class="col-md-4" style="margin: 0 auto;">
+                  <button class="btn btn-primary btn-round btn-block" onclick="location.href='/[language]/register/index'">რეგისტრაცია</button>
+                </div>
 			</div>
 		</div>
 
