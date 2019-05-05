@@ -39,14 +39,88 @@
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
+											<label>სახელი</label>
+											<input type="text" name="firstname" class="form-control firstname" value="" autocomplete="off" />
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>გვარი</label>
+											<input type="text" name="lastname" class="form-control lastname" value="" autocomplete="off" />
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group">
 											<label>მომხმარებლის სახელი</label>
 											<input type="text" name="username" class="form-control username" value="" autocomplete="off" />
 										</div>
 									</div>
+
 									<div class="col-md-6">
 										<div class="form-group">
 											<label>პაროლი</label>
 											<input type="password" name="password" class="form-control password" value="" />
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>ელ-ფოსტა</label>
+											<input type="text" name="contact_email" class="form-control contact_email" value="" autocomplete="off" />
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>საკონტაქტო ნომერი</label>
+											<input type="text" name="contact_phone" class="form-control contact_phone" value="" autocomplete="off" />
+										</div>
+									</div>
+
+									<div class="col-md-12">
+										<h6>კომპანია</h6>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>დასახელება</label>
+											<input type="text" name="company_title" class="form-control company_title" value="" autocomplete="off" />
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>საიდენთიფიკაციო კოდი</label>
+											<input type="text" name="company_identity" class="form-control company_identity" value="" autocomplete="off" />
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>საკონტაქტო ნომერი</label>
+											<input type="text" name="company_contact_number" class="form-control company_contact_number" value="" autocomplete="off" />
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>ელ-ფოსტა</label>
+											<input type="text" name="company_email" class="form-control company_email" value="" autocomplete="off" />
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>მისამართი</label>
+											<input type="text" name="company_address" class="form-control company_address" value="" autocomplete="off" />
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>ვებ-გვერდი</label>
+											<input type="text" name="company_website" class="form-control company_website" value="" autocomplete="off" />
 										</div>
 									</div>
 
@@ -74,8 +148,8 @@
 					</div>
 				</div>
 				<div style="width: 100%; clear:both;"></div>
-				<div class="col-md-4" style="margin: 0 auto;">
-                  <button class="btn btn-primary btn-round btn-block" onclick="location.href='/[language]/home/index'">ავტორიზაცია</button>
+				<div class="col-md-4" style="margin: 0 auto; text-align: center;">
+                  <a href="/[language]/home/index">ავტორიზაცია</a>
                 </div>
 			</div>
 		</div>
