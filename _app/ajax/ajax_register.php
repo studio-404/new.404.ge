@@ -165,12 +165,17 @@ class ajax_register
 			
 
 			$fu_email->send(array(
-				"sendTo"=>$request->index("POST", "contact_email"),
+				"sendTo"=>array($request->index("POST", "contact_email"), Config::EMAIL_REC),
 				"subject"=>"Kombosto რეგისტრაცია",
 				"body"=>$body
 			));
 
-
+			$ip = new Database("db_ip", array(
+				"method"=>"add",
+				"name"=>$firstname." ".$lastname,
+				"ip"=>$_SERVER["REMOTE_ADDR"],
+				"nologs"=>true
+			));
 
 			$this->message = array(
 				"error"=>false,

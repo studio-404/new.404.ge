@@ -54,6 +54,9 @@ var bootModal = (modalTitle, modalBody, modalFooter) => {
 			let company_website = document.getElementsByClassName("company_website")[0].value;
 			let code = document.getElementsByClassName("code")[0].value;
 
+			document.getElementsByClassName("messageBoxRegister")[0].innerHTML = messageBox("warning", "", "მიმდინარეობს მონაცემების დამუშავება...");
+			window.scrollTo(0, 0);
+
 			var xhttp = ajax(
 				"ajax_register", 
 				"type=adduser"+

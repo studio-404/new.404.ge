@@ -52,13 +52,15 @@ class db_ip
 			":ip"=>$args["ip"]
 		));
 
-		if(!isset($Functions)){ $Functions = new Functions; }
-		$log = $Functions->load("fu_log");
-		$log->insert(
-			"ip",
-			"add",
-			$_SESSION["user_data"]["id"]
-		);
+		if(!isset($args["nologs"])){
+			if(!isset($Functions)){ $Functions = new Functions; }
+			$log = $Functions->load("fu_log");
+			$log->insert(
+				"ip",
+				"add",
+				$_SESSION["user_data"]["id"]
+			);
+		}
 
 		return true;
 	}
