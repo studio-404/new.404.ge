@@ -12,6 +12,14 @@
 							<span class="navbar-toggler-bar bar3"></span>
 						</button>
 					</div>
+
+					<div class="logo-image-small" style="
+					width: 30px;
+					margin-right: 10px;
+					">
+						<img src="/img/cabbage.svg">
+					</div>
+
 					<a class="navbar-brand" href="">[title]</a>
 				</div>
 

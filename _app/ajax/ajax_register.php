@@ -133,7 +133,7 @@ class ajax_register
 				"nolog"=>true
 			));
 
-			$contect_url = sprintf(
+			$content_url = sprintf(
 				"%s/mail.php?username=%s&firstname=%s&lastname=%s&email=%s&phone=%s&ltd=%s&ltdcode=%s&phone2=%s&email2=%s&address=%s&website=%s",
 				Config::WEBSITE,
 				urlencode($username),
@@ -150,25 +150,19 @@ class ajax_register
 			);
 
 			$curl_handle=curl_init();
-			curl_setopt($curl_handle,CURLOPT_URL,$contect_url);
+			curl_setopt($curl_handle,CURLOPT_URL,$content_url);
 			curl_setopt($curl_handle,CURLOPT_CONNECTTIMEOUT,2);
 			curl_setopt($curl_handle,CURLOPT_RETURNTRANSFER,1);
 			$buffer = curl_exec($curl_handle);
 			curl_close($curl_handle);
-			if (empty($buffer)){
-			    $body = "";
-			}
-			else{
-			    $body = $buffer;
-			}
 
-			
-
-			$fu_email->send(array(
-				"sendTo"=>array($request->index("POST", "contact_email"), Config::EMAIL_REC),
-				"subject"=>"Kombosto რეგისტრაცია",
-				"body"=>$body
-			));
+			if (!empty($buffer)){
+			   $fu_email->send(array(
+					"sendTo"=>array($request->index("POST", "contact_email"), Config::EMAIL_REC),
+					"subject"=>"Kombosto რეგისტრაცია",
+					"body"=>$buffer
+				));
+			}
 
 			$ip = new Database("db_ip", array(
 				"method"=>"add",
@@ -182,6 +176,7 @@ class ajax_register
 				"success"=>true,
 				"message"=>"გთხოვთ გადაამოწმოთ თქვენი ელ-ფოსტა (".$request->index("POST", "contact_email").")"
 			);
+			
 			http_response_code(200);
 
 			return $this->message;
