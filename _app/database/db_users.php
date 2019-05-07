@@ -151,13 +151,15 @@ class db_users
 			":status"=>0
 		));
 
-		if(!isset($Functions)){ $Functions = new Functions; }
-		$log = $Functions->load("fu_log");
-		$log->insert(
-			"users",
-			"add",
-			$_SESSION["user_data"]["id"]
-		);
+		if(!isset($args["nolog"])){
+			if(!isset($Functions)){ $Functions = new Functions; }
+			$log = $Functions->load("fu_log");
+			$log->insert(
+				"users",
+				"add",
+				$_SESSION["user_data"]["id"]
+			);
+		}
 
 		return true;
 	}

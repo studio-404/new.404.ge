@@ -35,46 +35,46 @@
 						<div class="card-body">
 							<form action="" method="post"> <!-- /ge/ajax/ajax_users -->
 								<div class="row">
-									<div class="col-md-12 messageBox">
+									<div class="col-md-12 messageBoxRegister">
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>სახელი</label>
+											<label>სახელი <font color="red" title="სავალდებულო ველი">*</font></label>
 											<input type="text" name="firstname" class="form-control firstname" value="" autocomplete="off" />
 										</div>
 									</div>
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>გვარი</label>
+											<label>გვარი <font color="red" title="სავალდებულო ველი">*</font></label>
 											<input type="text" name="lastname" class="form-control lastname" value="" autocomplete="off" />
 										</div>
 									</div>
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>მომხმარებლის სახელი</label>
+											<label>მომხმარებლის სახელი <font color="red" title="სავალდებულო ველი">*</font></label>
 											<input type="text" name="username" class="form-control username" value="" autocomplete="off" />
 										</div>
 									</div>
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>პაროლი</label>
+											<label>პაროლი <font color="red" title="სავალდებულო ველი">*</font></label>
 											<input type="password" name="password" class="form-control password" value="" />
 										</div>
 									</div>
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>ელ-ფოსტა</label>
+											<label>ელ-ფოსტა <font color="red" title="სავალდებულო ველი">*</font></label>
 											<input type="text" name="contact_email" class="form-control contact_email" value="" autocomplete="off" />
 										</div>
 									</div>
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>საკონტაქტო ნომერი</label>
+											<label>საკონტაქტო ნომერი <font color="red" title="სავალდებულო ველი">*</font></label>
 											<input type="text" name="contact_phone" class="form-control contact_phone" value="" autocomplete="off" />
 										</div>
 									</div>
@@ -84,14 +84,14 @@
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>დასახელება</label>
+											<label>დასახელება <font color="red" title="სავალდებულო ველი">*</font></label>
 											<input type="text" name="company_title" class="form-control company_title" value="" autocomplete="off" />
 										</div>
 									</div>
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>საიდენთიფიკაციო კოდი</label>
+											<label>საიდენთიფიკაციო კოდი <font color="red" title="სავალდებულო ველი">*</font></label>
 											<input type="text" name="company_identity" class="form-control company_identity" value="" autocomplete="off" />
 										</div>
 									</div>
@@ -126,7 +126,7 @@
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>დამცავი კოდი</label>
+											<label>დამცავი კოდი <font color="red" title="სავალდებულო ველი">*</font></label>
 											<input type="text" name="code" class="form-control code" autocomplete="off" />
 										</div>
 									</div>

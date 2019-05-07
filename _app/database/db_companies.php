@@ -70,16 +70,18 @@ class db_companies
 			":zero"=>0
 		));
 
-		if(!isset($Functions)){ $Functions = new Functions; }
-		$log = $Functions->load("fu_log");
-		$log->insert(
-			"companies",
-			"add",
-			$_SESSION["user_data"]["id"]
-		);
-
-		return true;
+		if(!isset($args["nolog"])){
+			if(!isset($Functions)){ $Functions = new Functions; }
+			$log = $Functions->load("fu_log");
+			$log->insert(
+				"companies",
+				"add",
+				$_SESSION["user_data"]["id"]
+			);
+		}
+		return $this->conn->lastInsertId();
 	}
+
 
 	private function deleteCompany($args)
 	{

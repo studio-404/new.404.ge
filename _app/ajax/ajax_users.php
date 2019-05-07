@@ -290,6 +290,15 @@ class ajax_users
 			);
 			return $this->message;
 			exit;
+		}else if(!preg_match('/^[\p{Latin}[A-Za-z]+$/', $request->index("POST", "username"))){
+			http_response_code(400);
+			$this->message = array(
+				"error"=>true,
+				"success"=>false,
+				"message"=>"მომხმარებლის სახელი უნდა შეიცავდეს მხოლოდ ლათინურ სიმბოლოებს [a-zA-Z]!"
+			);
+			return $this->message;
+			exit;
 		}else{
 			$Database = new Database("db_users", array(
 				"method"=>"add",
